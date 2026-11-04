@@ -1,5 +1,9 @@
 
-import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+import {
+  initializeApp,
+  getApps,
+  getApp
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
 import {
   getAuth,
@@ -16,21 +20,32 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
+// ======================================
 // FIREBASE CONFIGURATION
+// ======================================
+
 const firebaseConfig = {
-  apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8",
+  apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8Q",
   authDomain: "event-management-93edc.firebaseapp.com",
   projectId: "event-management-93edc",
   storageBucket: "event-management-93edc.firebasestorage.app",
   messagingSenderId: "327602461080",
-  appId: "1:327602461080:web:eb96abf94de99d1bac73ed"
+  appId: "1:327602461080:web:eb96abf94de99d1bac73ed",
+  measurementId: "G-NFFDH9C4ZF"
 };
 
-// ONLY THESE TWO ACCOUNTS ARE ALLOWED
+// ======================================
+// AUTHORIZED ADMIN ACCOUNTS
+// ======================================
+
 const ADMIN_UIDS = [
   "tYvI7X6zi4OpLhUkedWC9U4t8sG3",
   "5Fbm7H1qtzXIMrG7e580Cx2m36h2"
 ];
+
+// ======================================
+// INITIALIZE FIREBASE
+// ======================================
 
 const app = getApps().length
   ? getApp()
@@ -39,40 +54,78 @@ const app = getApps().length
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// ======================================
 // HTML ELEMENTS
+// ======================================
+
 const loginSection = document.getElementById("loginSection");
 const dashboardSection = document.getElementById("dashboardSection");
+
 const loginForm = document.getElementById("loginForm");
 const loginButton = document.getElementById("loginButton");
 const loginMessage = document.getElementById("loginMessage");
+
 const dashboardMessage = document.getElementById("dashboardMessage");
 const bookingList = document.getElementById("bookingList");
 const searchInput = document.getElementById("searchBookings");
 
-// CHECK REQUIRED HTML ELEMENTS
-if (!loginForm || !loginButton || !loginMessage ||
-    !loginSection || !dashboardSection ||
-    !dashboardMessage || !bookingList || !searchInput) {
-  console.error("Admin HTML is missing one or more required element IDs.");
-  throw new Error("Admin page HTML elements are missing.");
+const signedInEmail = document.getElementById("signedInEmail");
+const totalCount = document.getElementById("totalCount");
+const pendingCount = document.getElementById("pendingCount");
+const acceptedCount = document.getElementById("acceptedCount");
+const completedCount = document.getElementById("completedCount");
+
+const logoutButton = document.getElementById("logoutButton");
+const refreshButton = document.getElementById("refreshButton");
+
+const requiredElements = [
+  loginSection,
+  dashboardSection,
+  loginForm,
+  loginButton,
+  loginMessage,
+  dashboardMessage,
+  bookingList,
+  searchInput,
+  signedInEmail,
+  totalCount,
+  pendingCount,
+  acceptedCount,
+  completedCount,
+  logoutButton,
+  refreshButton
+];
+
+if (requiredElements.some(element => !element)) {
+  console.error("Some required HTML elements are missing.");
+  throw new Error("Please check admin.html element IDs.");
 }
 
 let allBookings = [];
 
+// ======================================
 // FOOTER YEAR
+// ======================================
+
 const yearElement = document.getElementById("year");
 
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
 
+// ======================================
 // MESSAGE FUNCTION
-function showMessage(element, text, success = false) {
-  element.textContent = text;
+// ======================================
+
+function showMessage(element, message, success = false) {
+  element.textContent = message;
   element.style.color = success ? "#64c98a" : "#ff7777";
 }
 
+// ======================================
 // ADMIN LOGIN
+// ======================================
+
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -87,36 +140,37 @@ loginForm.addEventListener("submit", async (event) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
 
-    showMessage(
-      loginMessage,
-      "Login successful. Checking administrator access...",
-      true
-    );
-
   } catch (error) {
     console.error("Firebase Login Error:", error);
 
     showMessage(
       loginMessage,
-      "Login failed: " + error.code +
-      (error.message ? " - " + error.message : "")
+      "Login failed: " + error.code
     );
 
-  } finally {
     loginButton.disabled = false;
     loginButton.textContent = "Sign In";
   }
 });
 
-// CHECK ADMIN ACCESS
+// ======================================
+// CHECK ADMIN AUTHORIZATION
+// ======================================
+
 onAuthStateChanged(auth, async (user) => {
+
   if (!user) {
     loginSection.hidden = false;
     dashboardSection.hidden = true;
+
+    loginButton.disabled = false;
+    loginButton.textContent = "Sign In";
+
     return;
   }
 
   if (!ADMIN_UIDS.includes(user.uid)) {
+
     await signOut(auth);
 
     showMessage(
@@ -130,34 +184,53 @@ onAuthStateChanged(auth, async (user) => {
   loginSection.hidden = true;
   dashboardSection.hidden = false;
 
-  document.getElementById("signedInEmail").textContent =
-    user.email || "Administrator";
+  signedInEmail.textContent = user.email || "Administrator";
 
   await loadBookings();
 });
 
-// LOGOUT
-document.getElementById("logoutButton").addEventListener("click", async () => {
+// ======================================
+// ADMIN LOGOUT
+// ======================================
+
+logoutButton.addEventListener("click", async () => {
+
   try {
     await signOut(auth);
+
   } catch (error) {
-    console.error("Logout error:", error);
-    showMessage(dashboardMessage, "Unable to log out. Please try again.");
+    console.error("Logout Error:", error);
+
+    showMessage(
+      dashboardMessage,
+      "Logout failed: " + error.code
+    );
   }
 });
 
+// ======================================
 // REFRESH BOOKINGS
-document.getElementById("refreshButton").addEventListener("click", () => {
+// ======================================
+
+refreshButton.addEventListener("click", () => {
   loadBookings();
 });
 
+// ======================================
 // LOAD BOOKINGS FROM FIRESTORE
+// ======================================
+
 async function loadBookings() {
+
   bookingList.textContent = "Loading enquiries...";
+
   showMessage(dashboardMessage, "");
 
   try {
-    const snapshot = await getDocs(collection(db, "bookings"));
+
+    const snapshot = await getDocs(
+      collection(db, "bookings")
+    );
 
     allBookings = snapshot.docs.map((bookingDoc) => ({
       id: bookingDoc.id,
@@ -167,6 +240,7 @@ async function loadBookings() {
     allBookings.sort((a, b) => {
       const dateA = a.createdAt?.toMillis?.() || 0;
       const dateB = b.createdAt?.toMillis?.() || 0;
+
       return dateB - dateA;
     });
 
@@ -180,72 +254,104 @@ async function loadBookings() {
     );
 
   } catch (error) {
-    console.error("Loading bookings error:", error);
+
+    console.error("Firestore Loading Error:", error);
 
     bookingList.textContent = "Unable to load enquiries.";
 
     showMessage(
       dashboardMessage,
-      "Could not load enquiries: " + error.code
+      "Loading failed: " + error.code
     );
   }
 }
 
-// UPDATE DASHBOARD COUNTS
+// ======================================
+// UPDATE DASHBOARD STATISTICS
+// ======================================
+
 function updateStatistics() {
-  document.getElementById("totalCount").textContent =
-    allBookings.length;
 
-  document.getElementById("pendingCount").textContent =
-    allBookings.filter(item => item.status === "Pending").length;
+  totalCount.textContent = allBookings.length;
 
-  document.getElementById("acceptedCount").textContent =
-    allBookings.filter(item => item.status === "Accepted").length;
+  pendingCount.textContent =
+    allBookings.filter(
+      booking => booking.status === "Pending"
+    ).length;
 
-  document.getElementById("completedCount").textContent =
-    allBookings.filter(item => item.status === "Completed").length;
+  acceptedCount.textContent =
+    allBookings.filter(
+      booking => booking.status === "Accepted"
+    ).length;
+
+  completedCount.textContent =
+    allBookings.filter(
+      booking => booking.status === "Completed"
+    ).length;
 }
 
-// CREATE SAFE TEXT ELEMENTS
+// ======================================
+// CREATE SAFE DETAIL ELEMENTS
+// ======================================
+
 function addDetail(parent, label, value) {
-  const p = document.createElement("p");
-  p.className = "detail";
+
+  const paragraph = document.createElement("p");
+
+  paragraph.className = "detail";
 
   const strong = document.createElement("strong");
+
   strong.textContent = label + ": ";
 
-  p.appendChild(strong);
+  paragraph.appendChild(strong);
 
-  p.appendChild(document.createTextNode(
-    value === undefined || value === null || value === ""
-      ? "Not provided"
-      : String(value)
-  ));
+  paragraph.appendChild(
+    document.createTextNode(
+      value === undefined || value === null || value === ""
+        ? "Not provided"
+        : String(value)
+    )
+  );
 
-  parent.appendChild(p);
+  parent.appendChild(paragraph);
 }
 
+// ======================================
 // DISPLAY BOOKING CARDS
+// ======================================
+
 function renderBookings(bookings) {
+
   bookingList.replaceChildren();
 
   if (bookings.length === 0) {
+
     const empty = document.createElement("p");
+
     empty.className = "empty-state";
+
     empty.textContent = "No event enquiries found.";
+
     bookingList.appendChild(empty);
+
     return;
   }
 
   bookings.forEach((booking) => {
+
     const card = document.createElement("article");
+
     card.className = "booking-card";
 
     const heading = document.createElement("h3");
+
     heading.textContent = booking.name || "Customer enquiry";
+
     card.appendChild(heading);
 
     const details = document.createElement("div");
+
     details.className = "booking-details";
 
     addDetail(details, "Phone", booking.phone);
@@ -269,12 +375,15 @@ function renderBookings(bookings) {
     addDetail(
       details,
       "Enquiry Received",
-      created ? created.toLocaleString("en-IN") : "Date unavailable"
+      created
+        ? created.toLocaleString("en-IN")
+        : "Date unavailable"
     );
 
     card.appendChild(details);
 
     const requirements = document.createElement("p");
+
     requirements.className = "booking-requirements";
 
     requirements.textContent =
@@ -283,11 +392,18 @@ function renderBookings(bookings) {
 
     card.appendChild(requirements);
 
+    // STATUS UPDATE SECTION
+
     const actions = document.createElement("div");
+
     actions.className = "booking-actions";
 
     const statusSelect = document.createElement("select");
-    statusSelect.setAttribute("aria-label", "Booking status");
+
+    statusSelect.setAttribute(
+      "aria-label",
+      "Booking status"
+    );
 
     const statuses = [
       "Pending",
@@ -298,9 +414,12 @@ function renderBookings(bookings) {
     ];
 
     statuses.forEach((status) => {
+
       const option = document.createElement("option");
+
       option.value = status;
       option.textContent = status;
+
       statusSelect.appendChild(option);
     });
 
@@ -309,17 +428,23 @@ function renderBookings(bookings) {
       : "Pending";
 
     const updateButton = document.createElement("button");
+
     updateButton.className = "gold-button";
+
     updateButton.textContent = "Update Status";
 
     updateButton.addEventListener("click", async () => {
+
       updateButton.disabled = true;
       updateButton.textContent = "Updating...";
 
       try {
+
         await updateDoc(
           doc(db, "bookings", booking.id),
-          { status: statusSelect.value }
+          {
+            status: statusSelect.value
+          }
         );
 
         booking.status = statusSelect.value;
@@ -333,14 +458,16 @@ function renderBookings(bookings) {
         );
 
       } catch (error) {
-        console.error("Status update error:", error);
+
+        console.error("Status Update Error:", error);
 
         showMessage(
           dashboardMessage,
-          "Could not update status: " + error.code
+          "Status update failed: " + error.code
         );
 
       } finally {
+
         updateButton.disabled = false;
         updateButton.textContent = "Update Status";
       }
@@ -352,7 +479,9 @@ function renderBookings(bookings) {
     card.appendChild(actions);
 
     const id = document.createElement("small");
+
     id.className = "booking-id";
+
     id.textContent = "Booking ID: " + booking.id;
 
     card.appendChild(id);
@@ -361,11 +490,16 @@ function renderBookings(bookings) {
   });
 }
 
+// ======================================
 // SEARCH BOOKINGS
+// ======================================
+
 searchInput.addEventListener("input", () => {
+
   const search = searchInput.value.toLowerCase().trim();
 
   const filtered = allBookings.filter((booking) => {
+
     return [
       booking.name,
       booking.email,
