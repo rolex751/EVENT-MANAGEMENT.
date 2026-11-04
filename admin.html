@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DEV ORGANIZERS administrator dashboard.">
+  <title>Admin Dashboard | DEV ORGANIZERS</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <script type="module" src="js/admin.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="brand">
+    <span class="brand-mark">D</span>
+    <span>DEV <small>ORGANIZERS</small></span>
+  </a>
+  <span class="topbar-label">ADMINISTRATION</span>
+</header>
+
+<main class="page">
+
+  <!-- LOGIN -->
+  <section id="loginSection" class="login-card">
+    <p class="eyebrow">PRIVATE ADMIN ACCESS</p>
+    <h1>Welcome <span>Back</span></h1>
+    <p class="muted">Sign in to manage customer event enquiries.</p>
+
+    <form id="loginForm">
+      <label for="adminEmail">Email Address</label>
+      <input
+        type="email"
+        id="adminEmail"
+        placeholder="Enter administrator email"
+        required
+      >
+
+      <label for="adminPassword">Password</label>
+      <input
+        type="password"
+        id="adminPassword"
+        placeholder="Enter password"
+        required
+      >
+
+      <button type="submit" id="loginButton" class="gold-button">
+        Sign In
+      </button>
+    </form>
+
+    <p id="loginMessage" class="message" role="status"></p>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboardSection" hidden>
+
+    <div class="dashboard-heading">
+      <div>
+        <p class="eyebrow">CONTROL CENTER</p>
+        <h1>Admin <span>Dashboard</span></h1>
+        <p class="muted">
+          Manage event enquiries and customer requests.
+        </p>
+        <p class="admin-account">
+          Signed in as: <strong id="signedInEmail"></strong>
+        </p>
+      </div>
+
+      <div class="heading-actions">
+        <button id="refreshButton" class="outline-button">
+          Refresh
+        </button>
+        <button id="logoutButton" class="gold-button">
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span>Total Enquiries</span>
+        <strong id="totalCount">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Pending</span>
+        <strong id="pendingCount">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Accepted</span>
+        <strong id="acceptedCount">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Completed</span>
+        <strong id="completedCount">0</strong>
+      </div>
+    </div>
+
+    <div class="booking-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">CUSTOMER REQUESTS</p>
+          <h2>Event Enquiries</h2>
+        </div>
+        <input
+          type="search"
+          id="searchBookings"
+          placeholder="Search name, email or phone..."
+          aria-label="Search enquiries"
+        >
+      </div>
+
+      <p id="dashboardMessage" class="message" role="status"></p>
+      <div id="bookingList" class="booking-list">
+        <p class="muted">Loading enquiries...</p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> DEV ORGANIZERS. All rights reserved.
+</footer>
+
+</body>
+</html>
