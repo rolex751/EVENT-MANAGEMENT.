@@ -49,11 +49,24 @@ const dashboardMessage = document.getElementById("dashboardMessage");
 const bookingList = document.getElementById("bookingList");
 const searchInput = document.getElementById("searchBookings");
 
+// CHECK REQUIRED HTML ELEMENTS
+if (!loginForm || !loginButton || !loginMessage ||
+    !loginSection || !dashboardSection ||
+    !dashboardMessage || !bookingList || !searchInput) {
+  console.error("Admin HTML is missing one or more required element IDs.");
+  throw new Error("Admin page HTML elements are missing.");
+}
+
 let allBookings = [];
 
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+// FOOTER YEAR
+const yearElement = document.getElementById("year");
 
+if (yearElement) {
+  yearElement.textContent = new Date().getFullYear();
+}
+
+// MESSAGE FUNCTION
 function showMessage(element, text, success = false) {
   element.textContent = text;
   element.style.color = success ? "#64c98a" : "#ff7777";
@@ -69,14 +82,26 @@ loginForm.addEventListener("submit", async (event) => {
   loginButton.disabled = true;
   loginButton.textContent = "Signing in...";
 
+  showMessage(loginMessage, "");
+
   try {
     await signInWithEmailAndPassword(auth, email, password);
-  } catch (error) {
-    console.error("Login error:", error);
+
     showMessage(
       loginMessage,
-      "Login failed. Check your email and password."
+      "Login successful. Checking administrator access...",
+      true
     );
+
+  } catch (error) {
+    console.error("Firebase Login Error:", error);
+
+    showMessage(
+      loginMessage,
+      "Login failed: " + error.code +
+      (error.message ? " - " + error.message : "")
+    );
+
   } finally {
     loginButton.disabled = false;
     loginButton.textContent = "Sign In";
@@ -93,10 +118,12 @@ onAuthStateChanged(auth, async (user) => {
 
   if (!ADMIN_UIDS.includes(user.uid)) {
     await signOut(auth);
+
     showMessage(
       loginMessage,
       "Access denied. This account is not an authorized administrator."
     );
+
     return;
   }
 
@@ -111,7 +138,12 @@ onAuthStateChanged(auth, async (user) => {
 
 // LOGOUT
 document.getElementById("logoutButton").addEventListener("click", async () => {
-  await signOut(auth);
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Logout error:", error);
+    showMessage(dashboardMessage, "Unable to log out. Please try again.");
+  }
 });
 
 // REFRESH BOOKINGS
@@ -154,7 +186,7 @@ async function loadBookings() {
 
     showMessage(
       dashboardMessage,
-      "Could not load enquiries. Check your Firestore security rules and administrator login."
+      "Could not load enquiries: " + error.code
     );
   }
 }
@@ -183,6 +215,7 @@ function addDetail(parent, label, value) {
   strong.textContent = label + ": ";
 
   p.appendChild(strong);
+
   p.appendChild(document.createTextNode(
     value === undefined || value === null || value === ""
       ? "Not provided"
@@ -222,6 +255,7 @@ function renderBookings(bookings) {
     addDetail(details, "Guests", booking.guests);
     addDetail(details, "Location", booking.location);
     addDetail(details, "Budget", booking.budget);
+
     addDetail(
       details,
       "Services",
@@ -231,6 +265,7 @@ function renderBookings(bookings) {
     );
 
     const created = booking.createdAt?.toDate?.();
+
     addDetail(
       details,
       "Enquiry Received",
@@ -241,6 +276,7 @@ function renderBookings(bookings) {
 
     const requirements = document.createElement("p");
     requirements.className = "booking-requirements";
+
     requirements.textContent =
       "Additional Requirements: " +
       (booking.requirements || "None provided");
@@ -287,6 +323,7 @@ function renderBookings(bookings) {
         );
 
         booking.status = statusSelect.value;
+
         updateStatistics();
 
         showMessage(
@@ -300,7 +337,7 @@ function renderBookings(bookings) {
 
         showMessage(
           dashboardMessage,
-          "Could not update status. Please check your security rules."
+          "Could not update status: " + error.code
         );
 
       } finally {
@@ -311,11 +348,13 @@ function renderBookings(bookings) {
 
     actions.appendChild(statusSelect);
     actions.appendChild(updateButton);
+
     card.appendChild(actions);
 
     const id = document.createElement("small");
     id.className = "booking-id";
     id.textContent = "Booking ID: " + booking.id;
+
     card.appendChild(id);
 
     bookingList.appendChild(card);
