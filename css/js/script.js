@@ -1,72 +1,101 @@
 
 /* =========================================
-   DEV ORGANIZERS - MAIN JAVASCRIPT
+   EVENTORA - MAIN JAVASCRIPT
+   Creating Moments. Designing Memories.
    ========================================= */
 
-// Automatically update the footer copyright year
-const yearElement = document.getElementById("year");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (yearElement) {
-  yearElement.textContent = new Date().getFullYear();
-}
+  // 1. AUTOMATIC FOOTER COPYRIGHT YEAR
+  const yearElement = document.getElementById("year");
 
-// Mobile navigation menu
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
 
-if (menuToggle && navLinks) {
-  menuToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.setAttribute(
-      "aria-label",
-      isOpen ? "Close navigation" : "Open navigation"
-    );
-  });
+  // 2. MOBILE NAVIGATION MENU
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
 
-  // Close the menu after selecting a page
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
+  if (menuToggle && navLinks) {
+
+    function closeMenu() {
       navLinks.classList.remove("open");
       menuToggle.setAttribute("aria-expanded", "false");
       menuToggle.setAttribute("aria-label", "Open navigation");
-    });
-  });
-
-  // Close the menu if the screen is resized to desktop
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 760) {
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
     }
-  });
-}
 
-// Gallery category filtering
-const filterButtons = document.querySelectorAll(".filter-btn");
-const galleryItems = document.querySelectorAll(".gallery-item");
+    function toggleMenu() {
+      const isOpen = navLinks.classList.toggle("open");
 
-if (filterButtons.length && galleryItems.length) {
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const selectedCategory = button.dataset.filter;
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+    }
 
-      filterButtons.forEach((item) => {
-        item.classList.remove("active");
-      });
+    menuToggle.addEventListener("click", toggleMenu);
 
-      button.classList.add("active");
-
-      galleryItems.forEach((item) => {
-        const itemCategory = item.dataset.category;
-        const shouldShow =
-          selectedCategory === "all" ||
-          itemCategory === selectedCategory;
-
-        item.classList.toggle("hidden", !shouldShow);
-      });
+    // Close menu after selecting a navigation link
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
     });
-  });
-}
 
-console.log("DEV ORGANIZERS website loaded successfully.");
+    // Close menu when Escape key is pressed
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    });
+
+    // Close menu when switching to desktop screen
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) {
+        closeMenu();
+      }
+    });
+
+  }
+
+  // 3. GALLERY CATEGORY FILTERING
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const galleryItems = document.querySelectorAll(".gallery-item");
+
+  if (filterButtons.length > 0 && galleryItems.length > 0) {
+
+    filterButtons.forEach((button) => {
+
+      button.addEventListener("click", () => {
+
+        const selectedCategory = button.dataset.filter;
+
+        // Update active filter button
+        filterButtons.forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        // Show matching gallery images
+        galleryItems.forEach((item) => {
+
+          const itemCategory = item.dataset.category;
+
+          const shouldShow =
+            selectedCategory === "all" ||
+            itemCategory === selectedCategory;
+
+          item.classList.toggle("hidden", !shouldShow);
+
+        });
+
+      });
+
+    });
+
+  }
+
+  console.log("EVENTORA website loaded successfully.");
+
+});
