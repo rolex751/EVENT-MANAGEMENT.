@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Submit an event booking inquiry to DEV ORGANIZERS in Bengaluru.">
+  <title>Book an Event | DEV ORGANIZERS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/script.js" defer></script>
+  <script src="js/booking.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-container">
+    <a class="logo" href="index.html"><span class="logo-mark">D</span><span>DEV <small>ORGANIZERS</small></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a><a href="about.html">About</a>
+      <a href="services.html">Services</a><a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a><a class="nav-book active" href="booking.html">Book an Event</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-banner booking-banner">
+    <div class="container">
+      <p class="eyebrow">LET'S START PLANNING</p>
+      <h1>Book Your <span>Event</span></h1>
+      <p>Share a few details so we can understand your event requirements.</p>
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Booking</div>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container booking-layout">
+      <div class="booking-info">
+        <p class="eyebrow">YOUR EVENT, YOUR WAY</p>
+        <h2 class="section-title">Let's Make It <span>Memorable</span></h2>
+        <p class="body-text">Tell us about your occasion, preferred date and requirements. Our team can use these details to understand your inquiry and discuss the next steps.</p>
+        <div class="booking-benefit"><span>01</span><div><h3>Share Your Idea</h3><p>Tell us what you want to celebrate.</p></div></div>
+        <div class="booking-benefit"><span>02</span><div><h3>Discuss Your Needs</h3><p>Describe your preferred arrangements and budget.</p></div></div>
+        <div class="booking-benefit"><span>03</span><div><h3>Plan the Occasion</h3><p>Discuss the details with our event team.</p></div></div>
+        <div class="booking-contact">
+          <p>Location</p><strong>Bengaluru, Karnataka, India</strong>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h2>Event Inquiry Form</h2>
+        <p class="form-intro">Fields marked with * are required.</p>
+
+        <form id="bookingForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" placeholder="Enter your full name" required maxlength="100">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="[0-9+\-\s()]{7,20}" maxlength="20">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="name@example.com" required maxlength="150">
+            </div>
+            <div class="form-group">
+              <label for="eventType">Event Type *</label>
+              <select id="eventType" name="eventType" required>
+                <option value="">Select event type</option>
+                <option>Wedding</option>
+                <option>Birthday</option>
+                <option>Corporate Event</option>
+                <option>Engagement</option>
+                <option>Anniversary</option>
+                <option>College or Cultural Event</option>
+                <option>Private Party</option>
+                <option>Entertainment or Stage Event</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Preferred Event Date *</label>
+              <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="guests">Approximate Guests *</label>
+              <input type="number" id="guests" name="guests" min="1" max="100000" placeholder="Number of guests" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="location">Event Location *</label>
+              <input type="text" id="location" name="location" placeholder="Area or venue, city" required maxlength="200">
+            </div>
+            <div class="form-group">
+              <label for="budget">Estimated Budget</label>
+              <select id="budget" name="budget">
+                <option value="">Select your budget</option>
+                <option>Below ₹50,000</option>
+                <option>₹50,000 – ₹1,00,000</option>
+                <option>₹1,00,000 – ₹3,00,000</option>
+                <option>₹3,00,000 – ₹5,00,000</option>
+                <option>Above ₹5,00,000</option>
+                <option>To be discussed</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="requirements">Additional Requirements</label>
+            <textarea id="requirements" name="requirements" rows="5" maxlength="2000" placeholder="Describe your event theme, decoration, catering or other requirements..."></textarea>
+          </div>
+
+          <label class="consent-label">
+            <input type="checkbox" id="consent" required>
+            <span>I agree to be contacted by DEV ORGANIZERS regarding this inquiry. *</span>
+          </label>
+
+          <button type="submit" class="btn btn-gold btn-full">Submit Event Inquiry</button>
+          <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+          <p class="form-disclaimer">Online submission will be enabled after the Firebase backend is connected.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div><a class="logo footer-logo" href="index.html"><span class="logo-mark">D</span><span>DEV <small>ORGANIZERS</small></span></a><p>Thoughtful event planning in Bengaluru, Karnataka.</p></div>
+    <div><h3>Quick Links</h3><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="gallery.html">Gallery</a></div>
+    <div><h3>Contact</h3><p>Bengaluru, Karnataka, India</p><a href="contact.html">Contact Us</a></div>
+  </div>
+  <div class="footer-bottom"><p>© <span id="year"></span> DEV ORGANIZERS. All rights reserved.</p></div>
+</footer>
+
+</body>
+</html>
