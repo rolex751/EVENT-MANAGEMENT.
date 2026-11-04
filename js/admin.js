@@ -1,4 +1,9 @@
 
+/* =========================================
+   EVENTORA - ADMIN DASHBOARD
+   Firebase Authentication & Firestore
+   ========================================= */
+
 import {
   initializeApp,
   getApps,
@@ -20,9 +25,10 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
-// ======================================
-// FIREBASE CONFIGURATION
-// ======================================
+
+/* =========================================
+   FIREBASE CONFIGURATION
+   ========================================= */
 
 const firebaseConfig = {
   apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8Q",
@@ -34,18 +40,20 @@ const firebaseConfig = {
   measurementId: "G-NFFDH9C4ZF"
 };
 
-// ======================================
-// AUTHORIZED ADMIN ACCOUNTS
-// ======================================
+
+/* =========================================
+   AUTHORIZED ADMIN ACCOUNTS
+   ========================================= */
 
 const ADMIN_UIDS = [
   "tYvI7X6zi4OpLhUkedWC9U4t8sG3",
   "5Fbm7H1qtzXIMrG7e580Cx2m36h2"
 ];
 
-// ======================================
-// INITIALIZE FIREBASE
-// ======================================
+
+/* =========================================
+   INITIALIZE FIREBASE
+   ========================================= */
 
 const app = getApps().length
   ? getApp()
@@ -54,9 +62,10 @@ const app = getApps().length
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ======================================
-// HTML ELEMENTS
-// ======================================
+
+/* =========================================
+   HTML ELEMENTS
+   ========================================= */
 
 const loginSection = document.getElementById("loginSection");
 const dashboardSection = document.getElementById("dashboardSection");
@@ -70,6 +79,7 @@ const bookingList = document.getElementById("bookingList");
 const searchInput = document.getElementById("searchBookings");
 
 const signedInEmail = document.getElementById("signedInEmail");
+
 const totalCount = document.getElementById("totalCount");
 const pendingCount = document.getElementById("pendingCount");
 const acceptedCount = document.getElementById("acceptedCount");
@@ -97,15 +107,22 @@ const requiredElements = [
 ];
 
 if (requiredElements.some(element => !element)) {
-  console.error("Some required HTML elements are missing.");
-  throw new Error("Please check admin.html element IDs.");
+  console.error("EVENTORA: Required admin HTML elements are missing.");
+  throw new Error("Please check the element IDs in admin.html.");
 }
 
-let allBookings = [];
 
-// ======================================
-// FOOTER YEAR
-// ======================================
+/* =========================================
+   APPLICATION STATE
+   ========================================= */
+
+let allBookings = [];
+let isLoadingBookings = false;
+
+
+/* =========================================
+   FOOTER YEAR
+   ========================================= */
 
 const yearElement = document.getElementById("year");
 
@@ -113,73 +130,143 @@ if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
 
-// ======================================
-// MESSAGE FUNCTION
-// ======================================
 
-function showMessage(element, message, success = false) {
+/* =========================================
+   MESSAGE FUNCTION
+   ========================================= */
+
+function showMessage(element, message, type = "error") {
+
   element.textContent = message;
-  element.style.color = success ? "#64c98a" : "#ff7777";
+
+  element.style.color =
+    type === "success" ? "#76c69a" :
+    type === "info" ? "#e2c486" :
+    "#e58b83";
+
+  element.setAttribute("role", "status");
+  element.setAttribute("aria-live", "polite");
 }
 
-// ======================================
-// ADMIN LOGIN
-// ======================================
+
+/* =========================================
+   FRIENDLY FIREBASE ERROR MESSAGES
+   ========================================= */
+
+function getFriendlyError(error) {
+
+  const messages = {
+    "auth/invalid-credential":
+      "Incorrect email or password. Please try again.",
+
+    "auth/user-not-found":
+      "No account was found with this email address.",
+
+    "auth/wrong-password":
+      "Incorrect password. Please try again.",
+
+    "auth/invalid-email":
+      "Please enter a valid email address.",
+
+    "auth/too-many-requests":
+      "Too many attempts. Please try again later.",
+
+    "auth/network-request-failed":
+      "Network error. Please check your internet connection.",
+
+    "permission-denied":
+      "You do not have permission to access this information.",
+
+    "unavailable":
+      "The service is temporarily unavailable. Please try again."
+  };
+
+  return messages[error.code] ||
+    "Something went wrong. Please try again.";
+}
+
+
+/* =========================================
+   ADMIN LOGIN
+   ========================================= */
 
 loginForm.addEventListener("submit", async (event) => {
+
   event.preventDefault();
 
   const email = document.getElementById("adminEmail").value.trim();
   const password = document.getElementById("adminPassword").value;
 
-  loginButton.disabled = true;
-  loginButton.textContent = "Signing in...";
+  if (!email || !password) {
+    showMessage(loginMessage, "Please enter your email and password.");
+    return;
+  }
 
-  showMessage(loginMessage, "");
+  loginButton.disabled = true;
+  loginButton.textContent = "Signing In...";
+
+  showMessage(loginMessage, "Verifying your account...", "info");
 
   try {
+
     await signInWithEmailAndPassword(auth, email, password);
 
   } catch (error) {
-    console.error("Firebase Login Error:", error);
 
-    showMessage(
-      loginMessage,
-      "Login failed: " + error.code
-    );
+    console.error("EVENTORA login error:", error);
+
+    showMessage(loginMessage, getFriendlyError(error));
 
     loginButton.disabled = false;
     loginButton.textContent = "Sign In";
+
   }
+
 });
 
-// ======================================
-// CHECK ADMIN AUTHORIZATION
-// ======================================
+
+/* =========================================
+   CHECK ADMIN AUTHORIZATION
+   ========================================= */
 
 onAuthStateChanged(auth, async (user) => {
 
   if (!user) {
+
     loginSection.hidden = false;
     dashboardSection.hidden = true;
+
+    signedInEmail.textContent = "";
 
     loginButton.disabled = false;
     loginButton.textContent = "Sign In";
 
+    allBookings = [];
+
     return;
   }
+
+
+  // Check whether the signed-in user is authorized
 
   if (!ADMIN_UIDS.includes(user.uid)) {
 
-    await signOut(auth);
-
     showMessage(
       loginMessage,
-      "Access denied. This account is not an authorized administrator."
+      "Access denied. This account is not an authorized EVENTORA administrator."
     );
+
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Unauthorized logout error:", error);
+    }
 
     return;
   }
+
+
+  // Display dashboard
 
   loginSection.hidden = true;
   dashboardSection.hidden = false;
@@ -187,44 +274,75 @@ onAuthStateChanged(auth, async (user) => {
   signedInEmail.textContent = user.email || "Administrator";
 
   await loadBookings();
+
 });
 
-// ======================================
-// ADMIN LOGOUT
-// ======================================
+
+/* =========================================
+   ADMIN LOGOUT
+   ========================================= */
 
 logoutButton.addEventListener("click", async () => {
 
+  logoutButton.disabled = true;
+  logoutButton.textContent = "Signing Out...";
+
   try {
+
     await signOut(auth);
 
+    allBookings = [];
+
   } catch (error) {
-    console.error("Logout Error:", error);
+
+    console.error("EVENTORA logout error:", error);
 
     showMessage(
       dashboardMessage,
-      "Logout failed: " + error.code
+      getFriendlyError(error)
     );
+
+  } finally {
+
+    logoutButton.disabled = false;
+    logoutButton.textContent = "Logout";
+
   }
+
 });
 
-// ======================================
-// REFRESH BOOKINGS
-// ======================================
 
-refreshButton.addEventListener("click", () => {
-  loadBookings();
+/* =========================================
+   REFRESH BOOKINGS
+   ========================================= */
+
+refreshButton.addEventListener("click", async () => {
+
+  await loadBookings();
+
 });
 
-// ======================================
-// LOAD BOOKINGS FROM FIRESTORE
-// ======================================
+
+/* =========================================
+   LOAD BOOKINGS FROM FIRESTORE
+   ========================================= */
 
 async function loadBookings() {
 
-  bookingList.textContent = "Loading enquiries...";
+  if (isLoadingBookings) return;
 
-  showMessage(dashboardMessage, "");
+  isLoadingBookings = true;
+
+  refreshButton.disabled = true;
+  refreshButton.textContent = "Refreshing...";
+
+  bookingList.textContent = "Loading event enquiries...";
+
+  showMessage(
+    dashboardMessage,
+    "Fetching the latest bookings...",
+    "info"
+  );
 
   try {
 
@@ -237,38 +355,55 @@ async function loadBookings() {
       ...bookingDoc.data()
     }));
 
+
+    // Sort newest enquiries first
+
     allBookings.sort((a, b) => {
+
       const dateA = a.createdAt?.toMillis?.() || 0;
       const dateB = b.createdAt?.toMillis?.() || 0;
 
       return dateB - dateA;
+
     });
 
+
     updateStatistics();
-    renderBookings(allBookings);
+
+    renderBookings(getFilteredBookings());
 
     showMessage(
       dashboardMessage,
-      "Enquiries loaded successfully.",
-      true
+      `${allBookings.length} event enquiries loaded successfully.`,
+      "success"
     );
 
   } catch (error) {
 
-    console.error("Firestore Loading Error:", error);
+    console.error("EVENTORA Firestore loading error:", error);
 
-    bookingList.textContent = "Unable to load enquiries.";
+    bookingList.textContent = "Unable to load event enquiries.";
 
     showMessage(
       dashboardMessage,
-      "Loading failed: " + error.code
+      getFriendlyError(error)
     );
+
+  } finally {
+
+    isLoadingBookings = false;
+
+    refreshButton.disabled = false;
+    refreshButton.textContent = "Refresh";
+
   }
+
 }
 
-// ======================================
-// UPDATE DASHBOARD STATISTICS
-// ======================================
+
+/* =========================================
+   UPDATE DASHBOARD STATISTICS
+   ========================================= */
 
 function updateStatistics() {
 
@@ -288,11 +423,13 @@ function updateStatistics() {
     allBookings.filter(
       booking => booking.status === "Completed"
     ).length;
+
 }
 
-// ======================================
-// CREATE SAFE DETAIL ELEMENTS
-// ======================================
+
+/* =========================================
+   CREATE SAFE DETAIL ELEMENTS
+   ========================================= */
 
 function addDetail(parent, label, value) {
 
@@ -315,11 +452,13 @@ function addDetail(parent, label, value) {
   );
 
   parent.appendChild(paragraph);
+
 }
 
-// ======================================
-// DISPLAY BOOKING CARDS
-// ======================================
+
+/* =========================================
+   DISPLAY BOOKING CARDS
+   ========================================= */
 
 function renderBookings(bookings) {
 
@@ -331,12 +470,15 @@ function renderBookings(bookings) {
 
     empty.className = "empty-state";
 
-    empty.textContent = "No event enquiries found.";
+    empty.textContent = searchInput.value.trim()
+      ? "No enquiries match your search."
+      : "No event enquiries found yet.";
 
     bookingList.appendChild(empty);
 
     return;
   }
+
 
   bookings.forEach((booking) => {
 
@@ -344,11 +486,17 @@ function renderBookings(bookings) {
 
     card.className = "booking-card";
 
+
+    // Customer name
+
     const heading = document.createElement("h3");
 
-    heading.textContent = booking.name || "Customer enquiry";
+    heading.textContent = booking.name || "Customer Enquiry";
 
     card.appendChild(heading);
+
+
+    // Booking details
 
     const details = document.createElement("div");
 
@@ -380,7 +528,16 @@ function renderBookings(bookings) {
         : "Date unavailable"
     );
 
+    addDetail(
+      details,
+      "Current Status",
+      booking.status || "Pending"
+    );
+
     card.appendChild(details);
+
+
+    // Additional requirements
 
     const requirements = document.createElement("p");
 
@@ -392,7 +549,8 @@ function renderBookings(bookings) {
 
     card.appendChild(requirements);
 
-    // STATUS UPDATE SECTION
+
+    // Status update section
 
     const actions = document.createElement("div");
 
@@ -402,7 +560,7 @@ function renderBookings(bookings) {
 
     statusSelect.setAttribute(
       "aria-label",
-      "Booking status"
+      `Booking status for ${booking.name || "customer"}`
     );
 
     const statuses = [
@@ -413,6 +571,7 @@ function renderBookings(bookings) {
       "Completed"
     ];
 
+
     statuses.forEach((status) => {
 
       const option = document.createElement("option");
@@ -421,11 +580,16 @@ function renderBookings(bookings) {
       option.textContent = status;
 
       statusSelect.appendChild(option);
+
     });
+
 
     statusSelect.value = statuses.includes(booking.status)
       ? booking.status
       : "Pending";
+
+
+    // Update status button
 
     const updateButton = document.createElement("button");
 
@@ -433,9 +597,25 @@ function renderBookings(bookings) {
 
     updateButton.textContent = "Update Status";
 
+
     updateButton.addEventListener("click", async () => {
 
+      const newStatus = statusSelect.value;
+
+      if (newStatus === booking.status) {
+
+        showMessage(
+          dashboardMessage,
+          "The booking already has this status.",
+          "info"
+        );
+
+        return;
+      }
+
       updateButton.disabled = true;
+      statusSelect.disabled = true;
+
       updateButton.textContent = "Updating...";
 
       try {
@@ -443,40 +623,55 @@ function renderBookings(bookings) {
         await updateDoc(
           doc(db, "bookings", booking.id),
           {
-            status: statusSelect.value
+            status: newStatus
           }
         );
 
-        booking.status = statusSelect.value;
+
+        // Update local booking data
+
+        booking.status = newStatus;
 
         updateStatistics();
 
+
         showMessage(
           dashboardMessage,
-          "Booking status updated successfully.",
-          true
+          `Booking status successfully changed to ${newStatus}.`,
+          "success"
         );
+
+
+        // Refresh visible cards with the updated information
+
+        renderBookings(getFilteredBookings());
 
       } catch (error) {
 
-        console.error("Status Update Error:", error);
+        console.error("EVENTORA status update error:", error);
 
         showMessage(
           dashboardMessage,
-          "Status update failed: " + error.code
+          getFriendlyError(error)
         );
 
-      } finally {
-
         updateButton.disabled = false;
+        statusSelect.disabled = false;
+
         updateButton.textContent = "Update Status";
+
       }
+
     });
+
 
     actions.appendChild(statusSelect);
     actions.appendChild(updateButton);
 
     card.appendChild(actions);
+
+
+    // Booking reference ID
 
     const id = document.createElement("small");
 
@@ -486,29 +681,59 @@ function renderBookings(bookings) {
 
     card.appendChild(id);
 
+
     bookingList.appendChild(card);
+
   });
+
 }
 
-// ======================================
-// SEARCH BOOKINGS
-// ======================================
 
-searchInput.addEventListener("input", () => {
+/* =========================================
+   SEARCH FILTER
+   ========================================= */
+
+function getFilteredBookings() {
 
   const search = searchInput.value.toLowerCase().trim();
 
-  const filtered = allBookings.filter((booking) => {
+  if (!search) {
+    return allBookings;
+  }
 
-    return [
+  return allBookings.filter((booking) => {
+
+    const searchableValues = [
       booking.name,
       booking.email,
       booking.phone,
-      booking.eventType
-    ].some(value =>
+      booking.eventType,
+      booking.eventDate,
+      booking.location,
+      booking.budget,
+      booking.status,
+      booking.requirements,
+      ...(Array.isArray(booking.services) ? booking.services : [])
+    ];
+
+    return searchableValues.some(value =>
       String(value || "").toLowerCase().includes(search)
     );
+
   });
 
-  renderBookings(filtered);
+}
+
+
+/* =========================================
+   SEARCH BOOKINGS
+   ========================================= */
+
+searchInput.addEventListener("input", () => {
+
+  renderBookings(getFilteredBookings());
+
 });
+
+
+console.log("EVENTORA admin dashboard initialized successfully.");
