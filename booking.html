@@ -1,11 +1,28 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Plan your wedding, birthday, corporate event and celebration with DEV ORGANIZERS in Bengaluru.">
-  <title>Book an Event | DEV ORGANIZERS</title>
+
+  <title>Book Your Event | EVENTORA - Bengaluru</title>
+
+  <meta name="description"
+    content="Plan your wedding, birthday, corporate event or celebration with EVENTORA in Bengaluru. Share your requirements and request an event proposal.">
+
+  <meta name="keywords"
+    content="EVENTORA booking, event management Bengaluru, wedding booking, birthday party planning, corporate events">
+
+  <meta name="author" content="EVENTORA">
+  <meta name="theme-color" content="#111111">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -16,250 +33,508 @@
 
 <body>
 
-<header class="site-header">
-  <div class="container nav-container">
-    <a class="logo" href="index.html">
-      <span class="logo-mark">D</span>
-      <span>DEV <small>ORGANIZERS</small></span>
-    </a>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav-container">
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+      <a class="logo" href="index.html">
+        <span class="logo-mark">E</span>
+        <span>EVENTORA<small>CREATING MEMORIES</small></span>
+      </a>
 
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-      <a class="nav-book active" href="booking.html">Book an Event</a>
-    </nav>
-  </div>
-</header>
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="navLinks">
 
-<main>
+        <span></span>
+        <span></span>
+        <span></span>
 
-<section class="page-banner booking-banner">
-  <div class="container">
-    <p class="eyebrow">LET'S START PLANNING</p>
-    <h1>Plan Your <span>Event</span></h1>
-    <p>Share your requirements and let us help create a memorable celebration.</p>
-    <div class="breadcrumbs">
-      <a href="index.html">Home</a> / Booking
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html" class="nav-book active" aria-current="page">Book an Event</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
     </div>
-  </div>
-</section>
+  </header>
 
-<section class="section-padding">
-  <div class="container booking-layout">
 
-    <div class="booking-info">
-      <p class="eyebrow">YOUR EVENT, YOUR WAY</p>
+  <main>
 
-      <h2 class="section-title">
-        Let's Make It <span>Memorable</span>
-      </h2>
+    <!-- BOOKING HERO -->
+    <section class="page-banner booking-banner">
+      <div class="container">
 
-      <p class="body-text">
-        Tell us about your occasion, preferred date, guest count,
-        budget and services. Our team will review your enquiry
-        and contact you.
-      </p>
+        <p class="eyebrow">LET'S CREATE SOMETHING BEAUTIFUL</p>
 
-      <div class="booking-benefit">
-        <span>01</span>
-        <div>
-          <h3>Share Your Idea</h3>
-          <p>Tell us what you want to celebrate.</p>
-        </div>
-      </div>
+        <h1>Your Event. <span>Our Passion.</span></h1>
 
-      <div class="booking-benefit">
-        <span>02</span>
-        <div>
-          <h3>Choose Your Services</h3>
-          <p>Select the arrangements you need.</p>
-        </div>
-      </div>
-
-      <div class="booking-benefit">
-        <span>03</span>
-        <div>
-          <h3>Submit Your Enquiry</h3>
-          <p>Our team will contact you to discuss the plan.</p>
-        </div>
-      </div>
-
-      <div class="booking-contact">
-        <p>Location</p>
-        <strong>Bengaluru, Karnataka, India</strong>
-      </div>
-    </div>
-
-    <div class="form-card">
-
-      <h2>Event Planning & Inquiry Form</h2>
-      <p class="form-intro">Fields marked with * are required.</p>
-
-      <form id="bookingForm">
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Full Name *</label>
-            <input type="text" id="name" name="name"
-              placeholder="Enter your full name"
-              required maxlength="100">
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Phone Number *</label>
-            <input type="tel" id="phone" name="phone"
-              placeholder="Enter your phone number"
-              required pattern="[0-9+\-\s()]{7,20}"
-              maxlength="20">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email"
-              placeholder="name@example.com"
-              required maxlength="150">
-          </div>
-
-          <div class="form-group">
-            <label for="eventType">Event Type *</label>
-            <select id="eventType" name="eventType" required>
-              <option value="">Select event type</option>
-              <option value="Wedding">Wedding</option>
-              <option value="Birthday">Birthday</option>
-              <option value="Corporate Event">Corporate Event</option>
-              <option value="Engagement">Engagement</option>
-              <option value="Anniversary">Anniversary</option>
-              <option value="College or Cultural Event">College or Cultural Event</option>
-              <option value="Private Party">Private Party</option>
-              <option value="Entertainment or Stage Event">Entertainment or Stage Event</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="date">Preferred Event Date *</label>
-            <input type="date" id="date" name="date" required>
-          </div>
-
-          <div class="form-group">
-            <label for="guests">Approximate Guests *</label>
-            <input type="number" id="guests" name="guests"
-              min="1" max="100000"
-              placeholder="Number of guests" required>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="location">Event Location *</label>
-            <input type="text" id="location" name="location"
-              placeholder="Area or venue, city"
-              required maxlength="200">
-          </div>
-
-          <div class="form-group">
-            <label for="budget">Estimated Budget</label>
-            <select id="budget" name="budget">
-              <option value="Not specified">Select your budget</option>
-              <option value="Below ₹50,000">Below ₹50,000</option>
-              <option value="₹50,000 – ₹1,00,000">₹50,000 – ₹1,00,000</option>
-              <option value="₹1,00,000 – ₹3,00,000">₹1,00,000 – ₹3,00,000</option>
-              <option value="₹3,00,000 – ₹5,00,000">₹3,00,000 – ₹5,00,000</option>
-              <option value="Above ₹5,00,000">Above ₹5,00,000</option>
-              <option value="To be discussed">To be discussed</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Services Required</label>
-
-          <div class="service-options">
-            <label><input type="checkbox" name="services" value="Venue"> Venue</label>
-            <label><input type="checkbox" name="services" value="Catering"> Catering</label>
-            <label><input type="checkbox" name="services" value="Photography"> Photography</label>
-            <label><input type="checkbox" name="services" value="Videography"> Videography</label>
-            <label><input type="checkbox" name="services" value="Decoration"> Decoration</label>
-            <label><input type="checkbox" name="services" value="Entertainment"> Entertainment</label>
-            <label><input type="checkbox" name="services" value="Makeup"> Makeup</label>
-            <label><input type="checkbox" name="services" value="Transportation"> Transportation</label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="requirements">Additional Requirements</label>
-          <textarea id="requirements" name="requirements"
-            rows="5" maxlength="2000"
-            placeholder="Describe your event theme, decoration, food preferences, special arrangements or other requirements..."></textarea>
-        </div>
-
-        <label class="consent-label">
-          <input type="checkbox" id="consent" required>
-          <span>I agree to be contacted by DEV ORGANIZERS regarding this enquiry. *</span>
-        </label>
-
-        <button type="submit" id="submitBooking" class="btn btn-gold btn-full">
-          Send Event Enquiry
-        </button>
-
-        <p id="formMessage" class="form-message"
-          role="status" aria-live="polite"></p>
-
-        <p class="form-disclaimer">
-          Submitting this form sends an event enquiry, not a confirmed booking.
-          Our team will contact you to discuss availability and pricing.
+        <p>
+          Every unforgettable celebration begins with an idea.
+          Tell us yours, and let's bring it to life.
         </p>
 
-      </form>
+        <div class="breadcrumbs">
+          <a href="index.html">Home</a> / Booking
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- BOOKING SECTION -->
+    <section class="section-padding">
+      <div class="container booking-layout">
+
+
+        <!-- LEFT INFORMATION -->
+        <div class="booking-info">
+
+          <p class="eyebrow">YOUR VISION, OUR EXPERTISE</p>
+
+          <h2 class="section-title">
+            Let's Make It <span>Unforgettable</span>
+          </h2>
+
+          <p class="body-text">
+            From intimate celebrations to grand occasions,
+            EVENTORA brings creativity, planning and attention
+            to detail together to create exceptional experiences.
+          </p>
+
+
+          <div class="booking-benefit">
+            <span>01</span>
+
+            <div>
+              <h3>Share Your Vision</h3>
+              <p>Tell us about your occasion and the experience you imagine.</p>
+            </div>
+          </div>
+
+
+          <div class="booking-benefit">
+            <span>02</span>
+
+            <div>
+              <h3>Personalised Planning</h3>
+              <p>Choose services that match your preferences and budget.</p>
+            </div>
+          </div>
+
+
+          <div class="booking-benefit">
+            <span>03</span>
+
+            <div>
+              <h3>Let's Bring It to Life</h3>
+              <p>Our team will contact you to discuss your event requirements.</p>
+            </div>
+          </div>
+
+
+          <div class="booking-contact">
+            <p>OUR LOCATION</p>
+            <strong>Bengaluru, Karnataka, India</strong>
+          </div>
+
+
+          <div class="booking-contact">
+            <p>CONTACT OUR TEAM</p>
+
+            <strong>
+              <a href="tel:+917975106764">+91 79751 06764</a>
+            </strong>
+
+            <strong>
+              <a href="tel:+919448209827">+91 94482 09827</a>
+            </strong>
+          </div>
+
+        </div>
+
+
+        <!-- BOOKING FORM -->
+        <div class="form-card">
+
+          <p class="eyebrow">START YOUR JOURNEY</p>
+
+          <h2>Event Planning Enquiry</h2>
+
+          <p class="form-intro">
+            Share a few details below so we can understand your event.
+            Fields marked with * are required.
+          </p>
+
+
+          <form id="bookingForm">
+
+            <!-- NAME AND PHONE -->
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="name">Full Name *</label>
+
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter your full name"
+                  required
+                  maxlength="100">
+              </div>
+
+
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Enter your phone number"
+                  required
+                  pattern="[0-9+\-\s()]{7,20}"
+                  maxlength="20">
+              </div>
+
+            </div>
+
+
+            <!-- EMAIL AND EVENT TYPE -->
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="name@example.com"
+                  required
+                  maxlength="150">
+              </div>
+
+
+              <div class="form-group">
+                <label for="eventType">Event Type *</label>
+
+                <select id="eventType" name="eventType" required>
+
+                  <option value="">Select event type</option>
+
+                  <option value="Wedding">Wedding</option>
+
+                  <option value="Birthday">Birthday</option>
+
+                  <option value="Corporate Event">Corporate Event</option>
+
+                  <option value="Engagement">Engagement</option>
+
+                  <option value="Anniversary">Anniversary</option>
+
+                  <option value="College or Cultural Event">College or Cultural Event</option>
+
+                  <option value="Private Party">Private Party</option>
+
+                  <option value="Entertainment or Stage Event">Entertainment or Stage Event</option>
+
+                  <option value="Other">Other</option>
+
+                </select>
+              </div>
+
+            </div>
+
+
+            <!-- DATE AND GUESTS -->
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="date">Preferred Event Date *</label>
+
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  required>
+              </div>
+
+
+              <div class="form-group">
+                <label for="guests">Approximate Guests *</label>
+
+                <input
+                  type="number"
+                  id="guests"
+                  name="guests"
+                  min="1"
+                  max="100000"
+                  placeholder="Number of guests"
+                  required>
+              </div>
+
+            </div>
+
+
+            <!-- LOCATION AND BUDGET -->
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="location">Event Location *</label>
+
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  placeholder="Area or venue, city"
+                  required
+                  maxlength="200">
+              </div>
+
+
+              <div class="form-group">
+                <label for="budget">Estimated Budget</label>
+
+                <select id="budget" name="budget">
+
+                  <option value="Not specified">Select your budget</option>
+
+                  <option value="Below ₹50,000">Below ₹50,000</option>
+
+                  <option value="₹50,000 – ₹1,00,000">₹50,000 – ₹1,00,000</option>
+
+                  <option value="₹1,00,000 – ₹3,00,000">₹1,00,000 – ₹3,00,000</option>
+
+                  <option value="₹3,00,000 – ₹5,00,000">₹3,00,000 – ₹5,00,000</option>
+
+                  <option value="Above ₹5,00,000">Above ₹5,00,000</option>
+
+                  <option value="To be discussed">To be discussed</option>
+
+                </select>
+              </div>
+
+            </div>
+
+
+            <!-- SERVICES -->
+            <div class="form-group">
+
+              <label>Services Required</label>
+
+              <p class="form-intro">
+                Select all the services you may need.
+              </p>
+
+              <div class="service-options">
+
+                <label>
+                  <input type="checkbox" name="services" value="Venue">
+                  Venue
+                </label>
+
+                <label>
+                  <input type="checkbox" name="services" value="Catering">
+                  Catering
+                </label>
+
+                <label>
+                  <input type="checkbox" name="services" value="Photography">
+                  Photography
+                </label>
+
+                <label>
+                  <input type="checkbox" name="services" value="Videography">
+                  Videography
+                </label>
+
+                <label>
+                  <input type="checkbox" name="services" value="Decoration">
+                  Decoration
+                </label>
+
+                <label>
+                  <input type="checkbox" name="services" value="Entertainment">
+                  Entertainment
+                </label>
+
+                <label>
+                  <input type="checkbox" name="services" value="Makeup">
+                  Makeup
+                </label>
+
+                <label>
+                  <input type="checkbox" name="services" value="Transportation">
+                  Transportation
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <!-- ADDITIONAL REQUIREMENTS -->
+            <div class="form-group">
+
+              <label for="requirements">Additional Requirements</label>
+
+              <textarea
+                id="requirements"
+                name="requirements"
+                rows="5"
+                maxlength="2000"
+                placeholder="Describe your event theme, decoration ideas, food preferences, special arrangements or other requirements..."></textarea>
+
+            </div>
+
+
+            <!-- CONSENT -->
+            <label class="consent-label">
+
+              <input type="checkbox" id="consent" required>
+
+              <span>
+                I agree to be contacted by EVENTORA regarding this enquiry. *
+              </span>
+
+            </label>
+
+
+            <!-- SUBMIT BUTTON -->
+            <button
+              type="submit"
+              id="submitBooking"
+              class="btn btn-gold btn-full">
+
+              Send Event Enquiry
+
+            </button>
+
+
+            <!-- FORM RESPONSE -->
+            <p
+              id="formMessage"
+              class="form-message"
+              role="status"
+              aria-live="polite">
+            </p>
+
+
+            <p class="form-disclaimer">
+              Submitting this form sends an event enquiry, not a confirmed
+              booking. Our team will contact you to discuss availability,
+              services and pricing.
+            </p>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- FINAL CTA -->
+    <section class="cta-section section-padding">
+      <div class="container">
+
+        <p class="eyebrow">YOUR CELEBRATION BEGINS HERE</p>
+
+        <h2>Let's Create Something Extraordinary</h2>
+
+        <p>
+          Every detail matters. Let's make your next celebration
+          truly unforgettable.
+        </p>
+
+        <a href="contact.html" class="btn btn-gold">
+          Talk to Our Team
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+
+        <a class="logo footer-logo" href="index.html">
+          <span class="logo-mark">E</span>
+          <span>EVENTORA<small>CREATING MEMORIES</small></span>
+        </a>
+
+        <p>
+          Creating Moments. Designing Memories.
+          Thoughtful event planning in Bengaluru, Karnataka.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>Explore</h3>
+
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Book an Event</a>
+
+      </div>
+
+
+      <div>
+
+        <h3>Contact</h3>
+
+        <p>Bengaluru, Karnataka, India</p>
+
+        <a href="tel:+917975106764">+91 79751 06764</a>
+
+        <a href="tel:+919448209827">+91 94482 09827</a>
+
+        <a
+          href="https://wa.me/917975106764"
+          target="_blank"
+          rel="noopener noreferrer">
+          WhatsApp Us
+        </a>
+
+      </div>
+
     </div>
 
-  </div>
-</section>
 
-</main>
+    <div class="footer-bottom">
 
-<footer class="site-footer">
-  <div class="container footer-grid">
+      <p>
+        &copy; <span id="year"></span> EVENTORA.
+        All Rights Reserved.
+      </p>
 
-    <div>
-      <a class="logo footer-logo" href="index.html">
-        <span class="logo-mark">D</span>
-        <span>DEV <small>ORGANIZERS</small></span>
-      </a>
-      <p>Thoughtful event planning in Bengaluru, Karnataka.</p>
+      <p>Creating Moments. Designing Memories.</p>
+
     </div>
 
-    <div>
-      <h3>Quick Links</h3>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="gallery.html">Gallery</a>
-    </div>
-
-    <div>
-      <h3>Contact</h3>
-      <p>Bengaluru, Karnataka, India</p>
-      <a href="contact.html">Contact Us</a>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <p>© <span id="year"></span> DEV ORGANIZERS. All rights reserved.</p>
-  </div>
-</footer>
+  </footer>
 
 </body>
 </html>
