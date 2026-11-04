@@ -1,8 +1,10 @@
 
 /* =========================================
-   DEV ORGANIZERS - RESPONSIVE STYLES
+   EVENTORA - RESPONSIVE STYLES
+   Premium responsive design
    ========================================= */
 
+/* TABLETS AND SMALL LAPTOPS */
 @media (max-width: 1000px) {
   .nav-links {
     gap: 15px;
@@ -28,8 +30,13 @@
   .booking-layout {
     gap: 30px;
   }
+
+  .container {
+    width: 90%;
+  }
 }
 
+/* MOBILE AND TABLET */
 @media (max-width: 760px) {
   .section-padding {
     padding: 65px 0;
@@ -37,6 +44,7 @@
 
   .nav-container {
     min-height: 72px;
+    position: relative;
   }
 
   .menu-toggle {
@@ -49,6 +57,7 @@
     top: 72px;
     left: 0;
     right: 0;
+    z-index: 1000;
     background: #101010;
     padding: 20px 5% 25px;
     border-top: 1px solid var(--border);
@@ -83,6 +92,10 @@
 
   .hero h1 {
     font-size: clamp(2.5rem, 11vw, 4rem);
+  }
+
+  .hero p {
+    max-width: 100%;
   }
 
   .intro-grid,
@@ -168,6 +181,7 @@
   }
 }
 
+/* SMALL MOBILE PHONES */
 @media (max-width: 480px) {
   .container {
     width: 90%;
@@ -233,15 +247,23 @@
   .cta-section {
     padding: 70px 0;
   }
+
+  .page-banner {
+    padding: 65px 0 55px;
+  }
 }
 
+/* ACCESSIBILITY: REDUCED MOTION */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
