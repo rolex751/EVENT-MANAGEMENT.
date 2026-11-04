@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     yearElement.textContent = new Date().getFullYear();
   }
 
+
   // 2. MOBILE NAVIGATION MENU
   const menuToggle = document.getElementById("menuToggle");
   const navLinks = document.getElementById("navLinks");
@@ -58,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+
   // 3. GALLERY CATEGORY FILTERING
   const filterButtons = document.querySelectorAll(".filter-btn");
   const galleryItems = document.querySelectorAll(".gallery-item");
@@ -70,12 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const selectedCategory = button.dataset.filter;
 
-        // Update active filter button
+        // Update active filter button and accessibility state
         filterButtons.forEach((item) => {
           item.classList.remove("active");
+          item.setAttribute("aria-pressed", "false");
         });
 
         button.classList.add("active");
+        button.setAttribute("aria-pressed", "true");
 
         // Show matching gallery images
         galleryItems.forEach((item) => {
@@ -95,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   }
+
 
   console.log("EVENTORA website loaded successfully.");
 
