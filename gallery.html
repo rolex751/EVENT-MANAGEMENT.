@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore event inspiration and decoration ideas in the DEV ORGANIZERS gallery.">
+  <title>Gallery | DEV ORGANIZERS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-container">
+    <a class="logo" href="index.html"><span class="logo-mark">D</span><span>DEV <small>ORGANIZERS</small></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a><a href="about.html">About</a>
+      <a href="services.html">Services</a><a class="active" href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a><a class="nav-book" href="booking.html">Book an Event</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-banner gallery-banner">
+    <div class="container">
+      <p class="eyebrow">VISUAL INSPIRATION</p>
+      <h1>Our Event <span>Gallery</span></h1>
+      <p>Explore ideas and inspiration for your next celebration.</p>
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Gallery</div>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container">
+      <div class="section-heading center">
+        <p class="eyebrow">A WORLD OF CELEBRATIONS</p>
+        <h2 class="section-title">Moments & <span>Inspiration</span></h2>
+      </div>
+
+      <div class="gallery-filters" aria-label="Filter gallery">
+        <button class="filter-btn active" data-filter="all">All Events</button>
+        <button class="filter-btn" data-filter="wedding">Weddings</button>
+        <button class="filter-btn" data-filter="birthday">Birthdays</button>
+        <button class="filter-btn" data-filter="corporate">Corporate</button>
+        <button class="filter-btn" data-filter="decoration">Decorations</button>
+      </div>
+
+      <div class="gallery-grid">
+        <figure class="gallery-item" data-category="wedding"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85" alt="Wedding celebration setup"><figcaption>Wedding Celebration</figcaption></figure>
+        <figure class="gallery-item" data-category="birthday"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=85" alt="Birthday party decoration"><figcaption>Birthday Celebration</figcaption></figure>
+        <figure class="gallery-item" data-category="corporate"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85" alt="Corporate gathering"><figcaption>Corporate Gathering</figcaption></figure>
+        <figure class="gallery-item" data-category="decoration"><img src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=900&q=85" alt="Event table decoration"><figcaption>Event Decoration</figcaption></figure>
+        <figure class="gallery-item" data-category="wedding"><img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=900&q=85" alt="Wedding venue inspiration"><figcaption>Wedding Venue</figcaption></figure>
+        <figure class="gallery-item" data-category="corporate"><img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85" alt="Business event"><figcaption>Business Event</figcaption></figure>
+        <figure class="gallery-item" data-category="birthday"><img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=85" alt="Celebration table"><figcaption>Special Celebration</figcaption></figure>
+        <figure class="gallery-item" data-category="decoration"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=85" alt="Party lighting and decor"><figcaption>Party Atmosphere</figcaption></figure>
+        <figure class="gallery-item" data-category="wedding"><img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=900&q=85" alt="Wedding table setup"><figcaption>Wedding Details</figcaption></figure>
+      </div>
+
+      <p class="gallery-note">Gallery photographs are visual references. Replace them with photographs of events organized by DEV ORGANIZERS when available.</p>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container cta-content">
+      <p class="eyebrow">INSPIRED BY WHAT YOU SEE?</p>
+      <h2>Let's Create Your Celebration</h2>
+      <a href="booking.html" class="btn btn-gold">Plan Your Event</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div><a class="logo footer-logo" href="index.html"><span class="logo-mark">D</span><span>DEV <small>ORGANIZERS</small></span></a><p>Thoughtful event planning in Bengaluru, Karnataka.</p></div>
+    <div><h3>Quick Links</h3><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="booking.html">Booking</a></div>
+    <div><h3>Contact</h3><p>Bengaluru, Karnataka, India</p><a href="contact.html">Contact Us</a></div>
+  </div>
+  <div class="footer-bottom"><p>© <span id="year"></span> DEV ORGANIZERS. All rights reserved.</p></div>
+</footer>
+
+</body>
+</html>
