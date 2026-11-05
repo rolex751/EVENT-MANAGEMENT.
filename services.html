@@ -4,430 +4,362 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="description" content="Explore EVENTORA's event management services in Bengaluru, including weddings, birthdays, corporate events, college festivals, private parties and venue decoration.">
-
-  <meta name="keywords" content="EVENTORA, event management services Bengaluru, wedding planning, birthday party organizers, corporate event management, college events">
-
-  <meta name="author" content="EVENTORA">
-  <meta name="theme-color" content="#101010">
-
-  <title>Event Management Services | EVENTORA Bengaluru</title>
+  <meta name="description" content="Explore EVENTORA event services including catering, photography, videography, decoration, entertainment, makeup and transportation in Bengaluru.">
+  <title>Our Services | EVENTORA</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
 
-  <script src="js/script.js" defer></script>
+  <style>
+    .services-gallery {
+      padding: 65px 7%;
+      background: #f7f3ea;
+    }
+
+    .services-heading {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .services-heading h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      color: #171717;
+    }
+
+    .services-heading p {
+      color: #6d685f;
+      margin-top: 12px;
+    }
+
+    .service-section {
+      margin-bottom: 65px;
+      scroll-margin-top: 100px;
+    }
+
+    .service-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 29px;
+      color: #171717;
+      margin-bottom: 8px;
+    }
+
+    .service-description {
+      color: #6d685f;
+      margin-bottom: 20px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .photo-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 18px rgba(0,0,0,.07);
+      transition: transform .25s ease;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      background: #e8e1d5;
+    }
+
+    .photo-card h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #171717;
+      padding: 14px;
+      font-weight: 600;
+    }
+
+    .service-booking {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 11px 22px;
+      background: #171717;
+      color: #d6b875;
+      border: 1px solid #c6a15b;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .service-booking:hover {
+      background: #c6a15b;
+      color: #171717;
+    }
+
+    .services-note {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      margin: 35px 0;
+    }
+
+    @media(max-width: 900px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media(max-width: 500px) {
+      .services-gallery {
+        padding: 40px 5%;
+      }
+
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-card img {
+        height: 230px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <div class="container nav-container">
-
-    <a class="logo" href="index.html" aria-label="EVENTORA Home">
-      <span class="logo-mark">E</span>
-      <span>EVENTORA</span>
-    </a>
-
-    <button
-      class="menu-toggle"
-      id="menuToggle"
-      aria-label="Open navigation"
-      aria-expanded="false"
-      aria-controls="navLinks"
-      type="button"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a class="active" href="services.html" aria-current="page">Services</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-      <a class="nav-book" href="booking.html">Book an Event</a>
-    </nav>
-
-  </div>
-</header>
-
-
-<main>
-
-  <!-- PAGE BANNER -->
-  <section class="page-banner services-banner">
+  <!-- HEADER -->
+  <header class="header">
     <div class="container">
+      <a href="index.html" class="logo">EVENTORA</a>
 
-      <p class="eyebrow">EXPERIENCES WE CREATE</p>
-
-      <h1>Our Event <span>Services</span></h1>
-
-      <p>
-        From intimate celebrations to grand occasions,
-        we bring your ideas to life with thoughtful planning
-        and creative execution.
-      </p>
-
-      <div class="breadcrumbs">
-        <a href="index.html">Home</a> / Our Services
-      </div>
-
+      <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html" class="active">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Booking</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
-  </section>
-
+  </header>
 
   <!-- SERVICES -->
-  <section class="section-padding">
-    <div class="container">
+  <main class="services-gallery">
 
-      <div class="section-heading center">
+    <div class="services-heading">
+      <h1>Our Premium Services</h1>
+      <p>Every detail matters. We make every celebration unforgettable.</p>
+    </div>
 
-        <p class="eyebrow">CELEBRATE EVERY OCCASION</p>
+    <!-- 1. CATERING -->
+    <section class="service-section" id="catering">
+      <h2 class="service-title">01. Catering Services</h2>
+      <p class="service-description">Delicious food, beautiful presentation and memorable dining experiences.</p>
 
-        <h2 class="section-title">
-          Events We <span>Organize</span>
-        </h2>
-
-        <p class="body-text">
-          Every occasion is unique. Explore our services
-          and discover how we can help plan yours.
-        </p>
-
+      <div class="photo-grid">
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=80" alt="Catering food spread" loading="lazy">
+          <h3>Premium Food Presentation</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80" alt="Freshly prepared food" loading="lazy">
+          <h3>Special Food Menu</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=700&q=80" alt="Event catering table" loading="lazy">
+          <h3>Buffet Arrangements</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=700&q=80" alt="Food and dessert presentation" loading="lazy">
+          <h3>Snacks and Desserts</h3>
+        </article>
       </div>
+      <a href="booking.html" class="service-booking">Book Catering</a>
+    </section>
 
+    <!-- 2. PHOTOGRAPHY -->
+    <section class="service-section" id="photography">
+      <h2 class="service-title">02. Photography</h2>
+      <p class="service-description">Capturing genuine emotions and beautiful memories.</p>
 
-      <div class="service-list-grid">
-
-        <!-- SERVICE 01 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
-            alt="Elegant wedding ceremony and decoration"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">01</span>
-
-            <h3>Wedding Events</h3>
-
-            <p>
-              Make your special day memorable with thoughtful
-              wedding planning, beautiful venue arrangements,
-              decorations and celebration coordination.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Plan Your Wedding →
-            </a>
-          </div>
-
+      <div class="photo-grid">
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80" alt="Wedding photography" loading="lazy">
+          <h3>Wedding Photography</h3>
         </article>
-
-
-        <!-- SERVICE 02 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=85"
-            alt="Colorful birthday party celebration"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">02</span>
-
-            <h3>Birthday Celebrations</h3>
-
-            <p>
-              Celebrate another beautiful year with personalized
-              birthday themes, creative decorations, entertainment
-              and memorable party arrangements.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Plan a Birthday →
-            </a>
-          </div>
-
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=700&q=80" alt="Couple portrait photography" loading="lazy">
+          <h3>Couple Photography</h3>
         </article>
-
-
-        <!-- SERVICE 03 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85"
-            alt="Professional corporate event arrangement"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">03</span>
-
-            <h3>Corporate Events</h3>
-
-            <p>
-              Professional event arrangements for business
-              meetings, conferences, product launches,
-              networking events and company celebrations.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Plan a Corporate Event →
-            </a>
-          </div>
-
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?auto=format&fit=crop&w=700&q=80" alt="Candid celebration photography" loading="lazy">
+          <h3>Candid Photography</h3>
         </article>
-
-
-        <!-- SERVICE 04 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=900&q=85"
-            alt="Beautiful engagement celebration setup"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">04</span>
-
-            <h3>Engagements & Anniversaries</h3>
-
-            <p>
-              Celebrate love and togetherness with elegant
-              engagement ceremonies, anniversary parties
-              and personalized family occasions.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Plan Your Celebration →
-            </a>
-          </div>
-
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=700&q=80" alt="Wedding celebration portrait" loading="lazy">
+          <h3>Event Photography</h3>
         </article>
-
-
-        <!-- SERVICE 05 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=85"
-            alt="College festival and student event"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">05</span>
-
-            <h3>College & Cultural Events</h3>
-
-            <p>
-              Bring campus celebrations to life with college
-              festivals, cultural programs, student activities,
-              stage arrangements and event coordination.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Plan a College Event →
-            </a>
-          </div>
-
-        </article>
-
-
-        <!-- SERVICE 06 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=85"
-            alt="Private party and social gathering"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">06</span>
-
-            <h3>Private Parties</h3>
-
-            <p>
-              Create wonderful memories with customized
-              private parties, family gatherings, social
-              celebrations and special get-togethers.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Plan a Private Party →
-            </a>
-          </div>
-
-        </article>
-
-
-        <!-- SERVICE 07 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=85"
-            alt="Live entertainment and stage event"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">07</span>
-
-            <h3>Entertainment & Stage Events</h3>
-
-            <p>
-              Add energy to your celebrations with stage
-              arrangements, entertainment planning, music
-              and coordinated event experiences.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Plan an Entertainment Event →
-            </a>
-          </div>
-
-        </article>
-
-
-        <!-- SERVICE 08 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=900&q=85"
-            alt="Elegant event decoration and venue setup"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">08</span>
-
-            <h3>Decoration & Venue Setup</h3>
-
-            <p>
-              Transform your venue with creative decoration
-              concepts, stylish arrangements, seating layouts
-              and carefully planned event setups.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Discuss Your Decoration →
-            </a>
-          </div>
-
-        </article>
-
-
-        <!-- SERVICE 09 -->
-        <article class="service-detail">
-
-          <img
-            src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85"
-            alt="Special event planning and coordination"
-            loading="lazy"
-          >
-
-          <div>
-            <span class="service-number">09</span>
-
-            <h3>Custom Events</h3>
-
-            <p>
-              Have something different in mind? Tell us
-              your ideas and requirements. We will work
-              with you to plan a customized occasion.
-            </p>
-
-            <a href="booking.html" class="text-link">
-              Discuss Your Ideas →
-            </a>
-          </div>
-
-        </article>
-
       </div>
+      <a href="booking.html" class="service-booking">Book Photography</a>
+    </section>
 
-    </div>
-  </section>
+    <!-- 3. VIDEOGRAPHY -->
+    <section class="service-section" id="videography">
+      <h2 class="service-title">03. Videography</h2>
+      <p class="service-description">Professional filming to preserve every special moment.</p>
 
+      <div class="photo-grid">
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=700&q=80" alt="Professional video camera" loading="lazy">
+          <h3>Professional Video Shooting</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80" alt="Camera equipment" loading="lazy">
+          <h3>Cinematic Filming</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=700&q=80" alt="Video production setup" loading="lazy">
+          <h3>Event Video Production</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80" alt="Outdoor cinematic filming inspiration" loading="lazy">
+          <h3>Outdoor and Drone-style Shots</h3>
+        </article>
+      </div>
+      <a href="booking.html" class="service-booking">Book Videography</a>
+    </section>
 
-  <!-- CTA SECTION -->
-  <section class="cta-section">
-    <div class="container cta-content">
+    <!-- 4. DECORATION -->
+    <section class="service-section" id="decoration">
+      <h2 class="service-title">04. Decoration</h2>
+      <p class="service-description">Creative themes and elegant decoration for every occasion.</p>
 
-      <p class="eyebrow">YOUR VISION STARTS HERE</p>
+      <div class="photo-grid">
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=700&q=80" alt="Wedding venue decoration" loading="lazy">
+          <h3>Wedding Stage Decoration</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=700&q=80" alt="Elegant event table decoration" loading="lazy">
+          <h3>Table Decoration</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=700&q=80" alt="Birthday party decoration" loading="lazy">
+          <h3>Birthday Decoration</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fda?auto=format&fit=crop&w=700&q=80" alt="Event floral decoration" loading="lazy">
+          <h3>Floral Decoration</h3>
+        </article>
+      </div>
+      <a href="booking.html" class="service-booking">Book Decoration</a>
+    </section>
 
-      <h2>Let's Create Something Unforgettable</h2>
+    <!-- 5. ENTERTAINMENT -->
+    <section class="service-section" id="entertainment">
+      <h2 class="service-title">05. Entertainment</h2>
+      <p class="service-description">Music, performances and exciting entertainment for your guests.</p>
 
-      <p>
-        Tell us about your occasion, your ideas and your budget.
-        Let's start planning your perfect event.
-      </p>
+      <div class="photo-grid">
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=700&q=80" alt="DJ entertainment" loading="lazy">
+          <h3>DJ and Music</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=700&q=80" alt="Live music performance" loading="lazy">
+          <h3>Live Music</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=700&q=80" alt="Stage entertainment event" loading="lazy">
+          <h3>Stage Shows</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=700&q=80" alt="Live event crowd" loading="lazy">
+          <h3>Event Performances</h3>
+        </article>
+      </div>
+      <a href="booking.html" class="service-booking">Book Entertainment</a>
+    </section>
 
-      <a href="booking.html" class="btn btn-gold">
-        Request a Booking
-      </a>
+    <!-- 6. MAKEUP -->
+    <section class="service-section" id="makeup">
+      <h2 class="service-title">06. Makeup and Styling</h2>
+      <p class="service-description">Professional beauty and styling services for your special day.</p>
 
-    </div>
-  </section>
+      <div class="photo-grid">
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=80" alt="Professional makeup portrait" loading="lazy">
+          <h3>Bridal Makeup</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=700&q=80" alt="Beauty and makeup styling" loading="lazy">
+          <h3>Party Makeup</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=700&q=80" alt="Makeup products and tools" loading="lazy">
+          <h3>Professional Makeup</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=700&q=80" alt="Hair and beauty styling" loading="lazy">
+          <h3>Hair Styling</h3>
+        </article>
+      </div>
+      <a href="booking.html" class="service-booking">Book Makeup</a>
+    </section>
 
-</main>
+    <!-- 7. TRANSPORTATION -->
+    <section class="service-section" id="transportation">
+      <h2 class="service-title">07. Transportation</h2>
+      <p class="service-description">Comfortable and convenient travel arrangements for your event.</p>
 
+      <div class="photo-grid">
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=80" alt="Luxury car transportation" loading="lazy">
+          <h3>Luxury Cars</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80" alt="Premium car for event travel" loading="lazy">
+          <h3>Premium Vehicles</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=700&q=80" alt="Passenger bus transportation" loading="lazy">
+          <h3>Guest Bus Arrangements</h3>
+        </article>
+        <article class="photo-card">
+          <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=700&q=80" alt="Car transportation service" loading="lazy">
+          <h3>Event Travel</h3>
+        </article>
+      </div>
+      <a href="booking.html" class="service-booking">Book Transportation</a>
+    </section>
 
-<!-- FOOTER -->
-<footer class="site-footer">
-
-  <div class="container footer-grid">
-
-    <div>
-      <a class="logo footer-logo" href="index.html">
-        <span class="logo-mark">E</span>
-        <span>EVENTORA</span>
-      </a>
-
-      <p>
-        Creating Moments. Designing Memories.
-        Thoughtful event planning in Bengaluru, Karnataka.
-      </p>
-    </div>
-
-    <div>
-      <h3>Quick Links</h3>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="booking.html">Booking</a>
-    </div>
-
-    <div>
-      <h3>Contact</h3>
-      <p>Bengaluru, Karnataka, India</p>
-      <a href="contact.html">Contact Us</a>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <p>
-      © <span id="year"></span> EVENTORA.
-      All rights reserved.
+    <p class="services-note">
+      Photos are illustrative examples of service styles. Actual arrangements depend on your event requirements.
     </p>
-  </div>
 
-</footer>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <h2>EVENTORA</h2>
+      <p>Creating Moments. Designing Memories.</p>
+      <p>&copy; <span id="year"></span> EVENTORA. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
 </body>
 </html>
