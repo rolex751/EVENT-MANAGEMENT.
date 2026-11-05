@@ -1,288 +1,321 @@
 
-/* =========================================
-   EVENTORA - BOOKING SYSTEM
-   Firebase Booking Integration
-   ========================================= */
+/* =========================================================
+   EVENTORA - CUSTOMER BOOKING SYSTEM
+   Firebase Firestore Integration
+   File: js/booking.js
+========================================================= */
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-  initializeApp,
-  getApps,
-  getApp
-} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* FIREBASE CONFIGURATION */
+/* ---------- FIREBASE CONFIGURATION ---------- */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8Q",
-  authDomain: "event-management-93edc.firebaseapp.com",
-  projectId: "event-management-93edc",
-  storageBucket: "event-management-93edc.firebasestorage.app",
-  messagingSenderId: "327602461080",
-  appId: "1:327602461080:web:eb96abf94de99d1bac73ed"
+    apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8",
+    authDomain: "event-management-93edc.firebaseapp.com",
+    projectId: "event-management-93edc",
+    storageBucket: "event-management-93edc.firebasestorage.app",
+    messagingSenderId: "327602461080",
+    appId: "1:327602461080:web:eb96abf94de99d1bac73ed",
+    measurementId: "G-NFFDH9C4ZF"
 };
 
 
-/* INITIALIZE FIREBASE */
+/* ---------- INITIALIZE FIREBASE ---------- */
 
-const app = getApps().length
-  ? getApp()
-  : initializeApp(firebaseConfig);
-
+const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-/* GET FORM ELEMENTS */
+/* ---------- FORM ELEMENTS ---------- */
 
-const form = document.getElementById("bookingForm");
-const message = document.getElementById("formMessage");
+const bookingForm = document.getElementById("bookingForm");
 const submitButton = document.getElementById("submitBooking");
-const dateInput = document.getElementById("date");
+const formMessage = document.getElementById("formMessage");
 
 
-/* DISPLAY MESSAGE */
+/* ---------- FORM MESSAGE ---------- */
 
-function showMessage(text, type = "error") {
-  if (!message) return;
+function showMessage(message, type = "success") {
 
-  message.textContent = text;
+    if (!formMessage) return;
 
-  message.style.color =
-    type === "success" ? "#76c69a" :
-    type === "info" ? "#e2c486" :
-    "#e58b83";
+    formMessage.textContent = message;
 
-  message.setAttribute("role", "status");
-  message.setAttribute("aria-live", "polite");
+    formMessage.style.padding = "12px 15px";
+    formMessage.style.marginTop = "15px";
+    formMessage.style.borderRadius = "8px";
+    formMessage.style.fontSize = "14px";
+    formMessage.style.display = "block";
+
+    if (type === "success") {
+
+        formMessage.style.background = "#e8f5e9";
+        formMessage.style.color = "#256438";
+        formMessage.style.border = "1px solid #b8dfbd";
+
+    } else {
+
+        formMessage.style.background = "#fff0ee";
+        formMessage.style.color = "#a33b32";
+        formMessage.style.border = "1px solid #efc4bf";
+
+    }
+
 }
 
 
-/* GET TODAY'S LOCAL DATE */
+/* ---------- READ FORM FIELD ---------- */
 
-function getLocalDate() {
-  const now = new Date();
+function getFieldValue(name) {
 
-  now.setMinutes(
-    now.getMinutes() - now.getTimezoneOffset()
-  );
+    const field = bookingForm.elements.namedItem(name);
 
-  return now.toISOString().split("T")[0];
+    return field ? field.value.trim() : "";
+
 }
 
 
-/* SET MINIMUM EVENT DATE */
+/* ---------- EMAIL VALIDATION ---------- */
 
-if (dateInput) {
-  dateInput.min = getLocalDate();
+function isValidEmail(email) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
 }
 
 
-/* PREVENT DUPLICATE SUBMISSIONS */
+/* ---------- PHONE VALIDATION ---------- */
 
-let isSubmitting = false;
+function isValidPhone(phone) {
 
+    const cleanedPhone = phone.replace(/[\s()+-]/g, "");
 
-/* HANDLE BOOKING FORM */
-
-if (form && submitButton && message && dateInput) {
-
-  form.addEventListener("submit", async (event) => {
-
-    event.preventDefault();
-
-    // Prevent multiple submissions
-    if (isSubmitting) return;
-
-    // Browser's built-in validation
-    if (!form.reportValidity()) return;
-
-
-    /* GET CUSTOMER DETAILS */
-
-    const name = document.getElementById("name").value.trim();
-
-    const phone = document.getElementById("phone").value.trim();
-
-    const email = document.getElementById("email").value.trim();
-
-    const eventType = document.getElementById("eventType").value;
-
-    const eventDate = dateInput.value;
-
-    const guests = Number(
-      document.getElementById("guests").value
-    );
-
-    const location = document.getElementById("location").value.trim();
-
-    const budget = document.getElementById("budget").value;
-
-    const requirements = document.getElementById("requirements").value.trim();
-
-
-    /* GET SELECTED SERVICES */
-
-    const services = Array.from(
-      form.querySelectorAll('input[name="services"]:checked')
-    ).map(item => item.value);
-
-
-    /* GET CONSENT */
-
-    const consent = document.getElementById("consent").checked;
-
-
-    /* VALIDATION */
-
-    if (
-      !name ||
-      !phone ||
-      !email ||
-      !eventType ||
-      !eventDate ||
-      !location ||
-      !consent
-    ) {
-      showMessage("Please complete all required fields.");
-      return;
-    }
-
-
-    // Validate customer name
-    if (name.length < 2 || name.length > 100) {
-      showMessage("Please enter a valid name.");
-      return;
-    }
-
-
-    // Validate email
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailPattern.test(email)) {
-      showMessage("Please enter a valid email address.");
-      return;
-    }
-
-
-    // Validate phone number
-    if (!/^[0-9+\-\s()]{7,20}$/.test(phone)) {
-      showMessage("Please enter a valid phone number.");
-      return;
-    }
-
-
-    // Validate guest count
-    if (
-      !Number.isInteger(guests) ||
-      guests < 1 ||
-      guests > 100000
-    ) {
-      showMessage("Please enter a valid guest count.");
-      return;
-    }
-
-
-    // Validate event date
-    if (eventDate < getLocalDate()) {
-      showMessage("Please select today or a future date.");
-      return;
-    }
-
-
-    /* PREPARE BOOKING */
-
-    const bookingData = {
-      name,
-      phone,
-      email,
-      eventType,
-      eventDate,
-      guests,
-      budget,
-      location,
-      services,
-      requirements,
-      status: "Pending",
-      createdAt: serverTimestamp()
-    };
-
-
-    /* SUBMIT TO FIREBASE */
-
-    isSubmitting = true;
-
-    submitButton.disabled = true;
-    submitButton.textContent = "Submitting Your Enquiry...";
-
-    showMessage(
-      "Please wait while we submit your enquiry.",
-      "info"
-    );
-
-    try {
-
-      const result = await addDoc(
-        collection(db, "bookings"),
-        bookingData
-      );
-
-
-      /* SUCCESS MESSAGE */
-
-      showMessage(
-        "Thank you for choosing EVENTORA! Your event enquiry has been received successfully. Your reference ID is: " + result.id,
-        "success"
-      );
-
-
-      // Reset form after successful submission
-      form.reset();
-
-      // Prevent past dates after reset
-      dateInput.min = getLocalDate();
-
-      // Return focus to the form heading if available
-      const heading = form.querySelector("h2");
-
-      if (heading) {
-        heading.setAttribute("tabindex", "-1");
-        heading.focus();
-      }
-
-    } catch (error) {
-
-      console.error(
-        "EVENTORA booking submission error:",
-        error
-      );
-
-      showMessage(
-        "We couldn't submit your enquiry. Please check your internet connection and try again."
-      );
-
-    } finally {
-
-      isSubmitting = false;
-
-      submitButton.disabled = false;
-
-      submitButton.textContent = "Send Event Enquiry";
-
-    }
-
-  });
-
-} else {
-
-  console.error(
-    "EVENTORA: Booking form or required elements were not found."
-  );
+    return /^\d{10,13}$/.test(cleanedPhone);
 
 }
+
+
+/* ---------- EVENT DATE VALIDATION ---------- */
+
+function isValidEventDate(dateValue) {
+
+    if (!dateValue) return false;
+
+    const selectedDate = new Date(dateValue + "T00:00:00");
+
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    return !Number.isNaN(selectedDate.getTime()) &&
+        selectedDate >= today;
+
+}
+
+
+/* ---------- GET SELECTED SERVICES ---------- */
+
+function getSelectedServices() {
+
+    return Array.from(
+        bookingForm.querySelectorAll(
+            'input[name="services"]:checked'
+        )
+    ).map(function (checkbox) {
+
+        return checkbox.value;
+
+    });
+
+}
+
+
+/* ---------- FORM SUBMISSION ---------- */
+
+if (bookingForm) {
+
+    bookingForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        if (submitButton.disabled) return;
+
+        /* Read customer details */
+
+        const name = getFieldValue("name");
+        const phone = getFieldValue("phone");
+        const email = getFieldValue("email");
+        const eventType = getFieldValue("eventType");
+        const date = getFieldValue("date");
+        const guests = getFieldValue("guests");
+        const location = getFieldValue("location");
+        const budget = getFieldValue("budget");
+        const requirements = getFieldValue("requirements");
+
+        const services = getSelectedServices();
+
+        const consent = bookingForm.elements.namedItem("consent");
+
+        /* ---------- VALIDATION ---------- */
+
+        if (!name || !phone || !email || !eventType ||
+            !date || !guests || !location || !budget) {
+
+            showMessage(
+                "Please complete all required fields.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (name.length < 2) {
+
+            showMessage(
+                "Please enter your full name.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (!isValidPhone(phone)) {
+
+            showMessage(
+                "Please enter a valid phone number.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+
+            showMessage(
+                "Please enter a valid email address.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (!isValidEventDate(date)) {
+
+            showMessage(
+                "Please select today or a future event date.",
+                "error"
+            );
+
+            return;
+        }
+
+        const guestCount = Number(guests);
+
+        if (!Number.isInteger(guestCount) || guestCount < 1) {
+
+            showMessage(
+                "Please enter a valid number of guests.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (consent && !consent.checked) {
+
+            showMessage(
+                "Please accept the consent checkbox before submitting.",
+                "error"
+            );
+
+            return;
+        }
+
+        /* ---------- PREPARE BOOKING ---------- */
+
+        const bookingData = {
+
+            name: name,
+            phone: phone,
+            email: email,
+
+            eventType: eventType,
+            date: date,
+            guests: guestCount,
+
+            location: location,
+            budget: budget,
+
+            services: services,
+            requirements: requirements,
+
+            status: "pending",
+
+            createdAt: serverTimestamp()
+
+        };
+
+        /* ---------- SUBMIT TO FIREBASE ---------- */
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting Booking...";
+
+        showMessage(
+            "Please wait while we submit your booking...",
+            "success"
+        );
+
+        try {
+
+            const bookingRef = await addDoc(
+                collection(db, "bookings"),
+                bookingData
+            );
+
+            console.log(
+                "EVENTORA booking created:",
+                bookingRef.id
+            );
+
+            showMessage(
+                "Your booking enquiry has been submitted successfully! EVENTORA will contact you soon.",
+                "success"
+            );
+
+            bookingForm.reset();
+
+        } catch (error) {
+
+            console.error(
+                "EVENTORA booking submission error:",
+                error
+            );
+
+            showMessage(
+                "Sorry, we could not submit your booking. Please check your internet connection and try again.",
+                "error"
+            );
+
+        } finally {
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Booking";
+
+        }
+
+    });
+
+}
+
+
+/* ---------- EVENTORA BRANDING ---------- */
+
+console.log("EVENTORA Booking System initialized.");
