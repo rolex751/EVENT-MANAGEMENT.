@@ -2,312 +2,816 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Discover EVENTORA, a Bengaluru-based event management team creating memorable weddings, celebrations, corporate events and special occasions.">
+    <title>About Us | EVENTORA - Creating Moments, Designing Memories</title>
 
-  <meta name="keywords" content="EVENTORA, event management Bengaluru, wedding planners, birthday events, corporate events, event organizers Karnataka">
+    <meta name="description" content="Discover EVENTORA, an event management company creating memorable weddings, birthdays, corporate events and celebrations in Bengaluru.">
 
-  <meta name="author" content="EVENTORA">
+    <meta name="keywords" content="EVENTORA, event management Bengaluru, wedding planning, birthday events, corporate events">
 
-  <meta name="theme-color" content="#101010">
+    <meta name="theme-color" content="#392a1d">
 
-  <title>About EVENTORA | Creating Moments, Designing Memories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
-  <script src="js/script.js" defer></script>
+    <style>
+        .about-royal {
+            --gold: #c7a66a;
+            --brown: #392a1d;
+            --cream: #f8f5ee;
+            --muted: #766c60;
+            font-family: 'Poppins', sans-serif;
+            color: var(--brown);
+        }
+
+        .about-royal h1,
+        .about-royal h2,
+        .about-royal h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .about-hero {
+            min-height: 460px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            color: white;
+            background:
+                linear-gradient(rgba(38, 27, 18, .75), rgba(38, 27, 18, .72)),
+                url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1800&q=85') center/cover;
+        }
+
+        .about-hero-content {
+            max-width: 800px;
+        }
+
+        .about-eyebrow {
+            color: var(--gold);
+            letter-spacing: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(42px, 7vw, 68px);
+            line-height: 1.12;
+            margin: 18px 0;
+        }
+
+        .about-hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #f1e9dd;
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+        .about-royal-section {
+            padding: 85px 0;
+        }
+
+        .about-inner {
+            width: min(1160px, 90%);
+            margin: auto;
+        }
+
+        .about-intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 55px;
+            align-items: center;
+        }
+
+        .about-intro-image img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 18px 18px 0 #e9dfcc;
+        }
+
+        .about-label {
+            color: #a17c3f;
+            letter-spacing: 3px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .about-intro h2,
+        .about-section-heading h2 {
+            font-size: clamp(32px, 4vw, 44px);
+            line-height: 1.2;
+            margin: 15px 0 20px;
+        }
+
+        .about-intro p,
+        .about-section-heading p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .about-highlight {
+            margin-top: 25px;
+            padding: 18px 20px;
+            border-left: 4px solid var(--gold);
+            background: #f8f5ee;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        .about-values-section {
+            background: var(--cream);
+        }
+
+        .about-section-heading {
+            max-width: 700px;
+            margin: 0 auto 45px;
+            text-align: center;
+        }
+
+        .about-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .about-info-card {
+            padding: 35px;
+            border: 1px solid #e8dfd0;
+            border-radius: 14px;
+            background: white;
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        .about-info-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(57, 42, 29, .09);
+        }
+
+        .about-icon {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f4ead8;
+            color: #9a7439;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .about-info-card h3 {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .about-info-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+            margin: 0;
+        }
+
+        .about-values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .about-value-card {
+            padding: 28px 20px;
+            text-align: center;
+            border: 1px solid #e8dfd0;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .about-value-card span {
+            font-size: 30px;
+        }
+
+        .about-value-card h3 {
+            margin: 14px 0 10px;
+            font-size: 21px;
+        }
+
+        .about-value-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .about-process-section {
+            background: #392a1d;
+            color: white;
+        }
+
+        .about-process-section .about-section-heading h2 {
+            color: white;
+        }
+
+        .about-process-section .about-section-heading p {
+            color: #e1d5c4;
+        }
+
+        .about-process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .about-process-card {
+            padding: 25px 20px;
+            border: 1px solid rgba(255,255,255,.17);
+            border-radius: 12px;
+            background: rgba(255,255,255,.05);
+        }
+
+        .about-process-number {
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+        }
+
+        .about-process-card h3 {
+            font-size: 21px;
+            margin: 12px 0;
+            color: white;
+        }
+
+        .about-process-card p {
+            color: #ded2c1;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .about-why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .about-why-card {
+            padding: 28px;
+            border: 1px solid #e8dfd0;
+            border-radius: 12px;
+        }
+
+        .about-why-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .about-why-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .about-cta {
+            padding: 75px 20px;
+            text-align: center;
+            background: #f1e8d8;
+        }
+
+        .about-cta h2 {
+            font-size: clamp(32px, 5vw, 45px);
+            margin-bottom: 15px;
+        }
+
+        .about-cta p {
+            max-width: 620px;
+            margin: 0 auto 25px;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        .about-cta .about-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 7px;
+            background: var(--brown);
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background .2s;
+        }
+
+        .about-cta .about-btn:hover {
+            background: #6a4d32;
+        }
+
+        @media(max-width: 900px) {
+            .about-intro-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .about-values-grid,
+            .about-process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .about-hero {
+                min-height: 390px;
+            }
+
+            .about-hero h1 {
+                font-size: 42px;
+            }
+
+            .about-royal-section {
+                padding: 60px 0;
+            }
+
+            .about-intro-image img {
+                height: 320px;
+            }
+
+            .about-info-grid,
+            .about-values-grid,
+            .about-process-grid,
+            .about-why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-info-card {
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <div class="container nav-container">
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container navbar">
 
-    <a class="logo" href="index.html" aria-label="EVENTORA Home">
-      <span class="logo-mark">E</span>
-      <span>EVENTORA</span>
-    </a>
+            <a href="index.html" class="logo">EVENTORA</a>
 
-    <button
-      class="menu-toggle"
-      id="menuToggle"
-      aria-label="Open navigation"
-      aria-expanded="false"
-      aria-controls="navLinks"
-      type="button"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+            <button class="menu-toggle"
+                    id="menuToggle"
+                    type="button"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">
+                ☰
+            </button>
 
-    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a class="active" href="about.html" aria-current="page">About</a>
-      <a href="services.html">Services</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-      <a class="nav-book" href="booking.html">Book an Event</a>
-    </nav>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html" class="active" aria-current="page">About</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="booking.html">Book Event</a>
+                <a href="contact.html">Contact</a>
+            </nav>
 
-  </div>
-</header>
-
-<main>
-
-  <!-- ABOUT BANNER -->
-  <section class="page-banner about-banner">
-    <div class="container">
-
-      <p class="eyebrow">THE STORY BEHIND EVENTORA</p>
-
-      <h1>About <span>EVENTORA</span></h1>
-
-      <p>
-        Creating extraordinary experiences through thoughtful planning,
-        creativity and unforgettable moments.
-      </p>
-
-      <div class="breadcrumbs">
-        <a href="index.html">Home</a> / About Us
-      </div>
-
-    </div>
-  </section>
+        </div>
+    </header>
 
 
-  <!-- WHO WE ARE -->
-  <section class="section-padding">
-    <div class="container about-grid">
+    <main class="about-royal">
 
-      <div class="about-image">
-        <img
-          src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
-          alt="Beautifully arranged event venue with elegant decorations"
-          loading="lazy"
-        >
-        <div class="image-caption">Every detail matters.</div>
-      </div>
+        <!-- HERO -->
+        <section class="about-hero">
 
-      <div class="about-copy">
+            <div class="about-hero-content">
 
-        <p class="eyebrow">WHO WE ARE</p>
+                <span class="about-eyebrow">Welcome to EVENTORA</span>
 
-        <h2 class="section-title">
-          Turning Ideas Into <span>Unforgettable Experiences</span>
-        </h2>
+                <h1>Our Story, Your Celebrations</h1>
 
-        <p class="body-text">
-          EVENTORA is an event management organization based in
-          Bengaluru, Karnataka. We believe that every celebration
-          has a story, and every special occasion deserves to be
-          planned with creativity, care and attention.
-        </p>
+                <p>
+                    Creating Moments. Designing Memories.
+                    We bring your ideas to life through thoughtful
+                    planning, creative concepts and memorable
+                    celebrations.
+                </p>
 
-        <p class="body-text">
-          From beautiful weddings and birthday celebrations to
-          corporate gatherings and special events, we aim to bring
-          our clients' ideas to life through thoughtful planning
-          and organized coordination.
-        </p>
+            </div>
 
-        <p class="body-text">
-          Our approach is simple: understand your vision, respect
-          your budget, plan every detail and help make your special
-          moments truly memorable.
-        </p>
-
-        <a href="services.html" class="btn btn-gold">
-          Explore Our Services
-        </a>
-
-      </div>
-
-    </div>
-  </section>
+        </section>
 
 
-  <!-- VISION AND MISSION -->
-  <section class="section-padding section-dark">
-    <div class="container">
+        <!-- COMPANY INTRODUCTION -->
+        <section class="about-royal-section">
 
-      <div class="section-heading center">
-        <p class="eyebrow">OUR PURPOSE</p>
+            <div class="about-inner about-intro-grid">
 
-        <h2 class="section-title">
-          Our Vision & <span>Mission</span>
-        </h2>
+                <div class="about-intro-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1000&q=85"
+                        alt="Elegant event celebration setup"
+                        loading="lazy">
+                </div>
 
-        <p class="body-text">
-          The principles that inspire everything we plan and create.
-        </p>
-      </div>
+                <div class="about-intro">
 
-      <div class="two-card-grid">
+                    <span class="about-label">Who We Are</span>
 
-        <article class="info-card">
-          <div class="feature-icon">◎</div>
+                    <h2>Turning Your Special Ideas Into Unforgettable Experiences</h2>
 
-          <h3>Our Vision</h3>
+                    <p>
+                        EVENTORA is an event management brand focused on
+                        helping individuals, families and businesses plan
+                        meaningful celebrations and professional events.
+                    </p>
 
-          <p>
-            To become a trusted event management organization
-            recognized for creative ideas, meaningful experiences,
-            quality planning and dependable event coordination.
-          </p>
-        </article>
+                    <p>
+                        From weddings and birthday celebrations to
+                        corporate gatherings and special occasions,
+                        our approach is centred on understanding each
+                        customer's requirements and planning an event
+                        around their expectations.
+                    </p>
 
-        <article class="info-card">
-          <div class="feature-icon">✦</div>
+                    <p>
+                        We bring together creative ideas, organized
+                        planning and event service coordination to make
+                        the event journey easier for our customers.
+                    </p>
 
-          <h3>Our Mission</h3>
+                    <div class="about-highlight">
+                        Our goal is simple: make every celebration
+                        meaningful, organized and memorable.
+                    </div>
 
-          <p>
-            To understand every client's vision and transform
-            their ideas into memorable occasions through creativity,
-            careful preparation and professional service.
-          </p>
-        </article>
+                </div>
 
-      </div>
+            </div>
 
-    </div>
-  </section>
+        </section>
 
 
-  <!-- OUR VALUES -->
-  <section class="section-padding">
-    <div class="container">
+        <!-- VISION AND MISSION -->
+        <section class="about-royal-section about-values-section">
 
-      <div class="section-heading center">
-        <p class="eyebrow">WHAT MAKES US DIFFERENT</p>
+            <div class="about-inner">
 
-        <h2 class="section-title">
-          Values That Shape <span>Our Work</span>
-        </h2>
+                <div class="about-section-heading">
 
-        <p class="body-text">
-          Every successful event begins with the right values.
-        </p>
-      </div>
+                    <span class="about-label">Our Purpose</span>
 
-      <div class="feature-grid">
+                    <h2>Vision and Mission</h2>
 
-        <div class="feature">
-          <div class="feature-icon">◇</div>
-          <h3>Creativity</h3>
-          <p>
-            Fresh ideas and thoughtful concepts for every
-            celebration and occasion.
-          </p>
+                    <p>
+                        The principles that guide our approach to
+                        event planning and customer experiences.
+                    </p>
+
+                </div>
+
+                <div class="about-info-grid">
+
+                    <article class="about-info-card">
+
+                        <div class="about-icon">◎</div>
+
+                        <h3>Our Vision</h3>
+
+                        <p>
+                            To become a trusted event management brand
+                            known for creativity, customer satisfaction
+                            and thoughtfully organized celebrations.
+                            We aim to make quality event planning
+                            accessible for different occasions and budgets.
+                        </p>
+
+                    </article>
+
+                    <article class="about-info-card">
+
+                        <div class="about-icon">✦</div>
+
+                        <h3>Our Mission</h3>
+
+                        <p>
+                            To understand customer needs, coordinate
+                            suitable event services, offer practical
+                            planning solutions and create memorable
+                            experiences through attention to detail
+                            and responsible execution.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CORE VALUES -->
+        <section class="about-royal-section">
+
+            <div class="about-inner">
+
+                <div class="about-section-heading">
+
+                    <span class="about-label">What We Believe</span>
+
+                    <h2>Our Core Values</h2>
+
+                    <p>
+                        The values behind every idea, plan and
+                        customer interaction at EVENTORA.
+                    </p>
+
+                </div>
+
+                <div class="about-values-grid">
+
+                    <article class="about-value-card">
+                        <span>✧</span>
+                        <h3>Creativity</h3>
+                        <p>
+                            Bringing fresh ideas and thoughtful
+                            concepts to different celebrations.
+                        </p>
+                    </article>
+
+                    <article class="about-value-card">
+                        <span>♡</span>
+                        <h3>Customer First</h3>
+                        <p>
+                            Understanding customer expectations
+                            and respecting their preferences.
+                        </p>
+                    </article>
+
+                    <article class="about-value-card">
+                        <span>◇</span>
+                        <h3>Quality</h3>
+                        <p>
+                            Giving attention to details and
+                            maintaining professional standards.
+                        </p>
+                    </article>
+
+                    <article class="about-value-card">
+                        <span>✓</span>
+                        <h3>Reliability</h3>
+                        <p>
+                            Encouraging clear communication
+                            and organized event coordination.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HOW WE WORK -->
+        <section class="about-royal-section about-process-section">
+
+            <div class="about-inner">
+
+                <div class="about-section-heading">
+
+                    <span class="about-eyebrow">Our Approach</span>
+
+                    <h2>How We Make It Happen</h2>
+
+                    <p>
+                        A simple planning journey designed to
+                        understand your needs and organize your event.
+                    </p>
+
+                </div>
+
+                <div class="about-process-grid">
+
+                    <article class="about-process-card">
+                        <div class="about-process-number">01</div>
+                        <h3>Understand</h3>
+                        <p>
+                            We begin by understanding your event type,
+                            requirements, date, guest count and budget.
+                        </p>
+                    </article>
+
+                    <article class="about-process-card">
+                        <div class="about-process-number">02</div>
+                        <h3>Plan</h3>
+                        <p>
+                            We discuss suitable ideas, services
+                            and possible arrangements for your event.
+                        </p>
+                    </article>
+
+                    <article class="about-process-card">
+                        <div class="about-process-number">03</div>
+                        <h3>Coordinate</h3>
+                        <p>
+                            We work towards coordinating the
+                            selected event requirements and arrangements.
+                        </p>
+                    </article>
+
+                    <article class="about-process-card">
+                        <div class="about-process-number">04</div>
+                        <h3>Celebrate</h3>
+                        <p>
+                            Our aim is to help you enjoy your
+                            special occasion with greater confidence.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WHY CHOOSE US -->
+        <section class="about-royal-section">
+
+            <div class="about-inner">
+
+                <div class="about-section-heading">
+
+                    <span class="about-label">The EVENTORA Difference</span>
+
+                    <h2>Why Choose EVENTORA?</h2>
+
+                    <p>
+                        We focus on making the event planning process
+                        clearer, more personal and easier to manage.
+                    </p>
+
+                </div>
+
+                <div class="about-why-grid">
+
+                    <article class="about-why-card">
+                        <h3>Personalized Planning</h3>
+                        <p>
+                            Event ideas and service selections can be
+                            discussed according to your requirements.
+                        </p>
+                    </article>
+
+                    <article class="about-why-card">
+                        <h3>Budget Awareness</h3>
+                        <p>
+                            We consider your stated budget while
+                            discussing suitable event arrangements.
+                        </p>
+                    </article>
+
+                    <article class="about-why-card">
+                        <h3>Multiple Event Types</h3>
+                        <p>
+                            Explore planning support for weddings,
+                            birthdays, corporate functions and more.
+                        </p>
+                    </article>
+
+                    <article class="about-why-card">
+                        <h3>Service Coordination</h3>
+                        <p>
+                            Bring different event requirements
+                            together through an organized approach.
+                        </p>
+                    </article>
+
+                    <article class="about-why-card">
+                        <h3>Clear Communication</h3>
+                        <p>
+                            Share your requirements and discuss
+                            arrangements before confirming your event.
+                        </p>
+                    </article>
+
+                    <article class="about-why-card">
+                        <h3>Memorable Experiences</h3>
+                        <p>
+                            We aim to make every occasion special
+                            through thoughtful planning and creativity.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CALL TO ACTION -->
+        <section class="about-cta">
+
+            <div class="about-inner">
+
+                <span class="about-label">Let's Create Something Special</span>
+
+                <h2>Make Every Moment Unforgettable</h2>
+
+                <p>
+                    Have an event in mind? Tell us about your
+                    celebration, your expectations and your budget.
+                    Let's start planning together.
+                </p>
+
+                <a href="booking.html" class="about-btn">
+                    Plan Your Event
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+            <div class="footer-column">
+
+                <h2>EVENTORA</h2>
+
+                <p>
+                    Creating Moments. Designing Memories.
+                    Your ideas, our planning, unforgettable celebrations.
+                </p>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Quick Links</h3>
+
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html">Gallery</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Our Services</h3>
+
+                <a href="services.html">Wedding Events</a>
+                <a href="services.html">Birthday Events</a>
+                <a href="services.html">Corporate Events</a>
+                <a href="services.html">Decoration</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Get In Touch</h3>
+
+                <a href="contact.html">Contact Us</a>
+                <a href="booking.html">Book an Event</a>
+                <a href="admin.html">Admin Login</a>
+
+            </div>
+
         </div>
 
-        <div class="feature">
-          <div class="feature-icon">◎</div>
-          <h3>Reliability</h3>
-          <p>
-            Clear communication, organized preparation and
-            responsible coordination.
-          </p>
+        <div class="footer-bottom">
+            <p>
+                © <span id="year"></span> EVENTORA.
+                All Rights Reserved.
+            </p>
         </div>
 
-        <div class="feature">
-          <div class="feature-icon">✧</div>
-          <h3>Attention to Detail</h3>
-          <p>
-            Careful consideration of the little details that
-            make an event special.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">♡</div>
-          <h3>Customer Focus</h3>
-          <p>
-            Your ideas, preferences and expectations are
-            at the heart of our planning.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
+    </footer>
 
 
-  <!-- CALL TO ACTION -->
-  <section class="cta-section">
-    <div class="container cta-content">
-
-      <p class="eyebrow">LET'S CREATE SOMETHING SPECIAL</p>
-
-      <h2>Make Every Moment Unforgettable</h2>
-
-      <p>
-        Your vision deserves thoughtful planning.
-        Let's bring your next celebration to life.
-      </p>
-
-      <a href="booking.html" class="btn btn-gold">
-        Plan Your Event
-      </a>
-
-    </div>
-  </section>
-
-</main>
-
-
-<!-- FOOTER -->
-<footer class="site-footer">
-
-  <div class="container footer-grid">
-
-    <div>
-      <a class="logo footer-logo" href="index.html">
-        <span class="logo-mark">E</span>
-        <span>EVENTORA</span>
-      </a>
-
-      <p>
-        Creating Moments. Designing Memories.
-        Thoughtful event planning in Bengaluru, Karnataka.
-      </p>
-    </div>
-
-    <div>
-      <h3>Quick Links</h3>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="services.html">Services</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="booking.html">Booking</a>
-    </div>
-
-    <div>
-      <h3>Contact</h3>
-      <p>Bengaluru, Karnataka, India</p>
-      <a href="contact.html">Contact Us</a>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <p>
-      © <span id="year"></span> EVENTORA.
-      All rights reserved.
-    </p>
-  </div>
-
-</footer>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
+
