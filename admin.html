@@ -1,290 +1,189 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="description"
-    content="EVENTORA administrator dashboard for managing customer event enquiries and bookings.">
-
+  <meta name="description" content="EVENTORA administrator dashboard for managing customer event enquiries and bookings.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#111111">
+  <meta name="theme-color" content="#21180f">
 
   <title>Admin Dashboard | EVENTORA</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/admin.css">
-
   <script type="module" src="js/admin.js"></script>
 </head>
 
 <body>
 
-  <!-- ADMIN HEADER -->
   <header class="topbar">
-
     <a href="index.html" class="brand" aria-label="EVENTORA home">
-
       <span class="brand-mark">E</span>
-
-      <span>
+      <span class="brand-name">
         EVENTORA
-        <small>CREATING MEMORIES</small>
+        <small>CREATING MOMENTS. DESIGNING MEMORIES.</small>
       </span>
-
     </a>
-
     <span class="topbar-label">ADMINISTRATION</span>
-
   </header>
-
 
   <main class="page">
 
-
     <!-- ADMIN LOGIN -->
-    <section id="loginSection" class="login-card">
+    <section id="loginSection" class="login-shell">
 
-      <p class="eyebrow">PRIVATE ADMIN ACCESS</p>
+      <div class="login-card">
 
-      <h1>Welcome <span>Back</span></h1>
+        <div class="login-intro">
+          <div class="intro-emblem">E</div>
+          <p class="intro-kicker">PRIVATE ADMIN ACCESS</p>
+          <h1>Welcome<br><span>Back.</span></h1>
+          <div class="intro-line"></div>
+          <p class="intro-description">
+            Your events. Your customers. Your control.
+          </p>
+          <p class="intro-note">
+            Manage EVENTORA customer enquiries and bookings from one place.
+          </p>
+        </div>
 
-      <p class="muted">
-        Sign in to manage EVENTORA customer enquiries and bookings.
-      </p>
+        <div class="login-form-panel">
+          <p class="eyebrow">ADMINISTRATOR LOGIN</p>
+          <h2>Sign in to your account</h2>
+          <p class="form-description">
+            Enter your registered administrator details to continue.
+          </p>
 
+          <form id="loginForm">
 
-      <form id="loginForm">
+            <label for="adminEmail">Email Address</label>
+            <input
+              type="email"
+              id="adminEmail"
+              placeholder="Enter administrator email"
+              autocomplete="username"
+              required
+            >
 
-        <label for="adminEmail">
-          Email Address
-        </label>
+            <label for="adminPassword">Password</label>
+            <input
+              type="password"
+              id="adminPassword"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            >
 
-        <input
-          type="email"
-          id="adminEmail"
-          placeholder="Enter administrator email"
-          autocomplete="username"
-          required
-        >
+            <button type="submit" id="loginButton" class="gold-button">
+              Sign In to Dashboard
+              <span aria-hidden="true">→</span>
+            </button>
 
+          </form>
 
-        <label for="adminPassword">
-          Password
-        </label>
+          <p id="loginMessage" class="message" role="status" aria-live="polite"></p>
 
-        <input
-          type="password"
-          id="adminPassword"
-          placeholder="Enter password"
-          autocomplete="current-password"
-          required
-        >
+          <div class="secure-note">
+            <span aria-hidden="true">◆</span>
+            SECURE ACCESS · AUTHORISED ADMINISTRATORS ONLY
+          </div>
+        </div>
 
-
-        <button
-          type="submit"
-          id="loginButton"
-          class="gold-button">
-
-          Sign In to Dashboard
-
-        </button>
-
-      </form>
-
-
-      <p
-        id="loginMessage"
-        class="message"
-        role="status"
-        aria-live="polite">
-      </p>
-
-
-      <p class="login-footer">
-        EVENTORA | Authorised Administrators Only
-      </p>
-
+      </div>
     </section>
-
-
 
     <!-- ADMIN DASHBOARD -->
     <section id="dashboardSection" hidden>
 
-
-      <!-- DASHBOARD HEADING -->
       <div class="dashboard-heading">
-
-        <div>
-
+        <div class="dashboard-title">
           <p class="eyebrow">EVENTORA CONTROL CENTER</p>
-
-          <h1>
-            Admin <span>Dashboard</span>
-          </h1>
-
+          <h1>Admin <span>Dashboard</span></h1>
           <p class="muted">
             Manage event enquiries, customer requests and booking status.
           </p>
-
           <p class="admin-account">
-            Signed in as:
-            <strong id="signedInEmail"></strong>
+            Signed in as: <strong id="signedInEmail"></strong>
           </p>
-
         </div>
-
 
         <div class="heading-actions">
-
-          <button
-            id="refreshButton"
-            class="outline-button"
-            type="button">
-
-            Refresh
-
+          <button id="refreshButton" class="outline-button" type="button">
+            ↻ Refresh
           </button>
-
-
-          <button
-            id="logoutButton"
-            class="gold-button"
-            type="button">
-
+          <button id="logoutButton" class="gold-button logout-button" type="button">
             Logout
-
           </button>
-
         </div>
-
       </div>
 
-
-
-      <!-- DASHBOARD STATISTICS -->
       <div class="stats-grid">
 
-
         <div class="stat-card">
-
-          <span>Total Enquiries</span>
-
+          <span class="stat-icon">▤</span>
+          <p>Total Enquiries</p>
           <strong id="totalCount">0</strong>
-
         </div>
 
-
         <div class="stat-card">
-
-          <span>Pending</span>
-
+          <span class="stat-icon">◷</span>
+          <p>Pending</p>
           <strong id="pendingCount">0</strong>
-
         </div>
 
-
         <div class="stat-card">
-
-          <span>Accepted</span>
-
+          <span class="stat-icon">✓</span>
+          <p>Accepted</p>
           <strong id="acceptedCount">0</strong>
-
         </div>
 
-
         <div class="stat-card">
-
-          <span>Completed</span>
-
+          <span class="stat-icon">★</span>
+          <p>Completed</p>
           <strong id="completedCount">0</strong>
-
         </div>
 
       </div>
 
-
-
-      <!-- BOOKING MANAGEMENT -->
       <div class="booking-panel">
 
-
         <div class="panel-heading">
-
           <div>
-
             <p class="eyebrow">CUSTOMER REQUESTS</p>
-
             <h2>Event Enquiries</h2>
-
+            <p class="muted">View and manage customer booking requests.</p>
           </div>
-
 
           <input
             type="search"
             id="searchBookings"
             placeholder="Search name, email or phone..."
-            aria-label="Search event enquiries">
-
+            aria-label="Search event enquiries"
+          >
         </div>
 
+        <p id="dashboardMessage" class="message" role="status" aria-live="polite"></p>
 
-        <!-- DASHBOARD MESSAGE -->
-        <p
-          id="dashboardMessage"
-          class="message"
-          role="status"
-          aria-live="polite">
-        </p>
-
-
-        <!-- BOOKING LIST -->
         <div id="bookingList" class="booking-list">
-
-          <p class="muted">
-            Loading enquiries...
-          </p>
-
+          <p class="muted">Loading enquiries...</p>
         </div>
 
       </div>
-
-
     </section>
 
   </main>
 
-
-
-  <!-- FOOTER -->
-  <footer>
-
-    <p>
-      &copy; <span id="year"></span> EVENTORA.
-      All Rights Reserved.
-    </p>
-
-    <p>
-      Creating Moments. Designing Memories.
-    </p>
-
+  <footer class="site-footer">
+    <p>© <span id="year"></span> EVENTORA. All Rights Reserved.</p>
+    <p>Creating Moments. Designing Memories.</p>
   </footer>
 
-
-  <!-- COPYRIGHT YEAR -->
   <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
 </body>
