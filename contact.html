@@ -1,387 +1,564 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description"
-    content="Contact EVENTORA in Bengaluru for wedding planning, birthday parties, corporate events and customised event management services.">
+    <title>Contact EVENTORA | Event Management in Bengaluru</title>
+    <meta name="description" content="Contact EVENTORA for wedding planning, birthday celebrations, corporate events and complete event management in Bengaluru.">
 
-  <meta name="keywords"
-    content="EVENTORA, event management Bengaluru, wedding planners, birthday events, corporate events">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
-  <meta name="author" content="EVENTORA">
-  <meta name="theme-color" content="#111111">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <title>Contact Us | EVENTORA - Bengaluru</title>
+    <style>
+        :root {
+            --gold: #b68b52;
+            --gold-light: #d8b77f;
+            --brown: #38271e;
+            --cream: #fbf8f2;
+            --muted: #786b60;
+            --border: #e8dfd2;
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        body {
+            background: var(--cream);
+            color: var(--brown);
+            font-family: "DM Sans", sans-serif;
+        }
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
-    rel="stylesheet">
+        .contact-hero {
+            padding: 90px 20px;
+            text-align: center;
+            color: white;
+            background:
+                linear-gradient(rgba(37, 25, 18, .78), rgba(37, 25, 18, .78)),
+                url("https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1800&q=85")
+                center/cover;
+        }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+        .contact-hero span,
+        .section-label {
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 12px;
+            font-weight: 700;
+        }
 
-  <script src="js/script.js" defer></script>
+        .contact-hero h1 {
+            font: 600 clamp(40px, 5vw, 62px) "Playfair Display", serif;
+            margin: 15px 0;
+        }
+
+        .contact-hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #eee4d8;
+            line-height: 1.8;
+        }
+
+        .contact-section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 75px 20px;
+        }
+
+        .contact-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-heading .section-label {
+            color: var(--gold);
+        }
+
+        .contact-heading h2 {
+            font: 600 clamp(30px, 4vw, 43px) "Playfair Display", serif;
+            margin: 12px 0;
+        }
+
+        .contact-heading p {
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 32px 25px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(53, 38, 25, .05);
+            transition: .3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+            box-shadow: 0 14px 30px rgba(53, 38, 25, .1);
+        }
+
+        .contact-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 18px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #f4ecdf;
+            color: var(--gold);
+            font-size: 25px;
+        }
+
+        .contact-card h3 {
+            font: 600 22px "Playfair Display", serif;
+            margin: 0 0 10px;
+        }
+
+        .contact-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .contact-card a {
+            color: #98703e;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-card a:hover {
+            color: var(--brown);
+            text-decoration: underline;
+        }
+
+        .team-section {
+            background: #f1e9dd;
+            padding: 75px 20px;
+        }
+
+        .team-container {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .team-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .team-heading .section-label {
+            color: var(--gold);
+        }
+
+        .team-heading h2 {
+            font: 600 38px "Playfair Display", serif;
+            margin: 12px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .team-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .team-avatar {
+            width: 65px;
+            height: 65px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--brown);
+            color: var(--gold-light);
+            font: 600 25px "Playfair Display", serif;
+        }
+
+        .team-card h3 {
+            font: 600 23px "Playfair Display", serif;
+            margin: 0 0 5px;
+        }
+
+        .team-card p {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 0 0 12px;
+        }
+
+        .team-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .team-actions a {
+            color: #98703e;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .team-actions a:hover {
+            text-decoration: underline;
+        }
+
+        .location-section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 75px 20px;
+        }
+
+        .location-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .location-info {
+            padding: 40px;
+        }
+
+        .location-info .section-label {
+            color: var(--gold);
+        }
+
+        .location-info h2 {
+            font: 600 35px "Playfair Display", serif;
+            margin: 12px 0;
+        }
+
+        .location-info p {
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .location-info a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 22px;
+            background: var(--gold);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .location-info a:hover {
+            background: var(--brown);
+        }
+
+        .location-map {
+            min-height: 320px;
+            background: #e9dfd1;
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            border: 0;
+        }
+
+        .contact-cta {
+            padding: 75px 20px;
+            text-align: center;
+            background: var(--brown);
+            color: white;
+        }
+
+        .contact-cta h2 {
+            font: 600 clamp(30px, 4vw, 43px) "Playfair Display", serif;
+            margin: 12px 0;
+        }
+
+        .contact-cta p {
+            color: #e4d8ca;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .contact-cta a {
+            display: inline-block;
+            padding: 14px 30px;
+            background: var(--gold);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .contact-cta a:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+        }
+
+        @media(max-width: 850px) {
+            .contact-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .location-card {
+                grid-template-columns: 1fr;
+            }
+
+            .location-map {
+                min-height: 280px;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .contact-cards,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-card {
+                padding: 22px 17px;
+            }
+
+            .location-info {
+                padding: 28px 22px;
+            }
+
+            .team-heading h2 {
+                font-size: 31px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
+    <!-- HEADER -->
+    <header class="header">
+        <div class="navbar">
+            <a href="index.html" class="logo">EVENTORA</a>
 
-    <div class="container nav-container">
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation" aria-expanded="false">
+                ☰
+            </button>
 
-      <a class="logo" href="index.html">
-        <span class="logo-mark">E</span>
-        <span>EVENTORA<small>CREATING MEMORIES</small></span>
-      </a>
-
-      <button
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Open navigation"
-        aria-expanded="false"
-        aria-controls="navLinks">
-
-        <span></span>
-        <span></span>
-        <span></span>
-
-      </button>
-
-      <nav class="nav-links" id="navLinks">
-
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="gallery.html">Gallery</a>
-        <a class="active" href="contact.html" aria-current="page">Contact</a>
-        <a class="nav-book" href="booking.html">Book an Event</a>
-
-      </nav>
-
-    </div>
-
-  </header>
-
-
-  <main>
-
-    <!-- PAGE BANNER -->
-    <section class="page-banner contact-banner">
-
-      <div class="container">
-
-        <p class="eyebrow">WE WOULD LOVE TO HEAR FROM YOU</p>
-
-        <h1>Let's Make Your <span>Event Special</span></h1>
-
-        <p>
-          Have an event in mind? Get in touch with our team
-          and let's create something unforgettable.
-        </p>
-
-        <div class="breadcrumbs">
-          <a href="index.html">Home</a> / Contact
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="booking.html">Book Event</a>
+                <a href="contact.html" class="active">Contact</a>
+            </nav>
         </div>
+    </header>
 
-      </div>
-
+    <!-- HERO -->
+    <section class="contact-hero">
+        <span>We Would Love to Hear From You</span>
+        <h1>Get in Touch With Us</h1>
+        <p>
+            Have an event in mind? Contact EVENTORA and tell us
+            about your celebration. Let's start planning something special.
+        </p>
     </section>
 
-
-    <!-- CONTACT SECTION -->
-    <section class="section-padding">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <p class="eyebrow">GET IN TOUCH</p>
-
-          <h2 class="section-title">
-            Contact <span>EVENTORA</span>
-          </h2>
-
-          <p class="body-text">
-            We are here to help you plan your perfect celebration.
-            Contact our team using the details below.
-          </p>
-
-        </div>
-
-
-        <!-- CONTACT CARDS -->
-        <div class="contact-grid">
-
-
-          <!-- LOCATION -->
-          <div class="contact-card">
-
-            <div class="contact-icon">📍</div>
-
-            <h3>Our Location</h3>
-
-            <p>
-              UB City, Vittal Mallya Road,
-              Bengaluru, Karnataka, India
-            </p>
-
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=UB+City+Vittal+Mallya+Road+Bengaluru"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-link">
-
-              View Location →
-
-            </a>
-
-          </div>
-
-
-          <!-- DILEEP -->
-          <div class="contact-card">
-
-            <div class="contact-icon">📞</div>
-
-            <h3>Partner - Dileep</h3>
-
-            <p>Call us for event enquiries.</p>
-
-            <a href="tel:+917975106764" class="text-link">
-              +91 79751 06764
-            </a>
-
-            <br><br>
-
-            <a
-              href="https://wa.me/917975106764?text=Hello%20Dileep%2C%20I%20am%20interested%20in%20EVENTORA%20event%20management%20services."
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-link">
-
-              💬 WhatsApp Dileep →
-
-            </a>
-
-          </div>
-
-
-          <!-- AMITH -->
-          <div class="contact-card">
-
-            <div class="contact-icon">📞</div>
-
-            <h3>Partner - Amith</h3>
-
-            <p>Call us for event enquiries.</p>
-
-            <a href="tel:+919448209827" class="text-link">
-              +91 94482 09827
-            </a>
-
-            <br><br>
-
-            <a
-              href="https://wa.me/919448209827?text=Hello%20Amith%2C%20I%20am%20interested%20in%20EVENTORA%20event%20management%20services."
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-link">
-
-              💬 WhatsApp Amith →
-
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <!-- CONTACT BOTTOM -->
-        <div class="contact-bottom">
-
-
-          <!-- CONTACT INFORMATION -->
-          <div>
-
-            <p class="eyebrow">LET'S PLAN SOMETHING AMAZING</p>
-
-            <h2 class="section-title">
-              Your Dream Event <span>Starts Here</span>
-            </h2>
-
-            <p class="body-text">
-              Whether it is a wedding, birthday, engagement,
-              corporate event or family celebration, our team
-              is ready to understand your requirements.
-            </p>
-
-            <a href="booking.html" class="btn btn-gold">
-              Send an Event Enquiry →
-            </a>
-
-            <br><br>
-
-            <p class="body-text">
-              Have questions? Chat directly with our partners.
-            </p>
-
-            <a
-              href="https://wa.me/917975106764"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-gold">
-
-              💬 Chat on WhatsApp
-
-            </a>
-
-          </div>
-
-
-          <!-- MAP -->
-          <div class="map-placeholder">
-
-            <div class="map-pin">📍</div>
-
-            <h3>EVENTORA</h3>
-
-            <p>
-              UB City, Vittal Mallya Road,
-              Bengaluru, Karnataka, India
-            </p>
-
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=UB+City+Vittal+Mallya+Road+Bengaluru"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-link">
-
-              Explore on Google Maps ↗
-
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
+    <!-- CONTACT INFORMATION -->
+    <main>
+        <section class="contact-section">
+
+            <div class="contact-heading">
+                <span class="section-label">Contact Information</span>
+                <h2>We're Here to Help</h2>
+                <p>
+                    Reach out to us through phone, WhatsApp or our
+                    business location details.
+                </p>
+            </div>
+
+            <div class="contact-cards">
+
+                <article class="contact-card">
+                    <div class="contact-icon">☎</div>
+                    <h3>Call Us</h3>
+                    <p>Speak directly with our team about your event requirements.</p>
+                    <a href="tel:+917975106764">+91 79751 06764</a>
+                </article>
+
+                <article class="contact-card">
+                    <div class="contact-icon">✉</div>
+                    <h3>WhatsApp</h3>
+                    <p>Send us your event details and questions through WhatsApp.</p>
+                    <a href="https://wa.me/917975106764" target="_blank" rel="noopener noreferrer">
+                        Chat With EVENTORA
+                    </a>
+                </article>
+
+                <article class="contact-card">
+                    <div class="contact-icon">⌖</div>
+                    <h3>Our Location</h3>
+                    <p>Our displayed business location in Bengaluru, Karnataka.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=UB+City%2C+Vittal+Mallya+Road%2C+Bengaluru"
+                       target="_blank" rel="noopener noreferrer">
+                        View Location
+                    </a>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- TEAM CONTACTS -->
+        <section class="team-section">
+            <div class="team-container">
+
+                <div class="team-heading">
+                    <span class="section-label">Connect With Our Team</span>
+                    <h2>Talk to Our Representatives</h2>
+                </div>
+
+                <div class="team-grid">
+
+                    <article class="team-card">
+                        <div class="team-avatar">D</div>
+                        <div>
+                            <h3>Dileep</h3>
+                            <p>EVENTORA Representative</p>
+
+                            <div class="team-actions">
+                                <a href="tel:+917975106764">Call Now</a>
+                                <a href="https://wa.me/917975106764"
+                                   target="_blank" rel="noopener noreferrer">
+                                    WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="team-card">
+                        <div class="team-avatar">A</div>
+                        <div>
+                            <h3>Amith</h3>
+                            <p>EVENTORA Representative</p>
+
+                            <div class="team-actions">
+                                <a href="tel:+919448209827">Call Now</a>
+                                <a href="https://wa.me/919448209827"
+                                   target="_blank" rel="noopener noreferrer">
+                                    WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- LOCATION -->
+        <section class="location-section">
+
+            <div class="location-card">
+
+                <div class="location-info">
+                    <span class="section-label">Find Us</span>
+                    <h2>Our Business Location</h2>
+
+                    <p>
+                        UB City,<br>
+                        Vittal Mallya Road,<br>
+                        Bengaluru, Karnataka, India.
+                    </p>
+
+                    <p>
+                        Contact our team before visiting to confirm
+                        meeting arrangements.
+                    </p>
+
+                    <a href="https://www.google.com/maps/search/?api=1&query=UB+City%2C+Vittal+Mallya+Road%2C+Bengaluru"
+                       target="_blank" rel="noopener noreferrer">
+                        Get Directions →
+                    </a>
+                </div>
+
+                <div class="location-map">
+                    <iframe
+                        src="https://maps.google.com/maps?q=UB%20City%2C%20Bengaluru&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        title="Map showing UB City Bengaluru"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- CTA -->
+    <section class="contact-cta">
+        <span class="section-label">Your Celebration Starts Here</span>
+        <h2>Let's Create Something Unforgettable</h2>
+        <p>
+            Share your ideas with EVENTORA and take the first step
+            towards planning your special event.
+        </p>
+        <a href="booking.html">Book Your Event →</a>
     </section>
 
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h2>EVENTORA</h2>
+            <p>Creating Moments. Designing Memories.</p>
 
-    <!-- FINAL CTA -->
-    <section class="cta-section section-padding">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="booking.html">Booking</a>
+            </div>
 
-      <div class="container">
+            <p>© <span id="year"></span> EVENTORA. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-        <p class="eyebrow">CREATING MOMENTS. DESIGNING MEMORIES.</p>
+    <script src="js/script.js"></script>
 
-        <h2>Let's Make Your Next Celebration Extraordinary</h2>
-
-        <p>
-          Your ideas deserve exceptional planning.
-          Let's start creating something memorable.
-        </p>
-
-        <a href="booking.html" class="btn btn-gold">
-          Book Your Event
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-
-      <!-- BRAND -->
-      <div>
-
-        <a class="logo footer-logo" href="index.html">
-          <span class="logo-mark">E</span>
-          <span>EVENTORA<small>CREATING MEMORIES</small></span>
-        </a>
-
-        <p>
-          Turning your special moments into unforgettable memories.
-          Professional event planning in Bengaluru, Karnataka.
-        </p>
-
-      </div>
-
-
-      <!-- QUICK LINKS -->
-      <div>
-
-        <h3>Quick Links</h3>
-
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="booking.html">Book an Event</a>
-
-      </div>
-
-
-      <!-- CONTACT -->
-      <div>
-
-        <h3>Contact Us</h3>
-
-        <p>UB City, Bengaluru, Karnataka</p>
-
-        <p>
-          Dileep:
-          <a href="tel:+917975106764">+91 79751 06764</a>
-        </p>
-
-        <p>
-          Amith:
-          <a href="tel:+919448209827">+91 94482 09827</a>
-        </p>
-
-        <a
-          href="https://wa.me/917975106764"
-          target="_blank"
-          rel="noopener noreferrer">
-
-          WhatsApp Us
-
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <!-- COPYRIGHT -->
-    <div class="footer-bottom">
-
-      <p>
-        &copy; <span id="year"></span> EVENTORA.
-        All Rights Reserved.
-      </p>
-
-      <p>Creating Moments. Designing Memories.</p>
-
-    </div>
-
-  </footer>
+    <script>
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+    </script>
 
 </body>
 </html>
