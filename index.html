@@ -5,521 +5,1310 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO -->
-  <meta name="description" content="EVENTORA is your event management partner in Bengaluru. We plan weddings, birthdays, corporate events and unforgettable celebrations.">
-  <meta name="keywords" content="EVENTORA, event management Bengaluru, wedding planner Bengaluru, birthday party planner, corporate events">
-  <meta name="author" content="EVENTORA">
-  <meta name="theme-color" content="#111111">
-
   <title>EVENTORA | Premium Event Management in Bengaluru</title>
+
+  <meta name="description" content="EVENTORA creates unforgettable weddings, birthdays, corporate events and celebrations with premium event planning, catering, photography and decoration services in Bengaluru.">
+
+  <meta name="keywords" content="EVENTORA, event management Bengaluru, wedding planner, birthday events, catering, event decoration, photography">
+
+  <meta name="theme-color" content="#21180f">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Existing project stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
 
-  <script src="js/script.js" defer></script>
+  <style>
+    /* =================================
+       EVENTORA ROYAL HOMEPAGE
+       Page-specific styles
+    ================================= */
+
+    :root {
+      --royal-dark: #21180f;
+      --royal-brown: #382719;
+      --royal-gold: #c5a15b;
+      --royal-light-gold: #e6d2a5;
+      --royal-cream: #f8f4eb;
+      --royal-white: #fffdf8;
+      --royal-text: #40372d;
+      --royal-muted: #81766a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--royal-cream);
+      color: var(--royal-text);
+    }
+
+    .eventora-home a {
+      text-decoration: none;
+    }
+
+    .eventora-home img {
+      max-width: 100%;
+    }
+
+    .royal-container {
+      width: min(1180px, 90%);
+      margin: auto;
+    }
+
+    /* TOP BAR */
+
+    .royal-topbar {
+      background: var(--royal-dark);
+      color: var(--royal-light-gold);
+      padding: 9px 5%;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    /* NAVIGATION */
+
+    .royal-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(248, 244, 235, .97);
+      border-bottom: 1px solid rgba(197, 161, 91, .35);
+      backdrop-filter: blur(12px);
+    }
+
+    .royal-nav {
+      width: min(1280px, 92%);
+      min-height: 82px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .royal-logo {
+      color: var(--royal-dark);
+      font-family: 'Playfair Display', serif;
+      font-size: 29px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+
+    .royal-logo span {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--royal-gold);
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .royal-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .royal-nav-links a {
+      color: var(--royal-dark);
+      font-size: 13px;
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    .royal-nav-links a:hover,
+    .royal-nav-links a.active {
+      color: #a77c35;
+    }
+
+    .royal-nav-links .royal-nav-cta {
+      background: var(--royal-dark);
+      color: var(--royal-light-gold);
+      padding: 12px 20px;
+      border: 1px solid var(--royal-gold);
+      border-radius: 3px;
+    }
+
+    .royal-nav-links .royal-nav-cta:hover {
+      background: var(--royal-gold);
+      color: var(--royal-dark);
+    }
+
+    .royal-menu-button {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--royal-gold);
+      color: var(--royal-dark);
+      padding: 9px 12px;
+      border-radius: 3px;
+      font-size: 21px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .royal-hero {
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg,
+          rgba(25, 17, 11, .92) 0%,
+          rgba(25, 17, 11, .72) 48%,
+          rgba(25, 17, 11, .2) 100%),
+        url("https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2000&q=90")
+        center/cover no-repeat;
+    }
+
+    .royal-hero-content {
+      width: min(1180px, 90%);
+      margin: auto;
+      padding: 100px 0;
+      color: white;
+    }
+
+    .royal-eyebrow {
+      color: var(--royal-light-gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .royal-hero h1 {
+      max-width: 760px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(43px, 7vw, 78px);
+      font-weight: 600;
+      line-height: 1.12;
+      margin: 24px 0;
+    }
+
+    .royal-hero h1 span {
+      color: var(--royal-light-gold);
+    }
+
+    .royal-hero p {
+      max-width: 590px;
+      color: #eee5d7;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .royal-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 35px;
+    }
+
+    .royal-button {
+      display: inline-block;
+      padding: 15px 27px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      transition: .25s;
+      border: 1px solid var(--royal-gold);
+      border-radius: 3px;
+    }
+
+    .royal-button-primary {
+      background: var(--royal-gold);
+      color: var(--royal-dark);
+    }
+
+    .royal-button-primary:hover {
+      background: var(--royal-light-gold);
+    }
+
+    .royal-button-outline {
+      color: white;
+      background: transparent;
+    }
+
+    .royal-button-outline:hover {
+      background: white;
+      color: var(--royal-dark);
+    }
+
+    /* INTRODUCTION */
+
+    .royal-intro {
+      padding: 95px 0;
+      text-align: center;
+      background: var(--royal-cream);
+    }
+
+    .royal-section-label {
+      color: #a27b3e;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .royal-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--royal-dark);
+      font-weight: 600;
+      margin: 15px 0;
+    }
+
+    .royal-section-description {
+      max-width: 720px;
+      margin: 0 auto;
+      color: var(--royal-muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .royal-divider {
+      width: 65px;
+      height: 2px;
+      background: var(--royal-gold);
+      margin: 25px auto;
+    }
+
+    /* STATISTICS */
+
+    .royal-stats {
+      background: var(--royal-dark);
+      padding: 45px 0;
+    }
+
+    .royal-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .royal-stat h3 {
+      color: var(--royal-light-gold);
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      margin: 0 0 8px;
+    }
+
+    .royal-stat p {
+      color: #e3d8c5;
+      font-size: 12px;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    /* EVENT CATEGORIES */
+
+    .royal-categories {
+      padding: 90px 0;
+      background: var(--royal-white);
+    }
+
+    .royal-heading-center {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .royal-category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .royal-category-card {
+      position: relative;
+      height: 330px;
+      overflow: hidden;
+      border-radius: 5px;
+      background: var(--royal-dark);
+    }
+
+    .royal-category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+
+    .royal-category-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .royal-category-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      padding: 25px;
+      background: linear-gradient(transparent 20%, rgba(24, 16, 10, .88));
+    }
+
+    .royal-category-overlay h3 {
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 25px;
+      margin: 0 0 8px;
+    }
+
+    .royal-category-overlay p {
+      color: #eadfcf;
+      font-size: 13px;
+      margin: 0;
+    }
+
+    /* SERVICES */
+
+    .royal-services {
+      padding: 95px 0;
+      background: var(--royal-cream);
+    }
+
+    .royal-service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .royal-service-card {
+      background: white;
+      border: 1px solid #e8dfd0;
+      border-radius: 5px;
+      overflow: hidden;
+      transition: .25s;
+    }
+
+    .royal-service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(47, 33, 19, .1);
+    }
+
+    .royal-service-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .royal-service-card-content {
+      padding: 20px;
+    }
+
+    .royal-service-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--royal-dark);
+      font-size: 20px;
+      margin: 0 0 10px;
+    }
+
+    .royal-service-card p {
+      color: var(--royal-muted);
+      font-size: 12px;
+      line-height: 1.8;
+      min-height: 45px;
+    }
+
+    .royal-service-card a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #987035;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* WHY EVENTORA */
+
+    .royal-why {
+      background: var(--royal-dark);
+      padding: 95px 0;
+      color: white;
+    }
+
+    .royal-why .royal-section-title {
+      color: white;
+    }
+
+    .royal-why .royal-section-description {
+      color: #d6cabb;
+    }
+
+    .royal-why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 45px;
+    }
+
+    .royal-why-card {
+      border: 1px solid rgba(197, 161, 91, .45);
+      padding: 30px;
+      border-radius: 4px;
+    }
+
+    .royal-why-number {
+      font-family: 'Playfair Display', serif;
+      color: var(--royal-gold);
+      font-size: 32px;
+    }
+
+    .royal-why-card h3 {
+      color: var(--royal-light-gold);
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+    }
+
+    .royal-why-card p {
+      color: #d7cbbb;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    /* HOW IT WORKS */
+
+    .royal-process {
+      padding: 95px 0;
+      background: var(--royal-white);
+    }
+
+    .royal-process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin-top: 45px;
+    }
+
+    .royal-process-card {
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .royal-process-icon {
+      width: 58px;
+      height: 58px;
+      border: 1px solid var(--royal-gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      color: #987035;
+      font-family: 'Playfair Display', serif;
+      font-size: 23px;
+    }
+
+    .royal-process-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--royal-dark);
+      font-size: 19px;
+    }
+
+    .royal-process-card p {
+      color: var(--royal-muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* GALLERY PREVIEW */
+
+    .royal-gallery {
+      padding: 90px 0;
+      background: #eee6d8;
+    }
+
+    .royal-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .royal-gallery-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 3px;
+    }
+
+    /* CTA */
+
+    .royal-cta {
+      padding: 90px 20px;
+      text-align: center;
+      background:
+        linear-gradient(rgba(28, 19, 12, .88), rgba(28, 19, 12, .88)),
+        url("https://images.unsplash.com/photo-1507504031003-b417219a0fda?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+      color: white;
+    }
+
+    .royal-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      color: var(--royal-light-gold);
+    }
+
+    .royal-cta p {
+      color: #eee3d2;
+      max-width: 650px;
+      margin: 15px auto 30px;
+      line-height: 1.8;
+    }
+
+    /* FOOTER */
+
+    .royal-footer {
+      background: #17110b;
+      color: #e7ddce;
+      padding: 65px 0 20px;
+    }
+
+    .royal-footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 45px;
+    }
+
+    .royal-footer h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--royal-light-gold);
+      letter-spacing: 3px;
+    }
+
+    .royal-footer h3 {
+      color: var(--royal-light-gold);
+      font-size: 14px;
+    }
+
+    .royal-footer p,
+    .royal-footer a {
+      color: #c8bcaa;
+      font-size: 12px;
+      line-height: 2;
+    }
+
+    .royal-footer a {
+      display: block;
+    }
+
+    .royal-footer a:hover {
+      color: var(--royal-gold);
+    }
+
+    .royal-footer-bottom {
+      border-top: 1px solid rgba(197, 161, 91, .3);
+      margin-top: 45px;
+      padding-top: 20px;
+      text-align: center;
+      color: #b9ad9d;
+      font-size: 11px;
+    }
+
+    /* RESPONSIVE DESIGN */
+
+    @media(max-width: 1000px) {
+      .royal-nav-links {
+        gap: 14px;
+      }
+
+      .royal-nav-links a {
+        font-size: 12px;
+      }
+
+      .royal-service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .royal-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 760px) {
+      .royal-nav {
+        min-height: 72px;
+      }
+
+      .royal-menu-button {
+        display: block;
+      }
+
+      .royal-nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        padding: 20px 5%;
+        background: var(--royal-cream);
+        border-bottom: 1px solid var(--royal-gold);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .royal-nav-links.open {
+        display: flex;
+      }
+
+      .royal-nav-links a {
+        padding: 13px 5px;
+        border-bottom: 1px solid #e7ddce;
+      }
+
+      .royal-nav-links .royal-nav-cta {
+        text-align: center;
+        margin-top: 12px;
+      }
+
+      .royal-hero {
+        min-height: 580px;
+      }
+
+      .royal-hero-content {
+        padding: 75px 0;
+      }
+
+      .royal-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 35px;
+      }
+
+      .royal-category-grid,
+      .royal-why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .royal-process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .royal-footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .royal-footer-grid > div:first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media(max-width: 480px) {
+      .royal-category-grid,
+      .royal-service-grid,
+      .royal-why-grid,
+      .royal-process-grid,
+      .royal-gallery-grid,
+      .royal-footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .royal-footer-grid > div:first-child {
+        grid-column: auto;
+      }
+
+      .royal-category-card {
+        height: 280px;
+      }
+
+      .royal-service-card img {
+        height: 220px;
+      }
+
+      .royal-gallery-grid img {
+        height: 240px;
+      }
+
+      .royal-hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .royal-button {
+        text-align: center;
+      }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
-<body>
+<body class="eventora-home">
 
-<!-- ================= HEADER ================= -->
+  <!-- TOP BAR -->
+  <div class="royal-topbar">
+    PREMIUM EVENT PLANNING · WEDDINGS · CELEBRATIONS · CORPORATE EVENTS
+  </div>
 
-<header class="site-header">
-  <div class="container nav-container">
+  <!-- NAVIGATION -->
+  <header class="royal-header">
+    <nav class="royal-nav">
 
-    <a class="logo" href="index.html" aria-label="EVENTORA Home">
-      <span class="logo-mark">E</span>
-      <span>EVENTORA</span>
-    </a>
+      <a href="index.html" class="royal-logo">
+        EVENTORA
+        <span>EVENT MANAGEMENT</span>
+      </a>
 
-    <button
-      class="menu-toggle"
-      id="menuToggle"
-      aria-label="Open navigation"
-      aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+      <button
+        class="royal-menu-button"
+        id="royalMenuButton"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="royalNavigation">
+        ☰
+      </button>
 
-    <nav class="nav-links" id="navLinks">
-      <a class="active" href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-      <a class="nav-book" href="booking.html">Plan Your Event</a>
+      <div class="royal-nav-links" id="royalNavigation">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Booking</a>
+        <a href="contact.html">Contact</a>
+        <a href="booking.html" class="royal-nav-cta">Plan Your Event</a>
+      </div>
+
     </nav>
+  </header>
 
-  </div>
-</header>
+  <main>
 
+    <!-- HERO SECTION -->
+    <section class="royal-hero">
+      <div class="royal-hero-content">
 
-<main>
+        <div class="royal-eyebrow">
+          Welcome to EVENTORA
+        </div>
 
-<!-- ================= HERO SECTION ================= -->
+        <h1>
+          Creating Moments.<br>
+          Designing <span>Memories.</span>
+        </h1>
 
-<section class="hero">
+        <p>
+          From beautiful weddings to grand celebrations and professional
+          corporate events, EVENTORA brings your vision to life with
+          creativity, elegance and thoughtful planning.
+        </p>
 
-  <div class="hero-overlay"></div>
-
-  <div class="container hero-content">
-
-    <p class="eyebrow">WELCOME TO EVENTORA</p>
-
-    <h1>
-      Creating Moments.<br>
-      Designing <span>Memories.</span>
-    </h1>
-
-    <p class="hero-description">
-      From beautiful weddings to unforgettable celebrations,
-      we turn your ideas into extraordinary experiences
-      with creativity, elegance and thoughtful planning.
-    </p>
-
-    <div class="hero-buttons">
-
-      <a href="booking.html" class="btn btn-gold">
-        Plan Your Event →
-      </a>
-
-      <a href="services.html" class="btn btn-outline">
-        Explore Our Services
-      </a>
-
-    </div>
-
-    <p class="hero-location">
-      PREMIUM EVENT MANAGEMENT · BENGALURU, INDIA
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- ================= INTRODUCTION ================= -->
-
-<section class="intro section-padding">
-
-  <div class="container intro-grid">
-
-    <div>
-
-      <p class="eyebrow">THE EVENTORA EXPERIENCE</p>
-
-      <h2 class="section-title">
-        Every Event Has a Story.
-        <span>Let's Make Yours Special.</span>
-      </h2>
-
-    </div>
-
-    <div>
-
-      <p class="body-text">
-        At EVENTORA, we believe that every celebration deserves
-        something extraordinary. We bring together creativity,
-        thoughtful planning and professional coordination
-        to create memorable experiences.
-      </p>
-
-      <p class="body-text">
-        Whether you are planning an intimate gathering,
-        a dream wedding or a corporate celebration,
-        we help bring your vision to life.
-      </p>
-
-      <a href="about.html" class="text-link">
-        Discover Our Story →
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= SERVICES ================= -->
-
-<section class="services-preview section-padding section-dark">
-
-  <div class="container">
-
-    <div class="section-heading center">
-
-      <p class="eyebrow">WHAT WE CREATE</p>
-
-      <h2 class="section-title">
-        Our Signature <span>Services</span>
-      </h2>
-
-      <p class="body-text">
-        From intimate gatherings to grand celebrations,
-        we plan every occasion with care.
-      </p>
-
-    </div>
-
-
-    <div class="card-grid">
-
-      <!-- WEDDINGS -->
-      <article class="service-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85"
-          alt="Elegant wedding ceremony and decoration"
-          loading="lazy">
-
-        <div class="service-card-content">
-
-          <h3>Wedding Celebrations</h3>
-
-          <p>
-            Beautifully planned weddings filled with
-            unforgettable moments and personal touches.
-          </p>
-
-          <a href="services.html" class="text-link">
-            Explore Service →
+        <div class="royal-hero-actions">
+          <a href="booking.html" class="royal-button royal-button-primary">
+            PLAN YOUR EVENT
           </a>
+
+          <a href="services.html" class="royal-button royal-button-outline">
+            EXPLORE OUR SERVICES
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="royal-intro">
+      <div class="royal-container">
+
+        <div class="royal-section-label">The EVENTORA Experience</div>
+
+        <h2 class="royal-section-title">
+          Every Celebration Deserves Something Special
+        </h2>
+
+        <div class="royal-divider"></div>
+
+        <p class="royal-section-description">
+          EVENTORA is an event management platform designed to help
+          customers plan celebrations with convenience and confidence.
+          Explore services, choose your requirements, share your budget
+          and submit your event enquiry in one place.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- STATISTICS -->
+    <section class="royal-stats">
+      <div class="royal-container royal-stats-grid">
+
+        <div class="royal-stat">
+          <h3>07+</h3>
+          <p>SERVICE CATEGORIES</p>
+        </div>
+
+        <div class="royal-stat">
+          <h3>04</h3>
+          <p>EVENT PACKAGE LEVELS</p>
+        </div>
+
+        <div class="royal-stat">
+          <h3>01</h3>
+          <p>PLATFORM FOR YOUR EVENT</p>
+        </div>
+
+        <div class="royal-stat">
+          <h3>100%</h3>
+          <p>CUSTOMIZABLE ENQUIRIES</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EVENT CATEGORIES -->
+    <section class="royal-categories">
+      <div class="royal-container">
+
+        <div class="royal-heading-center">
+          <div class="royal-section-label">Celebrate With Us</div>
+          <h2 class="royal-section-title">Events We Help You Plan</h2>
+          <p class="royal-section-description">
+            Discover event planning possibilities for every important
+            occasion in your life and business.
+          </p>
+        </div>
+
+        <div class="royal-category-grid">
+
+          <article class="royal-category-card">
+            <img
+              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
+              alt="Elegant wedding celebration"
+              loading="lazy">
+
+            <div class="royal-category-overlay">
+              <h3>Weddings</h3>
+              <p>Make your special day unforgettable.</p>
+            </div>
+          </article>
+
+          <article class="royal-category-card">
+            <img
+              src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=85"
+              alt="Birthday party celebration"
+              loading="lazy">
+
+            <div class="royal-category-overlay">
+              <h3>Birthdays</h3>
+              <p>Celebrate another beautiful milestone.</p>
+            </div>
+          </article>
+
+          <article class="royal-category-card">
+            <img
+              src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85"
+              alt="Professional corporate event"
+              loading="lazy">
+
+            <div class="royal-category-overlay">
+              <h3>Corporate Events</h3>
+              <p>Professional experiences with a lasting impact.</p>
+            </div>
+          </article>
+
+          <article class="royal-category-card">
+            <img
+              src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=85"
+              alt="Engagement celebration"
+              loading="lazy">
+
+            <div class="royal-category-overlay">
+              <h3>Engagements</h3>
+              <p>Celebrate the beginning of a new journey.</p>
+            </div>
+          </article>
+
+          <article class="royal-category-card">
+            <img
+              src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=85"
+              alt="Party event celebration"
+              loading="lazy">
+
+            <div class="royal-category-overlay">
+              <h3>Parties</h3>
+              <p>Bring people together for great moments.</p>
+            </div>
+          </article>
+
+          <article class="royal-category-card">
+            <img
+              src="https://images.unsplash.com/photo-1507504031003-b417219a0fda?auto=format&fit=crop&w=900&q=85"
+              alt="Special occasion event decoration"
+              loading="lazy">
+
+            <div class="royal-category-overlay">
+              <h3>Special Occasions</h3>
+              <p>Personalized celebrations for your big moments.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="royal-services">
+      <div class="royal-container">
+
+        <div class="royal-heading-center">
+          <div class="royal-section-label">What We Offer</div>
+          <h2 class="royal-section-title">Our Premium Services</h2>
+          <p class="royal-section-description">
+            Explore the services that help bring your event together.
+            Select what you need and customize your enquiry.
+          </p>
+        </div>
+
+        <div class="royal-service-grid">
+
+          <article class="royal-service-card">
+            <img
+              src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=80"
+              alt="Professional catering and food presentation"
+              loading="lazy">
+            <div class="royal-service-card-content">
+              <h3>Catering</h3>
+              <p>Food menus, buffet arrangements, live counters and desserts.</p>
+              <a href="services.html#catering">Explore Catering →</a>
+            </div>
+          </article>
+
+          <article class="royal-service-card">
+            <img
+              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80"
+              alt="Wedding photography"
+              loading="lazy">
+            <div class="royal-service-card-content">
+              <h3>Photography</h3>
+              <p>Wedding, candid, couple and family photography.</p>
+              <a href="services.html#photography">Explore Photography →</a>
+            </div>
+          </article>
+
+          <article class="royal-service-card">
+            <img
+              src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=700&q=80"
+              alt="Professional videography equipment"
+              loading="lazy">
+            <div class="royal-service-card-content">
+              <h3>Videography</h3>
+              <p>Cinematic films, event highlights and video coverage.</p>
+              <a href="services.html#videography">Explore Videography →</a>
+            </div>
+          </article>
+
+          <article class="royal-service-card">
+            <img
+              src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=700&q=80"
+              alt="Wedding decoration"
+              loading="lazy">
+            <div class="royal-service-card-content">
+              <h3>Decoration</h3>
+              <p>Stage, floral, entrance and theme-based decoration.</p>
+              <a href="services.html#decoration">Explore Decoration →</a>
+            </div>
+          </article>
+
+          <article class="royal-service-card">
+            <img
+              src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=700&q=80"
+              alt="DJ and entertainment"
+              loading="lazy">
+            <div class="royal-service-card-content">
+              <h3>Entertainment</h3>
+              <p>DJ, live music, dance and event performances.</p>
+              <a href="services.html#entertainment">Explore Entertainment →</a>
+            </div>
+          </article>
+
+          <article class="royal-service-card">
+            <img
+              src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=80"
+              alt="Professional beauty and makeup"
+              loading="lazy">
+            <div class="royal-service-card-content">
+              <h3>Makeup</h3>
+              <p>Bridal makeup, party makeup and hairstyling.</p>
+              <a href="services.html#makeup">Explore Makeup →</a>
+            </div>
+          </article>
+
+          <article class="royal-service-card">
+            <img
+              src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=80"
+              alt="Luxury event transportation"
+              loading="lazy">
+            <div class="royal-service-card-content">
+              <h3>Transportation</h3>
+              <p>Luxury cars, guest buses and travel arrangements.</p>
+              <a href="services.html#transportation">Explore Transportation →</a>
+            </div>
+          </article>
+
+          <article class="royal-service-card">
+            <img
+              src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=700&q=80"
+              alt="Event venue arrangement"
+              loading="lazy">
+            <div class="royal-service-card-content">
+              <h3>Venue Planning</h3>
+              <p>Explore venue arrangements for your event requirements.</p>
+              <a href="booking.html">Enquire About Venues →</a>
+            </div>
+          </article>
 
         </div>
 
-      </article>
-
-
-      <!-- BIRTHDAYS -->
-      <article class="service-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=85"
-          alt="Beautiful birthday party celebration"
-          loading="lazy">
-
-        <div class="service-card-content">
-
-          <h3>Birthday Celebrations</h3>
-
-          <p>
-            Creative birthday parties designed to make
-            every age and every moment special.
-          </p>
-
-          <a href="services.html" class="text-link">
-            Explore Service →
+        <div class="royal-heading-center" style="margin-top:40px;margin-bottom:0;">
+          <a href="services.html" class="royal-button royal-button-primary">
+            VIEW ALL SERVICES
           </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE EVENTORA -->
+    <section class="royal-why">
+      <div class="royal-container">
+
+        <div class="royal-heading-center">
+          <div class="royal-section-label">Why EVENTORA</div>
+          <h2 class="royal-section-title">Planning Made More Convenient</h2>
+          <p class="royal-section-description">
+            A structured way to explore services and communicate your
+            event requirements.
+          </p>
+        </div>
+
+        <div class="royal-why-grid">
+
+          <article class="royal-why-card">
+            <div class="royal-why-number">01</div>
+            <h3>Personalized Planning</h3>
+            <p>
+              Share your event type, preferences and requirements
+              instead of choosing only a fixed arrangement.
+            </p>
+          </article>
+
+          <article class="royal-why-card">
+            <div class="royal-why-number">02</div>
+            <h3>Flexible Choices</h3>
+            <p>
+              Explore different service categories and communicate
+              the services that match your celebration.
+            </p>
+          </article>
+
+          <article class="royal-why-card">
+            <div class="royal-why-number">03</div>
+            <h3>Organized Enquiries</h3>
+            <p>
+              Submit your event details through one booking form
+              for review by the EVENTORA admin team.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="royal-process">
+      <div class="royal-container">
+
+        <div class="royal-heading-center">
+          <div class="royal-section-label">Simple Process</div>
+          <h2 class="royal-section-title">How EVENTORA Works</h2>
+          <p class="royal-section-description">
+            Start planning your event through four simple steps.
+          </p>
+        </div>
+
+        <div class="royal-process-grid">
+
+          <article class="royal-process-card">
+            <div class="royal-process-icon">01</div>
+            <h3>Explore</h3>
+            <p>Browse event categories, services and available options.</p>
+          </article>
+
+          <article class="royal-process-card">
+            <div class="royal-process-icon">02</div>
+            <h3>Customize</h3>
+            <p>Choose the services and share your event requirements.</p>
+          </article>
+
+          <article class="royal-process-card">
+            <div class="royal-process-icon">03</div>
+            <h3>Submit</h3>
+            <p>Send your event enquiry through the booking form.</p>
+          </article>
+
+          <article class="royal-process-card">
+            <div class="royal-process-icon">04</div>
+            <h3>Follow Up</h3>
+            <p>The team can review and manage your enquiry.</p>
+          </article>
 
         </div>
 
-      </article>
+      </div>
+    </section>
 
+    <!-- GALLERY PREVIEW -->
+    <section class="royal-gallery">
+      <div class="royal-container">
 
-      <!-- CORPORATE -->
-      <article class="service-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=85"
-          alt="Professional corporate event arrangement"
-          loading="lazy">
-
-        <div class="service-card-content">
-
-          <h3>Corporate Events</h3>
-
-          <p>
-            Professional event planning for business
-            meetings, conferences and company celebrations.
+        <div class="royal-heading-center">
+          <div class="royal-section-label">Visual Inspiration</div>
+          <h2 class="royal-section-title">Moments Worth Remembering</h2>
+          <p class="royal-section-description">
+            Explore event inspiration and discover ideas for your next celebration.
           </p>
-
-          <a href="services.html" class="text-link">
-            Explore Service →
-          </a>
-
         </div>
 
-      </article>
+        <div class="royal-gallery-grid">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80" alt="Wedding event inspiration" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=700&q=80" alt="Elegant table decoration" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=700&q=80" alt="Birthday celebration inspiration" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=700&q=80" alt="Live event inspiration" loading="lazy">
+        </div>
 
-    </div>
+        <div class="royal-heading-center" style="margin-top:35px;margin-bottom:0;">
+          <a href="gallery.html" class="royal-button royal-button-primary">
+            EXPLORE GALLERY
+          </a>
+        </div>
 
+      </div>
+    </section>
 
-    <div class="center section-action">
+    <!-- FINAL CALL TO ACTION -->
+    <section class="royal-cta">
+      <div class="royal-container">
 
-      <a href="services.html" class="btn btn-outline">
-        Discover All Services →
-      </a>
+        <div class="royal-section-label">Your Celebration Starts Here</div>
 
-    </div>
+        <h2>Make Every Moment Unforgettable</h2>
 
-  </div>
-
-</section>
-
-
-<!-- ================= EVENT TYPES ================= -->
-
-<section class="why-us section-padding">
-
-  <div class="container">
-
-    <div class="section-heading center">
-
-      <p class="eyebrow">CELEBRATE EVERY OCCASION</p>
-
-      <h2 class="section-title">
-        Moments Worth <span>Celebrating</span>
-      </h2>
-
-      <p class="body-text">
-        Whatever the occasion, EVENTORA helps make it memorable.
-      </p>
-
-    </div>
-
-
-    <div class="feature-grid">
-
-      <div class="feature">
-        <div class="feature-icon">✦</div>
-        <h3>Engagements</h3>
         <p>
-          Celebrate the beginning of a beautiful journey
-          with a thoughtfully planned engagement.
+          Tell us about your celebration, your preferences and your
+          requirements. Take the first step towards planning your event
+          with EVENTORA.
         </p>
+
+        <a href="booking.html" class="royal-button royal-button-primary">
+          START YOUR BOOKING
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="royal-footer">
+    <div class="royal-container">
+
+      <div class="royal-footer-grid">
+
+        <div>
+          <h2>EVENTORA</h2>
+          <p>
+            Creating Moments. Designing Memories.
+          </p>
+          <p>
+            Your event planning platform for weddings, celebrations
+            and corporate occasions.
+          </p>
+        </div>
+
+        <div>
+          <h3>Quick Links</h3>
+          <a href="index.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="services.html">Our Services</a>
+          <a href="gallery.html">Gallery</a>
+        </div>
+
+        <div>
+          <h3>Get Started</h3>
+          <a href="booking.html">Book an Event</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="admin.html">Admin Login</a>
+        </div>
+
       </div>
 
-      <div class="feature">
-        <div class="feature-icon">◇</div>
-        <h3>Anniversaries</h3>
-        <p>
-          Make your milestones meaningful with
-          elegant anniversary celebrations.
-        </p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">◎</div>
-        <h3>Private Parties</h3>
-        <p>
-          Bring friends and family together for
-          wonderful private celebrations.
-        </p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">✧</div>
-        <h3>Custom Events</h3>
-        <p>
-          Unique event ideas planned around
-          your preferences and budget.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= WHY EVENTORA ================= -->
-
-<section class="services-preview section-padding section-dark">
-
-  <div class="container">
-
-    <div class="section-heading center">
-
-      <p class="eyebrow">WHY CHOOSE EVENTORA</p>
-
-      <h2 class="section-title">
-        More Than Planning.
-        <span>It's an Experience.</span>
-      </h2>
-
-    </div>
-
-
-    <div class="feature-grid">
-
-      <div class="feature">
-        <div class="feature-icon">✦</div>
-        <h3>Creative Concepts</h3>
-        <p>
-          Fresh ideas and thoughtful designs
-          that reflect your vision.
-        </p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">◇</div>
-        <h3>Personal Attention</h3>
-        <p>
-          We understand your requirements
-          and focus on the details.
-        </p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">◎</div>
-        <h3>Professional Coordination</h3>
-        <p>
-          Organized planning and clear
-          communication throughout your event.
-        </p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">✧</div>
-        <h3>Flexible Budgets</h3>
-        <p>
-          Customized arrangements based
-          on your needs and budget.
-        </p>
+      <div class="royal-footer-bottom">
+        &copy; <span id="eventoraYear"></span> EVENTORA.
+        All Rights Reserved.
       </div>
 
     </div>
+  </footer>
 
-  </div>
+  <!-- Existing project JavaScript -->
+  <script src="js/script.js"></script>
 
-</section>
+  <!-- Homepage navigation and footer year -->
+  <script>
+    (function () {
+      const menuButton = document.getElementById("royalMenuButton");
+      const navigation = document.getElementById("royalNavigation");
 
+      if (menuButton && navigation) {
+        menuButton.addEventListener("click", function () {
+          const isOpen = navigation.classList.toggle("open");
 
-<!-- ================= GALLERY BANNER ================= -->
+          menuButton.setAttribute("aria-expanded", String(isOpen));
+          menuButton.textContent = isOpen ? "✕" : "☰";
+        });
 
-<section class="cta-section">
+        navigation.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            navigation.classList.remove("open");
+            menuButton.setAttribute("aria-expanded", "false");
+            menuButton.textContent = "☰";
+          });
+        });
+      }
 
-  <div class="container cta-content">
+      const year = document.getElementById("eventoraYear");
 
-    <p class="eyebrow">YOUR VISION. OUR CREATION.</p>
-
-    <h2>Beautiful Events Begin With Beautiful Ideas.</h2>
-
-    <p>
-      Explore our event inspiration and discover
-      possibilities for your next celebration.
-    </p>
-
-    <a href="gallery.html" class="btn btn-outline">
-      Explore Our Gallery →
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- ================= FINAL BOOKING CTA ================= -->
-
-<section class="why-us section-padding">
-
-  <div class="container">
-
-    <div class="cta-content">
-
-      <p class="eyebrow">LET'S CREATE SOMETHING UNFORGETTABLE</p>
-
-      <h2 class="section-title">
-        Your Celebration.
-        <span>Our Passion.</span>
-      </h2>
-
-      <p class="body-text">
-        Have an event in mind? Tell us about your occasion,
-        preferred date and requirements.
-        Let's start planning something amazing.
-      </p>
-
-      <a href="booking.html" class="btn btn-gold">
-        Start Planning Your Event →
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer class="site-footer">
-
-  <div class="container footer-grid">
-
-
-    <!-- BRAND -->
-    <div>
-
-      <a class="logo footer-logo" href="index.html">
-
-        <span class="logo-mark">E</span>
-
-        <span>EVENTORA</span>
-
-      </a>
-
-      <p>
-        Creating meaningful celebrations and unforgettable
-        experiences through thoughtful event planning
-        in Bengaluru, Karnataka.
-      </p>
-
-    </div>
-
-
-    <!-- QUICK LINKS -->
-    <div>
-
-      <h3>Explore</h3>
-
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="services.html">Our Services</a>
-      <a href="gallery.html">Gallery</a>
-
-    </div>
-
-
-    <!-- CONTACT -->
-    <div>
-
-      <h3>Get in Touch</h3>
-
-      <p>Bengaluru, Karnataka, India</p>
-
-      <p>Dileep: +91 79751 06764</p>
-
-      <p>Amith: +91 94482 09827</p>
-
-      <a href="contact.html">Contact Us</a>
-
-      <a href="booking.html">Plan Your Event</a>
-
-    </div>
-
-  </div>
-
-
-  <div class="footer-bottom">
-
-    <p>
-      © <span id="year"></span> EVENTORA.
-      All rights reserved.
-    </p>
-
-  </div>
-
-</footer>
+      if (year) {
+        year.textContent = new Date().getFullYear();
+      }
+    })();
+  </script>
 
 </body>
 </html>
