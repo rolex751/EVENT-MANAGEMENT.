@@ -2,364 +2,974 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore EVENTORA event services including catering, photography, videography, decoration, entertainment, makeup and transportation in Bengaluru.">
-  <title>Our Services | EVENTORA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <title>Our Services | EVENTORA Event Management</title>
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+    <meta name="description" content="Explore EVENTORA event management services including wedding planning, birthday parties, corporate events, catering, photography, decoration and entertainment in Bengaluru.">
 
-  <style>
-    .services-gallery {
-      padding: 65px 7%;
-      background: #f7f3ea;
-    }
+    <meta name="keywords" content="EVENTORA services, wedding planner Bengaluru, birthday event management, corporate events, catering, photography, event decoration">
 
-    .services-heading {
-      text-align: center;
-      margin-bottom: 45px;
-    }
+    <meta name="theme-color" content="#392a1d">
 
-    .services-heading h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(32px, 5vw, 48px);
-      color: #171717;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    .services-heading p {
-      color: #6d685f;
-      margin-top: 12px;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    .service-section {
-      margin-bottom: 65px;
-      scroll-margin-top: 100px;
-    }
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
-    .service-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 29px;
-      color: #171717;
-      margin-bottom: 8px;
-    }
+    <style>
+        .services-royal {
+            --gold: #c7a66a;
+            --brown: #392a1d;
+            --cream: #f8f5ee;
+            --muted: #766c60;
+            font-family: 'Poppins', sans-serif;
+            color: var(--brown);
+        }
 
-    .service-description {
-      color: #6d685f;
-      margin-bottom: 20px;
-    }
+        .services-royal h1,
+        .services-royal h2,
+        .services-royal h3 {
+            font-family: 'Playfair Display', serif;
+        }
 
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-    }
+        .services-hero {
+            min-height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 75px 20px;
+            text-align: center;
+            color: white;
+            background:
+                linear-gradient(rgba(35, 25, 17, .76), rgba(35, 25, 17, .76)),
+                url('https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1800&q=85') center/cover;
+        }
 
-    .photo-card {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 5px 18px rgba(0,0,0,.07);
-      transition: transform .25s ease;
-    }
+        .services-hero-content {
+            max-width: 800px;
+        }
 
-    .photo-card:hover {
-      transform: translateY(-5px);
-    }
+        .services-eyebrow {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
 
-    .photo-card img {
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
-      display: block;
-      background: #e8e1d5;
-    }
+        .services-hero h1 {
+            margin: 18px 0;
+            font-size: clamp(40px, 7vw, 66px);
+            line-height: 1.15;
+        }
 
-    .photo-card h3 {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      color: #171717;
-      padding: 14px;
-      font-weight: 600;
-    }
+        .services-hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #f1e8dc;
+            line-height: 1.9;
+            font-size: 15px;
+        }
 
-    .service-booking {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 11px 22px;
-      background: #171717;
-      color: #d6b875;
-      border: 1px solid #c6a15b;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: 600;
-    }
+        .services-section {
+            padding: 85px 0;
+        }
 
-    .service-booking:hover {
-      background: #c6a15b;
-      color: #171717;
-    }
+        .services-inner {
+            width: min(1180px, 90%);
+            margin: auto;
+        }
 
-    .services-note {
-      text-align: center;
-      color: #777;
-      font-size: 13px;
-      margin: 35px 0;
-    }
+        .services-heading {
+            max-width: 720px;
+            margin: 0 auto 45px;
+            text-align: center;
+        }
 
-    @media(max-width: 900px) {
-      .photo-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
+        .services-label {
+            color: #a17c3f;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
 
-    @media(max-width: 500px) {
-      .services-gallery {
-        padding: 40px 5%;
-      }
+        .services-heading h2 {
+            margin: 15px 0;
+            font-size: clamp(31px, 4vw, 44px);
+        }
 
-      .photo-grid {
-        grid-template-columns: 1fr;
-      }
+        .services-heading p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
 
-      .photo-card img {
-        height: 230px;
-      }
-    }
-  </style>
+        .services-category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .service-detail-card {
+            overflow: hidden;
+            border: 1px solid #e8dfd0;
+            border-radius: 14px;
+            background: white;
+            box-shadow: 0 8px 25px rgba(57, 42, 29, .05);
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        .service-detail-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 17px 35px rgba(57, 42, 29, .12);
+        }
+
+        .service-detail-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .service-detail-content {
+            padding: 24px;
+        }
+
+        .service-number {
+            color: #a17c3f;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .service-detail-content h3 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+
+        .service-detail-content p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+            min-height: 74px;
+        }
+
+        .service-detail-content ul {
+            padding-left: 19px;
+            margin: 16px 0 20px;
+            color: #665b4e;
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        .service-book-link {
+            display: inline-block;
+            padding: 11px 19px;
+            border: 1px solid var(--brown);
+            border-radius: 6px;
+            color: var(--brown);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .service-book-link:hover {
+            background: var(--brown);
+            color: white;
+        }
+
+        .service-process {
+            background: var(--cream);
+        }
+
+        .service-process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .service-process-card {
+            padding: 27px 20px;
+            border: 1px solid #e8dfd0;
+            border-radius: 12px;
+            background: white;
+            text-align: center;
+        }
+
+        .service-process-card span {
+            display: block;
+            margin-bottom: 12px;
+            color: #a17c3f;
+            font-family: 'Playfair Display', serif;
+            font-size: 35px;
+        }
+
+        .service-process-card h3 {
+            margin-bottom: 10px;
+            font-size: 21px;
+        }
+
+        .service-process-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .service-custom-section {
+            background: #392a1d;
+            color: white;
+        }
+
+        .service-custom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 45px;
+        }
+
+        .service-custom-section h2 {
+            color: white;
+            font-size: clamp(30px, 4vw, 43px);
+            line-height: 1.25;
+        }
+
+        .service-custom-section p {
+            color: #e0d4c4;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .service-custom-section img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 13px;
+        }
+
+        .service-custom-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .service-custom-list div {
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,.17);
+            border-radius: 7px;
+            font-size: 13px;
+        }
+
+        .service-custom-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 14px 25px;
+            border-radius: 6px;
+            background: var(--gold);
+            color: var(--brown);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .service-custom-btn:hover {
+            background: #e4d0a5;
+        }
+
+        .services-final-cta {
+            padding: 80px 20px;
+            background: #f1e8d8;
+            text-align: center;
+        }
+
+        .services-final-cta h2 {
+            font-size: clamp(30px, 5vw, 43px);
+            margin: 15px 0;
+        }
+
+        .services-final-cta p {
+            max-width: 650px;
+            margin: 0 auto 25px;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        .services-final-cta a {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 6px;
+            background: var(--brown);
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        @media(max-width: 950px) {
+            .services-category-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .service-process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .service-custom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .services-hero {
+                min-height: 370px;
+            }
+
+            .services-hero h1 {
+                font-size: 40px;
+            }
+
+            .services-section {
+                padding: 60px 0;
+            }
+
+            .services-category-grid,
+            .service-process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-detail-card img {
+                height: 210px;
+            }
+
+            .service-detail-content p {
+                min-height: 0;
+            }
+
+            .service-custom-list {
+                grid-template-columns: 1fr;
+            }
+
+            .service-custom-section img {
+                height: 270px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container">
-      <a href="index.html" class="logo">EVENTORA</a>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container navbar">
 
-      <nav class="navbar">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html" class="active">Services</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="booking.html">Booking</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
+            <a href="index.html" class="logo">EVENTORA</a>
 
-  <!-- SERVICES -->
-  <main class="services-gallery">
+            <button class="menu-toggle"
+                    id="menuToggle"
+                    type="button"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">
+                ☰
+            </button>
 
-    <div class="services-heading">
-      <h1>Our Premium Services</h1>
-      <p>Every detail matters. We make every celebration unforgettable.</p>
-    </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html" class="active" aria-current="page">Services</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="booking.html">Book Event</a>
+                <a href="contact.html">Contact</a>
+            </nav>
 
-    <!-- 1. CATERING -->
-    <section class="service-section" id="catering">
-      <h2 class="service-title">01. Catering Services</h2>
-      <p class="service-description">Delicious food, beautiful presentation and memorable dining experiences.</p>
+        </div>
+    </header>
 
-      <div class="photo-grid">
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=80" alt="Catering food spread" loading="lazy">
-          <h3>Premium Food Presentation</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80" alt="Freshly prepared food" loading="lazy">
-          <h3>Special Food Menu</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=700&q=80" alt="Event catering table" loading="lazy">
-          <h3>Buffet Arrangements</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=700&q=80" alt="Food and dessert presentation" loading="lazy">
-          <h3>Snacks and Desserts</h3>
-        </article>
-      </div>
-      <a href="booking.html" class="service-booking">Book Catering</a>
-    </section>
 
-    <!-- 2. PHOTOGRAPHY -->
-    <section class="service-section" id="photography">
-      <h2 class="service-title">02. Photography</h2>
-      <p class="service-description">Capturing genuine emotions and beautiful memories.</p>
+    <main class="services-royal">
 
-      <div class="photo-grid">
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80" alt="Wedding photography" loading="lazy">
-          <h3>Wedding Photography</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=700&q=80" alt="Couple portrait photography" loading="lazy">
-          <h3>Couple Photography</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?auto=format&fit=crop&w=700&q=80" alt="Candid celebration photography" loading="lazy">
-          <h3>Candid Photography</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=700&q=80" alt="Wedding celebration portrait" loading="lazy">
-          <h3>Event Photography</h3>
-        </article>
-      </div>
-      <a href="booking.html" class="service-booking">Book Photography</a>
-    </section>
+        <!-- HERO -->
+        <section class="services-hero">
 
-    <!-- 3. VIDEOGRAPHY -->
-    <section class="service-section" id="videography">
-      <h2 class="service-title">03. Videography</h2>
-      <p class="service-description">Professional filming to preserve every special moment.</p>
+            <div class="services-hero-content">
 
-      <div class="photo-grid">
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=700&q=80" alt="Professional video camera" loading="lazy">
-          <h3>Professional Video Shooting</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80" alt="Camera equipment" loading="lazy">
-          <h3>Cinematic Filming</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=700&q=80" alt="Video production setup" loading="lazy">
-          <h3>Event Video Production</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80" alt="Outdoor cinematic filming inspiration" loading="lazy">
-          <h3>Outdoor and Drone-style Shots</h3>
-        </article>
-      </div>
-      <a href="booking.html" class="service-booking">Book Videography</a>
-    </section>
+                <span class="services-eyebrow">What We Offer</span>
 
-    <!-- 4. DECORATION -->
-    <section class="service-section" id="decoration">
-      <h2 class="service-title">04. Decoration</h2>
-      <p class="service-description">Creative themes and elegant decoration for every occasion.</p>
+                <h1>Complete Event Solutions</h1>
 
-      <div class="photo-grid">
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=700&q=80" alt="Wedding venue decoration" loading="lazy">
-          <h3>Wedding Stage Decoration</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=700&q=80" alt="Elegant event table decoration" loading="lazy">
-          <h3>Table Decoration</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=700&q=80" alt="Birthday party decoration" loading="lazy">
-          <h3>Birthday Decoration</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fda?auto=format&fit=crop&w=700&q=80" alt="Event floral decoration" loading="lazy">
-          <h3>Floral Decoration</h3>
-        </article>
-      </div>
-      <a href="booking.html" class="service-booking">Book Decoration</a>
-    </section>
+                <p>
+                    From beautiful celebrations to professional
+                    gatherings, explore our event planning and
+                    coordination services. Choose the services
+                    that match your vision and requirements.
+                </p>
 
-    <!-- 5. ENTERTAINMENT -->
-    <section class="service-section" id="entertainment">
-      <h2 class="service-title">05. Entertainment</h2>
-      <p class="service-description">Music, performances and exciting entertainment for your guests.</p>
+            </div>
 
-      <div class="photo-grid">
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=700&q=80" alt="DJ entertainment" loading="lazy">
-          <h3>DJ and Music</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=700&q=80" alt="Live music performance" loading="lazy">
-          <h3>Live Music</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=700&q=80" alt="Stage entertainment event" loading="lazy">
-          <h3>Stage Shows</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=700&q=80" alt="Live event crowd" loading="lazy">
-          <h3>Event Performances</h3>
-        </article>
-      </div>
-      <a href="booking.html" class="service-booking">Book Entertainment</a>
-    </section>
+        </section>
 
-    <!-- 6. MAKEUP -->
-    <section class="service-section" id="makeup">
-      <h2 class="service-title">06. Makeup and Styling</h2>
-      <p class="service-description">Professional beauty and styling services for your special day.</p>
 
-      <div class="photo-grid">
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=80" alt="Professional makeup portrait" loading="lazy">
-          <h3>Bridal Makeup</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=700&q=80" alt="Beauty and makeup styling" loading="lazy">
-          <h3>Party Makeup</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=700&q=80" alt="Makeup products and tools" loading="lazy">
-          <h3>Professional Makeup</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=700&q=80" alt="Hair and beauty styling" loading="lazy">
-          <h3>Hair Styling</h3>
-        </article>
-      </div>
-      <a href="booking.html" class="service-booking">Book Makeup</a>
-    </section>
+        <!-- SERVICE CATEGORIES -->
+        <section class="services-section">
 
-    <!-- 7. TRANSPORTATION -->
-    <section class="service-section" id="transportation">
-      <h2 class="service-title">07. Transportation</h2>
-      <p class="service-description">Comfortable and convenient travel arrangements for your event.</p>
+            <div class="services-inner">
 
-      <div class="photo-grid">
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=80" alt="Luxury car transportation" loading="lazy">
-          <h3>Luxury Cars</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80" alt="Premium car for event travel" loading="lazy">
-          <h3>Premium Vehicles</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=700&q=80" alt="Passenger bus transportation" loading="lazy">
-          <h3>Guest Bus Arrangements</h3>
-        </article>
-        <article class="photo-card">
-          <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=700&q=80" alt="Car transportation service" loading="lazy">
-          <h3>Event Travel</h3>
-        </article>
-      </div>
-      <a href="booking.html" class="service-booking">Book Transportation</a>
-    </section>
+                <div class="services-heading">
 
-    <p class="services-note">
-      Photos are illustrative examples of service styles. Actual arrangements depend on your event requirements.
-    </p>
+                    <span class="services-label">Our Services</span>
 
-  </main>
+                    <h2>Explore Our Event Services</h2>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <h2>EVENTORA</h2>
-      <p>Creating Moments. Designing Memories.</p>
-      <p>&copy; <span id="year"></span> EVENTORA. All Rights Reserved.</p>
-    </div>
-  </footer>
+                    <p>
+                        Every event has its own personality.
+                        Explore our service categories and tell us
+                        what you need for your special occasion.
+                    </p>
 
-  <script src="js/script.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+                </div>
+
+
+                <div class="services-category-grid">
+
+                    <!-- 01 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
+                            alt="Elegant wedding celebration"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 01</span>
+
+                            <h3>Wedding Planning</h3>
+
+                            <p>
+                                Plan a meaningful wedding celebration
+                                with coordinated arrangements and
+                                thoughtful event details.
+                            </p>
+
+                            <ul>
+                                <li>Wedding planning</li>
+                                <li>Venue coordination</li>
+                                <li>Stage and decoration</li>
+                                <li>Guest arrangements</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Plan Your Wedding →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 02 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=85"
+                            alt="Birthday party decoration"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 02</span>
+
+                            <h3>Birthday Celebrations</h3>
+
+                            <p>
+                                Create joyful birthday experiences
+                                with personalized themes and
+                                celebration arrangements.
+                            </p>
+
+                            <ul>
+                                <li>Birthday themes</li>
+                                <li>Cake table decoration</li>
+                                <li>Balloon decoration</li>
+                                <li>Entertainment arrangements</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Plan a Birthday →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 03 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85"
+                            alt="Corporate business conference"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 03</span>
+
+                            <h3>Corporate Events</h3>
+
+                            <p>
+                                Organize business gatherings and
+                                professional functions with
+                                structured event coordination.
+                            </p>
+
+                            <ul>
+                                <li>Conferences</li>
+                                <li>Product launches</li>
+                                <li>Business meetings</li>
+                                <li>Company celebrations</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Plan Corporate Event →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 04 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=85"
+                            alt="Engagement ceremony setup"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 04</span>
+
+                            <h3>Engagement Ceremonies</h3>
+
+                            <p>
+                                Celebrate your special milestone
+                                with personalized ceremony
+                                planning and beautiful settings.
+                            </p>
+
+                            <ul>
+                                <li>Engagement stage</li>
+                                <li>Ring ceremony arrangements</li>
+                                <li>Decoration</li>
+                                <li>Guest coordination</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Plan Engagement →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 05 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=85"
+                            alt="Event photography and videography"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 05</span>
+
+                            <h3>Photography & Videography</h3>
+
+                            <p>
+                                Capture important event moments
+                                through photography and
+                                video coverage options.
+                            </p>
+
+                            <ul>
+                                <li>Event photography</li>
+                                <li>Videography</li>
+                                <li>Candid photography</li>
+                                <li>Special occasion coverage</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Book Photography →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 06 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=900&q=85"
+                            alt="Catering and food arrangements"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 06</span>
+
+                            <h3>Catering & Food</h3>
+
+                            <p>
+                                Discuss food arrangements according
+                                to guest count, preferences,
+                                menu choices and event budget.
+                            </p>
+
+                            <ul>
+                                <li>Vegetarian menus</li>
+                                <li>Non-vegetarian menus</li>
+                                <li>Custom menu selection</li>
+                                <li>Guest-count planning</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Plan Catering →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 07 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=900&q=85"
+                            alt="Beautiful event decoration"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 07</span>
+
+                            <h3>Decoration & Stage Design</h3>
+
+                            <p>
+                                Explore creative event settings
+                                with suitable decoration ideas
+                                and stage concepts.
+                            </p>
+
+                            <ul>
+                                <li>Floral decoration</li>
+                                <li>Stage decoration</li>
+                                <li>Lighting concepts</li>
+                                <li>Theme decoration</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Plan Decoration →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 08 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=900&q=85"
+                            alt="Live entertainment event"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 08</span>
+
+                            <h3>Entertainment & Music</h3>
+
+                            <p>
+                                Add energy to your occasion with
+                                entertainment concepts and
+                                suitable performance arrangements.
+                            </p>
+
+                            <ul>
+                                <li>DJ arrangements</li>
+                                <li>Live music</li>
+                                <li>Stage performances</li>
+                                <li>Event entertainment</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Plan Entertainment →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 09 -->
+                    <article class="service-detail-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=85"
+                            alt="Event venue arrangement"
+                            loading="lazy">
+
+                        <div class="service-detail-content">
+
+                            <span class="service-number">SERVICE 09</span>
+
+                            <h3>Venue Arrangements</h3>
+
+                            <p>
+                                Explore venue requirements and
+                                discuss suitable locations based
+                                on event size and budget.
+                            </p>
+
+                            <ul>
+                                <li>Venue selection support</li>
+                                <li>Hall arrangements</li>
+                                <li>Guest seating</li>
+                                <li>Event layout planning</li>
+                            </ul>
+
+                            <a href="booking.html" class="service-book-link">
+                                Find a Venue →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HOW OUR SERVICES WORK -->
+        <section class="services-section service-process">
+
+            <div class="services-inner">
+
+                <div class="services-heading">
+
+                    <span class="services-label">Simple Process</span>
+
+                    <h2>How to Get Started</h2>
+
+                    <p>
+                        Tell us about your event and work with us
+                        to discuss suitable arrangements.
+                    </p>
+
+                </div>
+
+                <div class="service-process-grid">
+
+                    <article class="service-process-card">
+                        <span>01</span>
+                        <h3>Choose</h3>
+                        <p>
+                            Explore event types and select
+                            the services you require.
+                        </p>
+                    </article>
+
+                    <article class="service-process-card">
+                        <span>02</span>
+                        <h3>Share Details</h3>
+                        <p>
+                            Tell us your event date, guest count,
+                            location and budget.
+                        </p>
+                    </article>
+
+                    <article class="service-process-card">
+                        <span>03</span>
+                        <h3>Discuss</h3>
+                        <p>
+                            Discuss requirements, availability
+                            and possible service arrangements.
+                        </p>
+                    </article>
+
+                    <article class="service-process-card">
+                        <span>04</span>
+                        <h3>Confirm</h3>
+                        <p>
+                            Finalize the agreed arrangements
+                            before your event.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CUSTOMIZED SERVICES -->
+        <section class="services-section service-custom-section">
+
+            <div class="services-inner service-custom-grid">
+
+                <div>
+
+                    <span class="services-eyebrow">
+                        Your Event, Your Choice
+                    </span>
+
+                    <h2>Customize Your Event According to Your Budget</h2>
+
+                    <p>
+                        You do not have to choose a fixed package.
+                        Share your event requirements and discuss
+                        individual services that suit your occasion
+                        and planned budget.
+                    </p>
+
+                    <div class="service-custom-list">
+
+                        <div>✓ Select event type</div>
+                        <div>✓ Choose individual services</div>
+                        <div>✓ Share guest count</div>
+                        <div>✓ Discuss food preferences</div>
+                        <div>✓ Share decoration ideas</div>
+                        <div>✓ Discuss budget requirements</div>
+
+                    </div>
+
+                    <a href="booking.html" class="service-custom-btn">
+                        Customize My Event →
+                    </a>
+
+                </div>
+
+                <div>
+
+                    <img
+                        src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1100&q=85"
+                        alt="Beautifully arranged event celebration"
+                        loading="lazy">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FINAL CTA -->
+        <section class="services-final-cta">
+
+            <div class="services-inner">
+
+                <span class="services-label">Start Planning Today</span>
+
+                <h2>Let's Make Your Event Special</h2>
+
+                <p>
+                    Have a wedding, birthday, corporate event or
+                    special celebration in mind? Share your
+                    requirements with EVENTORA.
+                </p>
+
+                <a href="booking.html">
+                    Book Your Event Now
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+            <div class="footer-column">
+
+                <h2>EVENTORA</h2>
+
+                <p>
+                    Creating Moments. Designing Memories.
+                    Making every celebration meaningful.
+                </p>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Quick Links</h3>
+
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html">Gallery</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Our Services</h3>
+
+                <a href="booking.html">Wedding Planning</a>
+                <a href="booking.html">Birthday Events</a>
+                <a href="booking.html">Corporate Events</a>
+                <a href="booking.html">Catering</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Get In Touch</h3>
+
+                <a href="contact.html">Contact Us</a>
+                <a href="booking.html">Book an Event</a>
+                <a href="admin.html">Admin Login</a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="year"></span> EVENTORA.
+                All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="js/script.js"></script>
 
 </body>
 </html>
