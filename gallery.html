@@ -1,358 +1,466 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Event Gallery | EVENTORA - Creating Moments, Designing Memories</title>
+    <title>Our Gallery | EVENTORA - Creating Moments</title>
 
-  <meta name="description"
-    content="Explore EVENTORA's event inspiration gallery featuring beautiful weddings, birthdays, corporate events and elegant decorations in Bengaluru.">
+    <meta name="description" content="Explore wedding, birthday, corporate and special event inspiration at EVENTORA. Make every moment unforgettable.">
 
-  <meta name="keywords"
-    content="EVENTORA gallery, wedding decoration, birthday events, corporate events, event management Bengaluru">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
-  <meta name="author" content="EVENTORA">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <meta name="theme-color" content="#111111">
+    <style>
+        .gallery-page {
+            background: #fbf8f2;
+            color: #39291f;
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        .gallery-hero {
+            min-height: 390px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 90px 20px;
+            color: white;
+            background:
+                linear-gradient(rgba(35, 24, 18, .72), rgba(35, 24, 18, .72)),
+                url("https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2000&q=85")
+                center/cover;
+        }
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
-    rel="stylesheet">
+        .gallery-hero h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(42px, 6vw, 68px);
+            margin: 15px 0;
+        }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+        .gallery-hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #eee5d9;
+            line-height: 1.8;
+        }
+
+        .gallery-label {
+            color: #d9b879;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .gallery-section {
+            max-width: 1250px;
+            margin: auto;
+            padding: 75px 22px;
+        }
+
+        .gallery-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .gallery-heading h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(30px, 4vw, 43px);
+            margin: 12px 0;
+            color: #39291f;
+        }
+
+        .gallery-heading p {
+            color: #786b60;
+            line-height: 1.7;
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 35px 0;
+        }
+
+        .gallery-filter {
+            border: 1px solid #d8c9b3;
+            background: transparent;
+            color: #513d2e;
+            padding: 11px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        .gallery-filter:hover,
+        .gallery-filter.active {
+            background: #a77b43;
+            border-color: #a77b43;
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 330px;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #e9dfd1;
+            box-shadow: 0 8px 25px rgba(53, 38, 25, .09);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.09);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            background: linear-gradient(transparent 35%, rgba(25, 18, 13, .82));
+            color: white;
+            opacity: 0;
+            transition: .35s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
+            margin: 0 0 6px;
+        }
+
+        .gallery-overlay p {
+            margin: 0;
+            color: #eee2d2;
+            font-size: 14px;
+        }
+
+        .gallery-note {
+            margin-top: 30px;
+            text-align: center;
+            color: #817367;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .gallery-cta {
+            background: #38271e;
+            color: white;
+            text-align: center;
+            padding: 75px 20px;
+        }
+
+        .gallery-cta h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(30px, 4vw, 43px);
+            margin: 0 0 15px;
+        }
+
+        .gallery-cta p {
+            color: #e5d8c9;
+            margin-bottom: 28px;
+        }
+
+        .gallery-cta a {
+            display: inline-block;
+            background: #c39a60;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .gallery-cta a:hover {
+            background: #dfb879;
+            transform: translateY(-3px);
+        }
+
+        .gallery-item[hidden] {
+            display: none;
+        }
+
+        @media(max-width: 850px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item {
+                height: 290px;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                height: 300px;
+            }
+
+            .gallery-filters {
+                gap: 8px;
+            }
+
+            .gallery-filter {
+                padding: 9px 15px;
+                font-size: 13px;
+            }
+
+            .gallery-overlay {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
-<body>
+<body class="gallery-page">
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container nav-container">
+    <!-- HEADER -->
+    <header class="header">
+        <div class="navbar">
+            <a href="index.html" class="logo">EVENTORA</a>
 
-      <a href="index.html" class="logo">
-        EVENTORA<span>.</span>
-      </a>
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation" aria-expanded="false">
+                ☰
+            </button>
 
-      <button
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Open navigation"
-        aria-expanded="false"
-        aria-controls="navLinks">
-        ☰
-      </button>
-
-      <nav class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="gallery.html" class="active" aria-current="page">Gallery</a>
-        <a href="booking.html">Booking</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-
-    </div>
-  </header>
-
-
-  <!-- GALLERY HERO -->
-  <section class="page-hero">
-    <div class="container">
-      <p class="section-subtitle">OUR CREATIVE WORLD</p>
-
-      <h1>Moments That <span>Inspire</span></h1>
-
-      <p>
-        Explore beautiful celebrations, elegant decorations and
-        unforgettable event experiences with EVENTORA.
-      </p>
-
-      <a href="booking.html" class="btn btn-primary">
-        Plan Your Event
-      </a>
-    </div>
-  </section>
-
-
-  <!-- GALLERY SECTION -->
-  <section class="gallery-section section-padding">
-    <div class="container">
-
-      <div class="section-heading">
-        <p class="section-subtitle">A COLLECTION OF MEMORIES</p>
-        <h2>Our Event <span>Inspiration</span></h2>
-        <p>
-          Discover ideas and inspiration for your next special occasion.
-        </p>
-      </div>
-
-
-      <!-- GALLERY FILTER BUTTONS -->
-      <div class="gallery-filters" role="group" aria-label="Filter gallery by event type">
-
-        <button
-          type="button"
-          class="filter-btn active"
-          data-filter="all"
-          aria-pressed="true">
-          All Events
-        </button>
-
-        <button
-          type="button"
-          class="filter-btn"
-          data-filter="wedding"
-          aria-pressed="false">
-          Weddings
-        </button>
-
-        <button
-          type="button"
-          class="filter-btn"
-          data-filter="birthday"
-          aria-pressed="false">
-          Birthdays
-        </button>
-
-        <button
-          type="button"
-          class="filter-btn"
-          data-filter="corporate"
-          aria-pressed="false">
-          Corporate
-        </button>
-
-        <button
-          type="button"
-          class="filter-btn"
-          data-filter="decoration"
-          aria-pressed="false">
-          Decorations
-        </button>
-
-      </div>
-
-
-      <!-- GALLERY IMAGES -->
-      <div class="gallery-grid">
-
-        <!-- WEDDING 1 -->
-        <div class="gallery-item" data-category="wedding">
-          <img
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=85"
-            alt="Elegant wedding ceremony decoration"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Elegant Weddings</h3>
-            <p>Beautiful beginnings</p>
-          </div>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html" class="active">Gallery</a>
+                <a href="booking.html">Book Event</a>
+                <a href="contact.html">Contact</a>
+            </nav>
         </div>
+    </header>
 
-
-        <!-- WEDDING 2 -->
-        <div class="gallery-item" data-category="wedding">
-          <img
-            src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=900&q=85"
-            alt="Romantic wedding table arrangement"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Wedding Celebrations</h3>
-            <p>Memories forever</p>
-          </div>
+    <!-- HERO -->
+    <section class="gallery-hero">
+        <div>
+            <span class="gallery-label">Our Visual Stories</span>
+            <h1>Moments Worth Remembering</h1>
+            <p>
+                Discover beautiful event ideas, creative decorations and
+                unforgettable celebrations. Every picture tells a story.
+            </p>
         </div>
+    </section>
 
+    <!-- GALLERY -->
+    <main>
+        <section class="gallery-section">
 
-        <!-- BIRTHDAY 1 -->
-        <div class="gallery-item" data-category="birthday">
-          <img
-            src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=900&q=85"
-            alt="Colourful birthday party celebration"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Birthday Parties</h3>
-            <p>Celebrate every year</p>
-          </div>
+            <div class="gallery-heading">
+                <span class="gallery-label">The EVENTORA Collection</span>
+                <h2>Explore Our Gallery</h2>
+                <p>
+                    Find inspiration for your next celebration.
+                    Choose a category to explore different event styles.
+                </p>
+            </div>
+
+            <!-- FILTER BUTTONS -->
+            <div class="gallery-filters" aria-label="Filter gallery">
+                <button class="gallery-filter active" data-filter="all"
+                        aria-pressed="true">All Events</button>
+
+                <button class="gallery-filter" data-filter="wedding"
+                        aria-pressed="false">Weddings</button>
+
+                <button class="gallery-filter" data-filter="birthday"
+                        aria-pressed="false">Birthdays</button>
+
+                <button class="gallery-filter" data-filter="corporate"
+                        aria-pressed="false">Corporate</button>
+
+                <button class="gallery-filter" data-filter="decoration"
+                        aria-pressed="false">Decorations</button>
+            </div>
+
+            <!-- IMAGE GRID -->
+            <div class="gallery-grid" id="galleryGrid">
+
+                <article class="gallery-item" data-category="wedding">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85"
+                         alt="Elegant wedding celebration" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Elegant Weddings</h3>
+                        <p>Beautiful celebrations of love</p>
+                    </div>
+                </article>
+
+                <article class="gallery-item" data-category="birthday">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=85"
+                         alt="Colourful birthday celebration" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Birthday Celebrations</h3>
+                        <p>Make every birthday special</p>
+                    </div>
+                </article>
+
+                <article class="gallery-item" data-category="corporate">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
+                         alt="Corporate event setup" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Corporate Events</h3>
+                        <p>Professional events with style</p>
+                    </div>
+                </article>
+
+                <article class="gallery-item" data-category="decoration">
+                    <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
+                         alt="Beautiful event decoration" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Luxury Decorations</h3>
+                        <p>Details that make a difference</p>
+                    </div>
+                </article>
+
+                <article class="gallery-item" data-category="wedding">
+                    <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=85"
+                         alt="Wedding table decoration" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Wedding Details</h3>
+                        <p>Thoughtful touches for your big day</p>
+                    </div>
+                </article>
+
+                <article class="gallery-item" data-category="birthday">
+                    <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1000&q=85"
+                         alt="Birthday cake and celebration" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Birthday Moments</h3>
+                        <p>Celebrate life's milestones</p>
+                    </div>
+                </article>
+
+                <article class="gallery-item" data-category="corporate">
+                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
+                         alt="Conference and business event" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Business Gatherings</h3>
+                        <p>Ideas, people and experiences</p>
+                    </div>
+                </article>
+
+                <article class="gallery-item" data-category="decoration">
+                    <img src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=85"
+                         alt="Floral event decoration" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Floral Designs</h3>
+                        <p>Beautiful settings and arrangements</p>
+                    </div>
+                </article>
+
+                <article class="gallery-item" data-category="wedding">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=85"
+                         alt="Wedding reception celebration" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Reception Celebrations</h3>
+                        <p>Memories that last forever</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <p class="gallery-note">
+                Note: These photographs are illustrative inspiration images.
+                Replace them with EVENTORA's own event photographs as your portfolio grows.
+            </p>
+
+        </section>
+    </main>
+
+    <!-- CALL TO ACTION -->
+    <section class="gallery-cta">
+        <span class="gallery-label">Let's Create Something Special</span>
+        <h2>Your Event Could Be Our Next Story</h2>
+        <p>Tell us your ideas and let EVENTORA help plan your special occasion.</p>
+        <a href="booking.html">Plan Your Event</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h2>EVENTORA</h2>
+            <p>Creating Moments. Designing Memories.</p>
+
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="booking.html">Booking</a>
+                <a href="contact.html">Contact</a>
+            </div>
+
+            <p>© <span id="year"></span> EVENTORA. All Rights Reserved.</p>
         </div>
+    </footer>
 
+    <script src="js/script.js"></script>
 
-        <!-- BIRTHDAY 2 -->
-        <div class="gallery-item" data-category="birthday">
-          <img
-            src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=900&q=85"
-            alt="Beautiful birthday cake and party setup"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Special Birthdays</h3>
-            <p>Moments of happiness</p>
-          </div>
-        </div>
+    <!-- GALLERY FILTER -->
+    <script>
+        const filterButtons = document.querySelectorAll(".gallery-filter");
+        const galleryItems = document.querySelectorAll(".gallery-item");
 
+        filterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const selectedCategory = button.dataset.filter;
 
-        <!-- CORPORATE 1 -->
-        <div class="gallery-item" data-category="corporate">
-          <img
-            src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=900&q=85"
-            alt="Professional corporate event arrangement"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Corporate Events</h3>
-            <p>Professional experiences</p>
-          </div>
-        </div>
+                filterButtons.forEach(btn => {
+                    btn.classList.remove("active");
+                    btn.setAttribute("aria-pressed", "false");
+                });
 
+                button.classList.add("active");
+                button.setAttribute("aria-pressed", "true");
 
-        <!-- CORPORATE 2 -->
-        <div class="gallery-item" data-category="corporate">
-          <img
-            src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=900&q=85"
-            alt="Corporate conference and business event"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Business Conferences</h3>
-            <p>Ideas come together</p>
-          </div>
-        </div>
+                galleryItems.forEach(item => {
+                    const category = item.dataset.category;
 
+                    item.hidden = !(
+                        selectedCategory === "all" ||
+                        category === selectedCategory
+                    );
+                });
+            });
+        });
 
-        <!-- DECORATION 1 -->
-        <div class="gallery-item" data-category="decoration">
-          <img
-            src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=900&q=85"
-            alt="Elegant event decoration with flowers"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Floral Decorations</h3>
-            <p>Details that delight</p>
-          </div>
-        </div>
-
-
-        <!-- DECORATION 2 -->
-        <div class="gallery-item" data-category="decoration">
-          <img
-            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&q=85"
-            alt="Beautifully decorated event venue"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Event Styling</h3>
-            <p>Designed with elegance</p>
-          </div>
-        </div>
-
-
-        <!-- DECORATION 3 -->
-        <div class="gallery-item" data-category="decoration">
-          <img
-            src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=900&q=85"
-            alt="Festive event venue and lighting decoration"
-            loading="lazy">
-          <div class="gallery-overlay">
-            <h3>Celebration Spaces</h3>
-            <p>Every detail matters</p>
-          </div>
-        </div>
-
-      </div>
-
-      <p class="gallery-note">
-        Note: These photographs are for inspiration and showcase different
-        event styles. They are not necessarily photographs of events organised
-        by EVENTORA.
-      </p>
-
-    </div>
-  </section>
-
-
-  <!-- CALL TO ACTION -->
-  <section class="cta-section section-padding">
-    <div class="container">
-
-      <p class="section-subtitle">LET'S CREATE SOMETHING BEAUTIFUL</p>
-
-      <h2>Your Dream Event Starts Here</h2>
-
-      <p>
-        Tell us your vision. EVENTORA will help turn your special occasion
-        into an unforgettable experience.
-      </p>
-
-      <a href="booking.html" class="btn btn-primary">
-        Book Your Event
-      </a>
-
-    </div>
-  </section>
-
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-content">
-
-      <div class="footer-brand">
-        <a href="index.html" class="logo">
-          EVENTORA<span>.</span>
-        </a>
-
-        <p>
-          Creating Moments. Designing Memories.
-          We make every celebration unforgettable.
-        </p>
-      </div>
-
-
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="services.html">Services</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="booking.html">Booking</a>
-        <a href="contact.html">Contact</a>
-      </div>
-
-
-      <div class="footer-contact">
-        <h3>Contact Us</h3>
-
-        <p>Bengaluru, Karnataka, India</p>
-
-        <p>
-          <a href="tel:+917975106764">+91 79751 06764</a>
-        </p>
-
-        <p>
-          <a href="tel:+919448209827">+91 94482 09827</a>
-        </p>
-
-        <a href="https://wa.me/917975106764" target="_blank" rel="noopener noreferrer">
-          Chat on WhatsApp
-        </a>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      <p>
-        &copy; <span id="year"></span> EVENTORA.
-        All Rights Reserved.
-      </p>
-
-      <p>Creating Moments. Designing Memories.</p>
-    </div>
-
-  </footer>
-
-
-  <!-- JAVASCRIPT -->
-  <script src="js/script.js"></script>
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+    </script>
 
 </body>
 </html>
