@@ -1,540 +1,651 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Book Your Event | EVENTORA - Bengaluru</title>
+    <title>Book Your Event | EVENTORA</title>
+    <meta name="description" content="Plan your wedding, birthday, corporate event or special celebration with EVENTORA. Submit your event requirements and receive a booking enquiry confirmation.">
 
-  <meta name="description"
-    content="Plan your wedding, birthday, corporate event or celebration with EVENTORA in Bengaluru. Share your requirements and request an event proposal.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
-  <meta name="keywords"
-    content="EVENTORA booking, event management Bengaluru, wedding booking, birthday party planning, corporate events">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <meta name="author" content="EVENTORA">
-  <meta name="theme-color" content="#111111">
+    <style>
+        :root {
+            --gold: #b68b52;
+            --gold-light: #d8b77f;
+            --brown: #38271e;
+            --cream: #fbf8f2;
+            --muted: #786b60;
+            --border: #e8dfd2;
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        body {
+            background: var(--cream);
+            color: var(--brown);
+            font-family: "DM Sans", sans-serif;
+        }
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
-    rel="stylesheet">
+        .booking-hero {
+            padding: 85px 20px;
+            text-align: center;
+            color: white;
+            background:
+                linear-gradient(rgba(37, 25, 18, .78), rgba(37, 25, 18, .78)),
+                url("https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1800&q=85")
+                center/cover;
+        }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+        .booking-hero span {
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 12px;
+            font-weight: 700;
+        }
 
-  <script src="js/script.js" defer></script>
-  <script type="module" src="js/booking.js"></script>
+        .booking-hero h1 {
+            font: 600 clamp(38px, 5vw, 60px) "Playfair Display", serif;
+            margin: 15px 0;
+        }
+
+        .booking-hero p {
+            color: #eee4d8;
+            line-height: 1.8;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .booking-layout {
+            max-width: 1150px;
+            margin: 65px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .booking-info {
+            background: var(--brown);
+            color: white;
+            border-radius: 15px;
+            padding: 35px 28px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .booking-info h2 {
+            font: 600 29px "Playfair Display", serif;
+            margin: 0 0 15px;
+        }
+
+        .booking-info > p {
+            color: #e4d8ca;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .booking-benefit {
+            display: flex;
+            gap: 14px;
+            margin-top: 28px;
+            align-items: flex-start;
+        }
+
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: rgba(214, 177, 119, .15);
+            color: var(--gold-light);
+            display: grid;
+            place-items: center;
+            font-size: 19px;
+        }
+
+        .booking-benefit h3 {
+            margin: 0 0 5px;
+            font-size: 15px;
+        }
+
+        .booking-benefit p {
+            margin: 0;
+            color: #dfd1c1;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .booking-form-card {
+            background: white;
+            padding: 38px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 35px rgba(54, 38, 25, .07);
+        }
+
+        .form-heading {
+            margin-bottom: 30px;
+        }
+
+        .form-heading span {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .form-heading h2 {
+            font: 600 32px "Playfair Display", serif;
+            margin: 10px 0;
+        }
+
+        .form-heading p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .form-section-title {
+            font: 600 20px "Playfair Display", serif;
+            margin: 30px 0 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 19px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #514033;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ddd3c5;
+            border-radius: 7px;
+            background: #fffefa;
+            color: var(--brown);
+            font: 14px "DM Sans", sans-serif;
+            outline: none;
+            box-sizing: border-box;
+            transition: .25s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(182, 139, 82, .12);
+        }
+
+        .form-group textarea {
+            min-height: 115px;
+            resize: vertical;
+        }
+
+        .required {
+            color: #b34a3b;
+        }
+
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .service-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            background: #fffefa;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .service-option:hover {
+            border-color: var(--gold);
+            background: #fcf8f0;
+        }
+
+        .service-option input {
+            accent-color: var(--gold);
+            width: 16px;
+            height: 16px;
+        }
+
+        .consent-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 25px 0;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        .consent-row input {
+            margin-top: 4px;
+            accent-color: var(--gold);
+        }
+
+        .booking-submit {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 7px;
+            background: var(--gold);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .booking-submit:hover {
+            background: var(--brown);
+            transform: translateY(-2px);
+        }
+
+        .booking-submit:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #formMessage {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 7px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .booking-note {
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 15px;
+        }
+
+        .booking-bottom {
+            background: #f1e9dd;
+            padding: 55px 20px;
+            text-align: center;
+        }
+
+        .booking-bottom h2 {
+            font: 600 32px "Playfair Display", serif;
+        }
+
+        .booking-bottom p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media(max-width: 850px) {
+            .booking-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-info {
+                position: static;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .booking-form-card {
+                padding: 23px 17px;
+            }
+
+            .form-grid,
+            .service-options {
+                grid-template-columns: 1fr;
+            }
+
+            .form-heading h2 {
+                font-size: 27px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container nav-container">
-
-      <a class="logo" href="index.html">
-        <span class="logo-mark">E</span>
-        <span>EVENTORA<small>CREATING MEMORIES</small></span>
-      </a>
-
-      <button
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Open navigation"
-        aria-expanded="false"
-        aria-controls="navLinks">
-
-        <span></span>
-        <span></span>
-        <span></span>
-
-      </button>
-
-      <nav class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="booking.html" class="nav-book active" aria-current="page">Book an Event</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-
-    </div>
-  </header>
-
-
-  <main>
-
-    <!-- BOOKING HERO -->
-    <section class="page-banner booking-banner">
-      <div class="container">
-
-        <p class="eyebrow">LET'S CREATE SOMETHING BEAUTIFUL</p>
-
-        <h1>Your Event. <span>Our Passion.</span></h1>
-
-        <p>
-          Every unforgettable celebration begins with an idea.
-          Tell us yours, and let's bring it to life.
-        </p>
-
-        <div class="breadcrumbs">
-          <a href="index.html">Home</a> / Booking
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- BOOKING SECTION -->
-    <section class="section-padding">
-      <div class="container booking-layout">
-
-
-        <!-- LEFT INFORMATION -->
-        <div class="booking-info">
-
-          <p class="eyebrow">YOUR VISION, OUR EXPERTISE</p>
-
-          <h2 class="section-title">
-            Let's Make It <span>Unforgettable</span>
-          </h2>
-
-          <p class="body-text">
-            From intimate celebrations to grand occasions,
-            EVENTORA brings creativity, planning and attention
-            to detail together to create exceptional experiences.
-          </p>
-
-
-          <div class="booking-benefit">
-            <span>01</span>
-
-            <div>
-              <h3>Share Your Vision</h3>
-              <p>Tell us about your occasion and the experience you imagine.</p>
-            </div>
-          </div>
-
-
-          <div class="booking-benefit">
-            <span>02</span>
-
-            <div>
-              <h3>Personalised Planning</h3>
-              <p>Choose services that match your preferences and budget.</p>
-            </div>
-          </div>
-
-
-          <div class="booking-benefit">
-            <span>03</span>
-
-            <div>
-              <h3>Let's Bring It to Life</h3>
-              <p>Our team will contact you to discuss your event requirements.</p>
-            </div>
-          </div>
-
-
-          <div class="booking-contact">
-            <p>OUR LOCATION</p>
-            <strong>Bengaluru, Karnataka, India</strong>
-          </div>
-
-
-          <div class="booking-contact">
-            <p>CONTACT OUR TEAM</p>
-
-            <strong>
-              <a href="tel:+917975106764">+91 79751 06764</a>
-            </strong>
-
-            <strong>
-              <a href="tel:+919448209827">+91 94482 09827</a>
-            </strong>
-          </div>
-
-        </div>
-
-
-        <!-- BOOKING FORM -->
-        <div class="form-card">
-
-          <p class="eyebrow">START YOUR JOURNEY</p>
-
-          <h2>Event Planning Enquiry</h2>
-
-          <p class="form-intro">
-            Share a few details below so we can understand your event.
-            Fields marked with * are required.
-          </p>
-
-
-          <form id="bookingForm">
-
-            <!-- NAME AND PHONE -->
-            <div class="form-row">
-
-              <div class="form-group">
-                <label for="name">Full Name *</label>
-
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your full name"
-                  required
-                  maxlength="100">
-              </div>
-
-
-              <div class="form-group">
-                <label for="phone">Phone Number *</label>
-
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="Enter your phone number"
-                  required
-                  pattern="[0-9+\-\s()]{7,20}"
-                  maxlength="20">
-              </div>
-
-            </div>
-
-
-            <!-- EMAIL AND EVENT TYPE -->
-            <div class="form-row">
-
-              <div class="form-group">
-                <label for="email">Email Address *</label>
-
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="name@example.com"
-                  required
-                  maxlength="150">
-              </div>
-
-
-              <div class="form-group">
-                <label for="eventType">Event Type *</label>
-
-                <select id="eventType" name="eventType" required>
-
-                  <option value="">Select event type</option>
-
-                  <option value="Wedding">Wedding</option>
-
-                  <option value="Birthday">Birthday</option>
-
-                  <option value="Corporate Event">Corporate Event</option>
-
-                  <option value="Engagement">Engagement</option>
-
-                  <option value="Anniversary">Anniversary</option>
-
-                  <option value="College or Cultural Event">College or Cultural Event</option>
-
-                  <option value="Private Party">Private Party</option>
-
-                  <option value="Entertainment or Stage Event">Entertainment or Stage Event</option>
-
-                  <option value="Other">Other</option>
-
-                </select>
-              </div>
-
-            </div>
-
-
-            <!-- DATE AND GUESTS -->
-            <div class="form-row">
-
-              <div class="form-group">
-                <label for="date">Preferred Event Date *</label>
-
-                <input
-                  type="date"
-                  id="date"
-                  name="date"
-                  required>
-              </div>
-
-
-              <div class="form-group">
-                <label for="guests">Approximate Guests *</label>
-
-                <input
-                  type="number"
-                  id="guests"
-                  name="guests"
-                  min="1"
-                  max="100000"
-                  placeholder="Number of guests"
-                  required>
-              </div>
-
-            </div>
-
-
-            <!-- LOCATION AND BUDGET -->
-            <div class="form-row">
-
-              <div class="form-group">
-                <label for="location">Event Location *</label>
-
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  placeholder="Area or venue, city"
-                  required
-                  maxlength="200">
-              </div>
-
-
-              <div class="form-group">
-                <label for="budget">Estimated Budget</label>
-
-                <select id="budget" name="budget">
-
-                  <option value="Not specified">Select your budget</option>
-
-                  <option value="Below ₹50,000">Below ₹50,000</option>
-
-                  <option value="₹50,000 – ₹1,00,000">₹50,000 – ₹1,00,000</option>
-
-                  <option value="₹1,00,000 – ₹3,00,000">₹1,00,000 – ₹3,00,000</option>
-
-                  <option value="₹3,00,000 – ₹5,00,000">₹3,00,000 – ₹5,00,000</option>
-
-                  <option value="Above ₹5,00,000">Above ₹5,00,000</option>
-
-                  <option value="To be discussed">To be discussed</option>
-
-                </select>
-              </div>
-
-            </div>
-
-
-            <!-- SERVICES -->
-            <div class="form-group">
-
-              <label>Services Required</label>
-
-              <p class="form-intro">
-                Select all the services you may need.
-              </p>
-
-              <div class="service-options">
-
-                <label>
-                  <input type="checkbox" name="services" value="Venue">
-                  Venue
-                </label>
-
-                <label>
-                  <input type="checkbox" name="services" value="Catering">
-                  Catering
-                </label>
-
-                <label>
-                  <input type="checkbox" name="services" value="Photography">
-                  Photography
-                </label>
-
-                <label>
-                  <input type="checkbox" name="services" value="Videography">
-                  Videography
-                </label>
-
-                <label>
-                  <input type="checkbox" name="services" value="Decoration">
-                  Decoration
-                </label>
-
-                <label>
-                  <input type="checkbox" name="services" value="Entertainment">
-                  Entertainment
-                </label>
-
-                <label>
-                  <input type="checkbox" name="services" value="Makeup">
-                  Makeup
-                </label>
-
-                <label>
-                  <input type="checkbox" name="services" value="Transportation">
-                  Transportation
-                </label>
-
-              </div>
-
-            </div>
-
-
-            <!-- ADDITIONAL REQUIREMENTS -->
-            <div class="form-group">
-
-              <label for="requirements">Additional Requirements</label>
-
-              <textarea
-                id="requirements"
-                name="requirements"
-                rows="5"
-                maxlength="2000"
-                placeholder="Describe your event theme, decoration ideas, food preferences, special arrangements or other requirements..."></textarea>
-
-            </div>
-
-
-            <!-- CONSENT -->
-            <label class="consent-label">
-
-              <input type="checkbox" id="consent" required>
-
-              <span>
-                I agree to be contacted by EVENTORA regarding this enquiry. *
-              </span>
-
-            </label>
-
-
-            <!-- SUBMIT BUTTON -->
-            <button
-              type="submit"
-              id="submitBooking"
-              class="btn btn-gold btn-full">
-
-              Send Event Enquiry
-
+    <!-- HEADER -->
+    <header class="header">
+        <div class="navbar">
+            <a href="index.html" class="logo">EVENTORA</a>
+
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation" aria-expanded="false">
+                ☰
             </button>
 
-
-            <!-- FORM RESPONSE -->
-            <p
-              id="formMessage"
-              class="form-message"
-              role="status"
-              aria-live="polite">
-            </p>
-
-
-            <p class="form-disclaimer">
-              Submitting this form sends an event enquiry, not a confirmed
-              booking. Our team will contact you to discuss availability,
-              services and pricing.
-            </p>
-
-          </form>
-
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="booking.html" class="active">Book Event</a>
+                <a href="contact.html">Contact</a>
+            </nav>
         </div>
+    </header>
 
-      </div>
+    <!-- HERO -->
+    <section class="booking-hero">
+        <span>Start Planning Today</span>
+        <h1>Book Your Special Event</h1>
+        <p>
+            Share your event details with us. Our team will review your
+            requirements and get in touch to discuss your celebration.
+        </p>
     </section>
 
+    <!-- BOOKING CONTENT -->
+    <main class="booking-layout">
 
-    <!-- FINAL CTA -->
-    <section class="cta-section section-padding">
-      <div class="container">
+        <!-- LEFT INFORMATION -->
+        <aside class="booking-info">
+            <h2>Let's Make It Memorable</h2>
 
-        <p class="eyebrow">YOUR CELEBRATION BEGINS HERE</p>
+            <p>
+                Every great celebration begins with an idea.
+                Tell us what you have in mind and let EVENTORA
+                help turn your vision into reality.
+            </p>
 
-        <h2>Let's Create Something Extraordinary</h2>
+            <div class="booking-benefit">
+                <div class="benefit-icon">✦</div>
+                <div>
+                    <h3>Personalized Planning</h3>
+                    <p>Event arrangements based on your requirements and preferences.</p>
+                </div>
+            </div>
 
+            <div class="booking-benefit">
+                <div class="benefit-icon">₹</div>
+                <div>
+                    <h3>Budget Consideration</h3>
+                    <p>Discuss service options that suit your planned budget.</p>
+                </div>
+            </div>
+
+            <div class="booking-benefit">
+                <div class="benefit-icon">♡</div>
+                <div>
+                    <h3>Attention to Detail</h3>
+                    <p>Thoughtful planning for the important moments of your event.</p>
+                </div>
+            </div>
+
+            <div class="booking-benefit">
+                <div class="benefit-icon">✓</div>
+                <div>
+                    <h3>Easy Enquiry Process</h3>
+                    <p>Submit your details and our team can follow up with you.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- BOOKING FORM -->
+        <section class="booking-form-card">
+
+            <div class="form-heading">
+                <span>Event Enquiry Form</span>
+                <h2>Tell Us About Your Event</h2>
+                <p>
+                    Fill in the details below. Fields marked with
+                    <span class="required">*</span> are required.
+                </p>
+            </div>
+
+            <form id="bookingForm">
+
+                <h3 class="form-section-title">01. Personal Information</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name"
+                               placeholder="Enter your full name"
+                               autocomplete="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone"
+                               placeholder="Enter your phone number"
+                               autocomplete="tel" required>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email"
+                               placeholder="Enter your email address"
+                               autocomplete="email" required>
+                    </div>
+
+                </div>
+
+                <h3 class="form-section-title">02. Event Information</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="eventType">Event Type <span class="required">*</span></label>
+                        <select id="eventType" name="eventType" required>
+                            <option value="">Select event type</option>
+                            <option value="Wedding">Wedding</option>
+                            <option value="Birthday">Birthday Party</option>
+                            <option value="Engagement">Engagement</option>
+                            <option value="Corporate">Corporate Event</option>
+                            <option value="Anniversary">Anniversary</option>
+                            <option value="Baby Shower">Baby Shower</option>
+                            <option value="College Event">College Event</option>
+                            <option value="Other">Other Event</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Event Date <span class="required">*</span></label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guests">Expected Guests <span class="required">*</span></label>
+                        <input type="number" id="guests" name="guests"
+                               min="1" placeholder="Number of guests" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Event Location <span class="required">*</span></label>
+                        <input type="text" id="location" name="location"
+                               placeholder="Enter event location" required>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="budget">Estimated Budget <span class="required">*</span></label>
+                        <select id="budget" name="budget" required>
+                            <option value="">Select your estimated budget</option>
+                            <option value="Below ₹50,000">Below ₹50,000</option>
+                            <option value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</option>
+                            <option value="₹1,00,000 - ₹3,00,000">₹1,00,000 - ₹3,00,000</option>
+                            <option value="₹3,00,000 - ₹5,00,000">₹3,00,000 - ₹5,00,000</option>
+                            <option value="₹5,00,000 - ₹10,00,000">₹5,00,000 - ₹10,00,000</option>
+                            <option value="Above ₹10,00,000">Above ₹10,00,000</option>
+                            <option value="Not decided">Not decided yet</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <h3 class="form-section-title">03. Services Required</h3>
+
+                <p style="color:#786b60;font-size:13px;margin-bottom:17px;">
+                    Select all the services you are interested in.
+                </p>
+
+                <div class="service-options">
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Venue">
+                        Venue Arrangement
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Decoration">
+                        Decoration
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Catering">
+                        Catering
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Photography">
+                        Photography
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Videography">
+                        Videography
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Entertainment">
+                        Entertainment
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Sound and Lighting">
+                        Sound and Lighting
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Transportation">
+                        Transportation
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Makeup">
+                        Makeup and Styling
+                    </label>
+
+                    <label class="service-option">
+                        <input type="checkbox" name="services" value="Complete Event Management">
+                        Complete Event Management
+                    </label>
+
+                </div>
+
+                <h3 class="form-section-title">04. Additional Requirements</h3>
+
+                <div class="form-group">
+                    <label for="requirements">Describe Your Event</label>
+                    <textarea id="requirements" name="requirements"
+                              placeholder="Tell us about your theme, preferences, special arrangements or other requirements..."></textarea>
+                </div>
+
+                <label class="consent-row">
+                    <input type="checkbox" id="consent" name="consent" required>
+                    <span>
+                        I agree to share my contact and event details with
+                        EVENTORA for the purpose of responding to this enquiry.
+                    </span>
+                </label>
+
+                <button type="submit" id="submitBooking" class="booking-submit">
+                    Submit Booking Enquiry →
+                </button>
+
+                <div id="formMessage" role="status" aria-live="polite"></div>
+
+                <p class="booking-note">
+                    Submitting this form sends a booking enquiry, not a confirmed reservation.
+                    Our team will contact you to discuss the details.
+                </p>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM SECTION -->
+    <section class="booking-bottom">
+        <h2>Creating Moments. Designing Memories.</h2>
         <p>
-          Every detail matters. Let's make your next celebration
-          truly unforgettable.
+            Your celebration deserves thoughtful planning.
+            Let's make your next event unforgettable.
         </p>
-
-        <a href="contact.html" class="btn btn-gold">
-          Talk to Our Team
-        </a>
-
-      </div>
     </section>
 
-  </main>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h2>EVENTORA</h2>
+            <p>Creating Moments. Designing Memories.</p>
 
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+            </div>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
+            <p>© <span id="year"></span> EVENTORA. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-    <div class="container footer-grid">
+    <script src="js/script.js"></script>
+    <script type="module" src="js/booking.js"></script>
 
-      <div>
+    <script>
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
 
-        <a class="logo footer-logo" href="index.html">
-          <span class="logo-mark">E</span>
-          <span>EVENTORA<small>CREATING MEMORIES</small></span>
-        </a>
+        // Prevent selecting a date in the past.
+        const eventDate = document.getElementById("date");
+        const today = new Date();
+        const localToday = new Date(
+            today.getTime() - today.getTimezoneOffset() * 60000
+        ).toISOString().split("T")[0];
 
-        <p>
-          Creating Moments. Designing Memories.
-          Thoughtful event planning in Bengaluru, Karnataka.
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <h3>Explore</h3>
-
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="booking.html">Book an Event</a>
-
-      </div>
-
-
-      <div>
-
-        <h3>Contact</h3>
-
-        <p>Bengaluru, Karnataka, India</p>
-
-        <a href="tel:+917975106764">+91 79751 06764</a>
-
-        <a href="tel:+919448209827">+91 94482 09827</a>
-
-        <a
-          href="https://wa.me/917975106764"
-          target="_blank"
-          rel="noopener noreferrer">
-          WhatsApp Us
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-      <p>
-        &copy; <span id="year"></span> EVENTORA.
-        All Rights Reserved.
-      </p>
-
-      <p>Creating Moments. Designing Memories.</p>
-
-    </div>
-
-  </footer>
+        eventDate.min = localToday;
+    </script>
 
 </body>
 </html>
