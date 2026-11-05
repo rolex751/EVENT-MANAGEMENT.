@@ -5,7 +5,11 @@
    File: js/booking.js
 ========================================================= */
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    initializeApp,
+    getApps,
+    getApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
     getFirestore,
@@ -18,7 +22,7 @@ import {
 /* ---------- FIREBASE CONFIGURATION ---------- */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8",
+    apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8Q",
     authDomain: "event-management-93edc.firebaseapp.com",
     projectId: "event-management-93edc",
     storageBucket: "event-management-93edc.firebasestorage.app",
@@ -30,7 +34,10 @@ const firebaseConfig = {
 
 /* ---------- INITIALIZE FIREBASE ---------- */
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length
+    ? getApp()
+    : initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
 
@@ -41,106 +48,84 @@ const submitButton = document.getElementById("submitBooking");
 const formMessage = document.getElementById("formMessage");
 
 
-/* ---------- FORM MESSAGE ---------- */
+/* ---------- CHECK FORM ---------- */
 
-function showMessage(message, type = "success") {
+if (!bookingForm || !submitButton || !formMessage) {
+    console.error("EVENTORA: Booking form elements were not found.");
+} else {
 
-    if (!formMessage) return;
+    /* ---------- DISPLAY MESSAGE ---------- */
 
-    formMessage.textContent = message;
+    function showMessage(message, type = "success") {
+        formMessage.textContent = message;
+        formMessage.style.display = "block";
+        formMessage.style.padding = "12px 15px";
+        formMessage.style.marginTop = "15px";
+        formMessage.style.borderRadius = "8px";
+        formMessage.style.fontSize = "14px";
 
-    formMessage.style.padding = "12px 15px";
-    formMessage.style.marginTop = "15px";
-    formMessage.style.borderRadius = "8px";
-    formMessage.style.fontSize = "14px";
-    formMessage.style.display = "block";
-
-    if (type === "success") {
-
-        formMessage.style.background = "#e8f5e9";
-        formMessage.style.color = "#256438";
-        formMessage.style.border = "1px solid #b8dfbd";
-
-    } else {
-
-        formMessage.style.background = "#fff0ee";
-        formMessage.style.color = "#a33b32";
-        formMessage.style.border = "1px solid #efc4bf";
-
+        if (type === "success") {
+            formMessage.style.background = "#e8f5e9";
+            formMessage.style.color = "#256438";
+            formMessage.style.border = "1px solid #b8dfbd";
+        } else {
+            formMessage.style.background = "#fff0ee";
+            formMessage.style.color = "#a33b32";
+            formMessage.style.border = "1px solid #efc4bf";
+        }
     }
 
-}
+
+    /* ---------- GET FIELD VALUE ---------- */
+
+    function getFieldValue(name) {
+        const field = bookingForm.elements.namedItem(name);
+        return field ? field.value.trim() : "";
+    }
 
 
-/* ---------- READ FORM FIELD ---------- */
+    /* ---------- VALIDATE EMAIL ---------- */
 
-function getFieldValue(name) {
-
-    const field = bookingForm.elements.namedItem(name);
-
-    return field ? field.value.trim() : "";
-
-}
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
 
 
-/* ---------- EMAIL VALIDATION ---------- */
+    /* ---------- VALIDATE PHONE ---------- */
 
-function isValidEmail(email) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-}
-
-
-/* ---------- PHONE VALIDATION ---------- */
-
-function isValidPhone(phone) {
-
-    const cleanedPhone = phone.replace(/[\s()+-]/g, "");
-
-    return /^\d{10,13}$/.test(cleanedPhone);
-
-}
+    function isValidPhone(phone) {
+        const cleanedPhone = phone.replace(/[\s()+-]/g, "");
+        return /^\d{10,13}$/.test(cleanedPhone);
+    }
 
 
-/* ---------- EVENT DATE VALIDATION ---------- */
+    /* ---------- VALIDATE EVENT DATE ---------- */
 
-function isValidEventDate(dateValue) {
+    function isValidEventDate(dateValue) {
+        if (!dateValue) return false;
 
-    if (!dateValue) return false;
+        const selectedDate = new Date(dateValue + "T00:00:00");
+        const today = new Date();
 
-    const selectedDate = new Date(dateValue + "T00:00:00");
+        today.setHours(0, 0, 0, 0);
 
-    const today = new Date();
-
-    today.setHours(0, 0, 0, 0);
-
-    return !Number.isNaN(selectedDate.getTime()) &&
-        selectedDate >= today;
-
-}
+        return !Number.isNaN(selectedDate.getTime()) &&
+            selectedDate >= today;
+    }
 
 
-/* ---------- GET SELECTED SERVICES ---------- */
+    /* ---------- GET SELECTED SERVICES ---------- */
 
-function getSelectedServices() {
-
-    return Array.from(
-        bookingForm.querySelectorAll(
-            'input[name="services"]:checked'
-        )
-    ).map(function (checkbox) {
-
-        return checkbox.value;
-
-    });
-
-}
+    function getSelectedServices() {
+        return Array.from(
+            bookingForm.querySelectorAll(
+                'input[name="services"]:checked'
+            )
+        ).map(checkbox => checkbox.value);
+    }
 
 
-/* ---------- FORM SUBMISSION ---------- */
-
-if (bookingForm) {
+    /* ---------- BOOKING FORM SUBMISSION ---------- */
 
     bookingForm.addEventListener("submit", async function (event) {
 
@@ -164,104 +149,94 @@ if (bookingForm) {
 
         const consent = bookingForm.elements.namedItem("consent");
 
+
         /* ---------- VALIDATION ---------- */
 
-        if (!name || !phone || !email || !eventType ||
-            !date || !guests || !location || !budget) {
-
+        if (
+            !name ||
+            !phone ||
+            !email ||
+            !eventType ||
+            !date ||
+            !guests ||
+            !location ||
+            !budget
+        ) {
             showMessage(
                 "Please complete all required fields.",
                 "error"
             );
-
             return;
         }
 
         if (name.length < 2) {
-
             showMessage(
                 "Please enter your full name.",
                 "error"
             );
-
             return;
         }
 
         if (!isValidPhone(phone)) {
-
             showMessage(
-                "Please enter a valid phone number.",
+                "Please enter a valid phone number (10–13 digits).",
                 "error"
             );
-
             return;
         }
 
         if (!isValidEmail(email)) {
-
             showMessage(
                 "Please enter a valid email address.",
                 "error"
             );
-
             return;
         }
 
         if (!isValidEventDate(date)) {
-
             showMessage(
                 "Please select today or a future event date.",
                 "error"
             );
-
             return;
         }
 
         const guestCount = Number(guests);
 
         if (!Number.isInteger(guestCount) || guestCount < 1) {
-
             showMessage(
                 "Please enter a valid number of guests.",
                 "error"
             );
-
             return;
         }
 
         if (consent && !consent.checked) {
-
             showMessage(
                 "Please accept the consent checkbox before submitting.",
                 "error"
             );
-
             return;
         }
 
-        /* ---------- PREPARE BOOKING ---------- */
+
+        /* ---------- PREPARE BOOKING DATA ---------- */
 
         const bookingData = {
-
-            name: name,
-            phone: phone,
-            email: email,
-
-            eventType: eventType,
-            date: date,
+            name,
+            phone,
+            email,
+            eventType,
+            date,
             guests: guestCount,
-
-            location: location,
-            budget: budget,
-
-            services: services,
-            requirements: requirements,
-
+            location,
+            budget,
+            services,
+            requirements,
             status: "pending",
-
             createdAt: serverTimestamp()
-
         };
+
 
         /* ---------- SUBMIT TO FIREBASE ---------- */
 
@@ -269,7 +244,7 @@ if (bookingForm) {
         submitButton.textContent = "Submitting Booking...";
 
         showMessage(
-            "Please wait while we submit your booking...",
+            "Please wait. Your booking enquiry is being submitted...",
             "success"
         );
 
@@ -281,7 +256,7 @@ if (bookingForm) {
             );
 
             console.log(
-                "EVENTORA booking created:",
+                "EVENTORA booking submitted successfully:",
                 bookingRef.id
             );
 
@@ -294,20 +269,36 @@ if (bookingForm) {
 
         } catch (error) {
 
-            console.error(
-                "EVENTORA booking submission error:",
-                error
-            );
+            console.error("EVENTORA booking error:", error);
+            console.error("Error code:", error.code);
+            console.error("Error message:", error.message);
 
-            showMessage(
-                "Sorry, we could not submit your booking. Please check your internet connection and try again.",
-                "error"
-            );
+            let errorMessage = "Booking could not be submitted. ";
+
+            if (error.code === "permission-denied") {
+                errorMessage +=
+                    "Firebase permission denied. Please check Firestore security rules.";
+            } else if (
+                error.code === "unavailable" ||
+                error.code === "failed-precondition"
+            ) {
+                errorMessage +=
+                    "Firebase service is temporarily unavailable. Please try again.";
+            } else if (error.code === "invalid-argument") {
+                errorMessage +=
+                    "Some booking details are invalid. Please check the form.";
+            } else {
+                errorMessage +=
+                    "Please try again. Error: " +
+                    (error.code || error.message || "Unknown error");
+            }
+
+            showMessage(errorMessage, "error");
 
         } finally {
 
             submitButton.disabled = false;
-            submitButton.textContent = "Submit Booking";
+            submitButton.textContent = "Submit Booking Enquiry →";
 
         }
 
@@ -318,4 +309,4 @@ if (bookingForm) {
 
 /* ---------- EVENTORA BRANDING ---------- */
 
-console.log("EVENTORA Booking System initialized.");
+console.log("EVENTORA Booking System initialized successfully.");
