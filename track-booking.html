@@ -6,387 +6,178 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Track Your Booking | EVENTORA</title>
-    <meta name="description" content="Track your EVENTORA event booking, view your event details, budget allocation and booking status.">
+
+    <meta name="description" content="Track your EVENTORA event booking and view your latest booking status, event details and budget breakdown.">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 
-    <style>
-        /* =====================================
-           EVENTORA TRACKING PAGE
-           Isolated styles to prevent conflicts
-        ===================================== */
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-        .tracking-page,
-        .tracking-page * {
-            box-sizing: border-box;
-        }
+    <style>
+        /* TRACK BOOKING PAGE */
 
         .tracking-page {
-            width: 100%;
             min-height: 75vh;
-            padding: 75px 20px;
-            background: #f8f5ef;
+            padding: 65px 20px 85px;
+            background: #f8f7f4;
         }
 
         .tracking-wrapper {
             width: 100%;
-            max-width: 850px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
         .tracking-card {
-            width: 100%;
-            background: #fff;
-            padding: 42px;
+            background: #ffffff;
+            padding: 45px;
             border-radius: 18px;
-            box-shadow: 0 12px 40px rgba(0,0,0,.07);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
         }
 
         .tracking-heading {
-            width: 100%;
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 35px;
         }
 
-        .tracking-heading .eyebrow {
-            display: block;
-            color: #b58a45;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
+        .tracking-eyebrow {
+            display: inline-block;
+            color: #b68b45;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
         }
 
         .tracking-heading h1 {
-            color: #3c2b20;
-            font-size: 34px;
-            line-height: 1.3;
-            margin: 10px 0;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 5vw, 43px);
+            color: #202020;
+            margin-bottom: 12px;
         }
 
         .tracking-heading p {
-            max-width: 600px;
+            max-width: 620px;
             margin: 0 auto;
             color: #777;
             line-height: 1.7;
             font-size: 15px;
         }
 
-        /* FIXED FORM ALIGNMENT */
-
-        .tracking-page .tracking-form {
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            justify-content: flex-start;
-            width: 100%;
-            max-width: 100%;
-            gap: 0;
-            margin: 0;
-            padding: 0;
+        .tracking-form {
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .tracking-page .tracking-form label {
+        .tracking-form label {
             display: block;
-            width: 100%;
-            margin: 0 0 10px;
-            padding: 0;
-            color: #3c2b20;
-            font-size: 15px;
-            font-weight: 600;
-            text-align: left;
-        }
-
-        .tracking-page .tracking-form input {
-            display: block;
-            width: 100%;
-            max-width: 100%;
-            min-width: 0;
-            height: 52px;
-            margin: 0 0 17px;
-            padding: 0 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: #fff;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 700;
             color: #333;
-            font-family: inherit;
-            font-size: 15px;
-            line-height: normal;
-            outline: none;
         }
 
-        .tracking-page .tracking-form input:focus {
-            border-color: #b58a45;
-            box-shadow: 0 0 0 3px rgba(181,138,69,.12);
+        .tracking-input-group {
+            display: flex;
+            gap: 12px;
         }
 
-        .tracking-page .tracking-form button {
-            display: block;
-            width: 100%;
-            max-width: 100%;
+        .tracking-form input {
+            flex: 1;
             min-width: 0;
-            height: 52px;
-            margin: 0;
-            padding: 0 15px;
+            padding: 15px 17px;
+            border: 1px solid #dedede;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .tracking-form input:focus {
+            border-color: #b68b45;
+        }
+
+        .tracking-form button {
+            padding: 15px 25px;
             border: none;
             border-radius: 8px;
-            background: #b58a45;
+            background: #b68b45;
             color: #fff;
-            font-family: inherit;
-            font-size: 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
             font-weight: 700;
-            text-align: center;
             cursor: pointer;
-            transition: background .2s;
+            transition: background 0.2s;
         }
 
-        .tracking-page .tracking-form button:hover {
-            background: #967039;
+        .tracking-form button:hover {
+            background: #967035;
         }
 
-        .tracking-page .tracking-form button:disabled {
-            opacity: .6;
+        .tracking-form button:disabled {
+            opacity: 0.65;
             cursor: not-allowed;
         }
 
         #trackingMessage {
-            display: none;
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 8px;
-            margin-top: 20px;
-            line-height: 1.6;
-            overflow-wrap: anywhere;
-        }
-
-        #bookingDetails {
-            width: 100%;
-            margin-top: 28px;
-        }
-
-        .booking-details {
-            width: 100%;
-            color: #3c2b20;
-        }
-
-        .booking-details h2 {
-            font-size: 23px;
-            margin: 28px 0 16px;
-        }
-
-        .booking-details h2:first-child {
-            margin-top: 0;
-        }
-
-        .detail-section {
-            width: 100%;
-            border: 1px solid #eee7dc;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 18px;
-        }
-
-        .detail-row {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 13px 0;
-            border-bottom: 1px solid #f0ece6;
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .detail-row span:first-child {
-            color: #777;
-            flex: 1;
-        }
-
-        .detail-row span:last-child {
-            color: #3c2b20;
-            font-weight: 600;
-            text-align: right;
-            flex: 1;
-            overflow-wrap: anywhere;
-        }
-
-        .status-pill {
-            display: inline-block;
-            padding: 6px 13px;
-            border-radius: 30px;
-            background: #fff2d8;
-            color: #94651c !important;
-            font-size: 13px;
-            text-transform: capitalize;
-        }
-
-        .status-pill.accepted,
-        .status-pill.confirmed {
-            background: #e5f5e9;
-            color: #23834b !important;
-        }
-
-        .status-pill.in-progress {
-            background: #e7f0ff;
-            color: #2464a0 !important;
-        }
-
-        .status-pill.completed {
-            background: #e5efff;
-            color: #2464a0 !important;
-        }
-
-        .status-pill.rejected,
-        .status-pill.cancelled {
-            background: #ffe9e7;
-            color: #b83232 !important;
-        }
-
-        .progress-track {
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
-            margin: 25px 0 12px;
-            position: relative;
-        }
-
-        .progress-step {
-            flex: 1;
+            margin-top: 22px;
             text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .progress-circle {
-            width: 32px;
-            height: 32px;
-            margin: 0 auto 9px;
-            border-radius: 50%;
-            background: #e8e3db;
-            color: #777;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .progress-step.active .progress-circle,
-        .progress-step.done .progress-circle {
-            background: #b58a45;
-            color: #fff;
-        }
-
-        .progress-step span:last-child {
-            display: block;
-            font-size: 12px;
-            color: #777;
-        }
-
-        .progress-step.active span:last-child,
-        .progress-step.done span:last-child {
-            color: #3c2b20;
-            font-weight: 700;
-        }
-
-        .allocation-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .allocation-table th,
-        .allocation-table td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .allocation-table th:last-child,
-        .allocation-table td:last-child {
-            text-align: right;
-        }
-
-        .allocation-summary {
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px solid #eee;
-        }
-
-        .allocation-summary .detail-row {
-            padding: 9px 0;
         }
 
         .tracking-note {
-            width: 100%;
-            text-align: center;
+            margin-top: 30px;
+            padding: 17px 20px;
+            border-radius: 9px;
+            background: #faf6ee;
+            border-left: 4px solid #b68b45;
+            color: #666;
             font-size: 13px;
-            color: #888;
-            margin-top: 25px;
             line-height: 1.7;
         }
 
         .tracking-note a {
-            color: #967039;
-            font-weight: 600;
+            color: #a77b35;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .tracking-note a:hover {
+            text-decoration: underline;
+        }
+
+        #bookingDetails {
+            margin-top: 30px;
+        }
+
+        #bookingDetails:empty {
+            display: none;
         }
 
         /* MOBILE RESPONSIVE */
 
         @media (max-width: 600px) {
             .tracking-page {
-                padding: 35px 12px;
+                padding: 35px 14px 55px;
             }
 
             .tracking-card {
-                padding: 25px 17px;
-                border-radius: 14px;
+                padding: 28px 18px;
+            }
+
+            .tracking-input-group {
+                flex-direction: column;
+            }
+
+            .tracking-form button {
+                width: 100%;
             }
 
             .tracking-heading h1 {
-                font-size: 27px;
-            }
-
-            .tracking-heading p {
-                font-size: 14px;
-            }
-
-            .tracking-page .tracking-form input,
-            .tracking-page .tracking-form button {
-                height: 50px;
-            }
-
-            .detail-row {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .detail-row span:last-child {
-                text-align: left;
-            }
-
-            .progress-track {
-                gap: 3px;
-            }
-
-            .progress-step span:last-child {
-                font-size: 10px;
-            }
-
-            .progress-circle {
-                width: 27px;
-                height: 27px;
-            }
-
-            .allocation-table th,
-            .allocation-table td {
-                font-size: 12px;
-                padding: 10px 5px;
+                font-size: 31px;
             }
         }
     </style>
@@ -394,92 +185,169 @@
 
 <body>
 
+    <!-- NAVIGATION -->
     <header>
         <nav class="navbar">
+
             <a href="index.html" class="logo">EVENTORA</a>
 
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="booking.html">Book an Event</a></li>
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                type="button">
+                ☰
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="about.html">About</a>
+                </li>
+
+                <li>
+                    <a href="services.html">Services</a>
+                </li>
+
+                <li>
+                    <a href="gallery.html">Gallery</a>
+                </li>
+
+                <li>
+                    <a href="booking.html">Book an Event</a>
+                </li>
+
                 <li>
                     <a href="track-booking.html" class="active" aria-current="page">
                         Track Booking
                     </a>
                 </li>
-                <li><a href="contact.html">Contact</a></li>
+
+                <li>
+                    <a href="contact.html">Contact</a>
+                </li>
             </ul>
+
         </nav>
     </header>
 
+
+    <!-- TRACKING SECTION -->
     <main class="tracking-page">
+
         <div class="tracking-wrapper">
-            <div class="tracking-card">
+
+            <section class="tracking-card">
 
                 <div class="tracking-heading">
-                    <span class="eyebrow">EVENTORA CUSTOMER PORTAL</span>
+
+                    <span class="tracking-eyebrow">
+                        EVENTORA CUSTOMER PORTAL
+                    </span>
 
                     <h1>Track Your Booking</h1>
 
                     <p>
                         Your celebration is important to us.
-                        Enter your booking reference ID to view
-                        your event details and latest booking status.
+                        Enter your booking reference ID below to check
+                        your event booking status and view your booking details.
                     </p>
+
                 </div>
 
+
+                <!-- TRACKING FORM -->
                 <form id="trackingForm" class="tracking-form">
 
                     <label for="bookingReference">
                         Booking Reference ID
                     </label>
 
-                    <input
-                        type="text"
-                        id="bookingReference"
-                        name="bookingReference"
-                        placeholder="Enter your booking reference ID"
-                        autocomplete="off"
-                        required
-                    >
+                    <div class="tracking-input-group">
 
-                    <button type="submit" id="trackButton">
-                        Track My Booking
-                    </button>
+                        <input
+                            type="text"
+                            id="bookingReference"
+                            name="bookingReference"
+                            placeholder="Enter your booking reference ID"
+                            autocomplete="off"
+                            required
+                        >
+
+                        <button type="submit" id="trackButton">
+                            Track Booking
+                        </button>
+
+                    </div>
 
                 </form>
 
-                <div
-                    id="trackingMessage"
-                    role="status"
-                    aria-live="polite">
-                </div>
 
+                <!-- MESSAGE -->
+                <div id="trackingMessage" aria-live="polite"></div>
+
+
+                <!-- BOOKING DETAILS -->
                 <div id="bookingDetails"></div>
 
-                <p class="tracking-note">
-                    For security, use the same browser and device
-                    that you used when submitting your booking.
 
-                    <br>
+                <!-- INFORMATION NOTE -->
+                <div class="tracking-note">
 
-                    Need help?
-                    <a href="contact.html">Contact EVENTORA</a>
-                </p>
+                    <strong>Important:</strong>
 
-            </div>
+                    Your booking details can be viewed using the same
+                    browser/device used when submitting your booking enquiry.
+
+                    If you need assistance with your booking, please
+                    <a href="contact.html">contact the EVENTORA team</a>.
+
+                </div>
+
+            </section>
+
         </div>
+
     </main>
 
-    <footer>
-        <p>
-            &copy; <span id="year"></span> EVENTORA.
-            Creating Moments. Designing Memories.
-        </p>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+                <h2>EVENTORA</h2>
+                <p>
+                    Creating Moments, Designing Memories.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="booking.html">Book an Event</a>
+                <a href="track-booking.html">Track Booking</a>
+                <a href="contact.html">Contact</a>
+            </div>
+
+            <p class="footer-copy">
+                &copy; <span id="year"></span> EVENTORA.
+                All Rights Reserved.
+            </p>
+
+        </div>
+
     </footer>
 
+
+    <!-- JAVASCRIPT -->
     <script src="js/script.js"></script>
     <script type="module" src="js/track-booking.js"></script>
 
