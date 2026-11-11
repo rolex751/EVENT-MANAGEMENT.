@@ -243,7 +243,8 @@
             height: 16px;
         }
 
-        /* SERVICE BUDGET ALLOCATION */
+        /* BUDGET ALLOCATION */
+
         .allocation-intro {
             color: var(--muted);
             font-size: 13px;
@@ -271,7 +272,7 @@
         .allocation-help {
             color: var(--muted);
             font-size: 12px;
-            line-height: 1.6;
+            line-height: 1.7;
             margin: 0 0 18px;
         }
 
@@ -398,6 +399,10 @@
             border-radius: 8px;
         }
 
+        .allocation-empty[hidden] {
+            display: none !important;
+        }
+
         .consent-row {
             display: flex;
             align-items: flex-start;
@@ -467,7 +472,8 @@
             line-height: 1.7;
         }
 
-        /* PHONEPE QR PAYMENT */
+        /* PHONEPE PAYMENT */
+
         .upi-payment-card {
             margin: 25px 0;
             padding: 24px;
@@ -509,7 +515,8 @@
             font-size: 12px !important;
         }
 
-        /* ADVANCE BOOKING OPTION */
+        /* ADVANCE BOOKING */
+
         .advance-booking-option {
             display: flex;
             align-items: center;
@@ -765,27 +772,47 @@
                                placeholder="Enter event location" required>
                     </div>
 
-                    <!-- EXACT TOTAL BUDGET -->
+                    <!-- TOTAL EVENT BUDGET -->
                     <div class="form-group full">
+
                         <label for="budget">
-                            Total Event Budget (₹) <span class="required">*</span>
+                            Total Event Budget <span class="required">*</span>
                         </label>
 
-                        <input
-                            type="number"
-                            id="budget"
-                            name="budget"
-                            min="1"
-                            step="1"
-                            inputmode="numeric"
-                            placeholder="Example: 100000"
-                            required
-                        >
+                        <select id="budget" name="budget" required>
+                            <option value="">Select your total event budget</option>
+                            <option value="500000">₹5,00,000</option>
+                            <option value="600000">₹6,00,000</option>
+                            <option value="700000">₹7,00,000</option>
+                            <option value="800000">₹8,00,000</option>
+                            <option value="900000">₹9,00,000</option>
+                            <option value="1000000">₹10,00,000</option>
+                            <option value="more">More than ₹10,00,000</option>
+                        </select>
+
+                        <div id="customBudgetGroup" hidden style="margin-top:12px;">
+
+                            <label for="customBudget">
+                                Enter Your Exact Budget (₹)
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="customBudget"
+                                min="1000001"
+                                step="1"
+                                inputmode="numeric"
+                                placeholder="Example: 1200000"
+                            >
+
+                        </div>
 
                         <small style="color:#786b60;font-size:12px;line-height:1.6;">
-                            Enter your total planned budget in rupees. You will be able
-                            to distribute this amount across your selected services.
+                            Choose your planned budget. EVENTORA will suggest
+                            a different amount for each service you select.
                         </small>
+
                     </div>
 
                 </div>
@@ -855,9 +882,9 @@
                 <h3 class="form-section-title">04. Service-Wise Budget Allocation</h3>
 
                 <p class="allocation-intro">
-                    Select your services and enter your total budget above.
-                    EVENTORA will suggest an equal budget split. You can edit
-                    each service amount to match your preferences.
+                    Once you select your budget and services, EVENTORA will
+                    suggest a different planned amount for each service.
+                    You can edit every amount to match your preferences.
                 </p>
 
                 <div class="allocation-panel" id="allocationPanel" hidden>
@@ -873,13 +900,15 @@
                     <div id="allocationRows"></div>
 
                     <div class="allocation-actions">
+
                         <button
                             type="button"
                             class="suggest-split-button"
                             id="suggestSplitButton"
                         >
-                            Suggest Equal Split
+                            Suggest Recommended Budget Split
                         </button>
+
                     </div>
 
                     <div class="allocation-summary">
@@ -912,11 +941,11 @@
                 </div>
 
                 <div class="allocation-empty" id="allocationEmpty">
-                    Select at least one service above to see the service-wise
-                    budget allocation fields.
+                    Select your budget and at least one service above
+                    to see your recommended service-wise budget breakdown.
                 </div>
 
-                <!-- ADVANCE BOOKING PAYMENT -->
+                <!-- ADVANCE BOOKING -->
                 <h3 class="form-section-title">05. Advance Booking</h3>
 
                 <p style="color:#786b60;font-size:13px;line-height:1.7;">
@@ -944,7 +973,7 @@
 
                 </label>
 
-                <!-- PHONEPE QR - HIDDEN INITIALLY -->
+                <!-- PHONEPE QR -->
                 <div class="upi-payment-card" id="advancePaymentSection" hidden>
 
                     <h3>Pay ₹10,000 Using PhonePe</h3>
@@ -979,17 +1008,23 @@
 
                 <div class="form-group">
                     <label for="requirements">Describe Your Event</label>
-                    <textarea id="requirements" name="requirements"
-                              placeholder="Tell us about your theme, preferences, special arrangements or other requirements..."></textarea>
+                    <textarea
+                        id="requirements"
+                        name="requirements"
+                        placeholder="Tell us about your theme, preferences, special arrangements or other requirements..."
+                    ></textarea>
                 </div>
 
                 <!-- CONSENT -->
                 <label class="consent-row">
+
                     <input type="checkbox" id="consent" name="consent" required>
+
                     <span>
                         I agree to share my contact and event details with
                         EVENTORA for the purpose of responding to this enquiry.
                     </span>
+
                 </label>
 
                 <!-- SUBMIT -->
@@ -1005,23 +1040,30 @@
                 </p>
 
             </form>
+
         </section>
 
     </main>
 
     <!-- BOTTOM SECTION -->
     <section class="booking-bottom">
+
         <h2>Creating Moments. Designing Memories.</h2>
+
         <p>
             Your celebration deserves thoughtful planning.
             Let's make your next event unforgettable.
         </p>
+
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
+
         <div class="footer-content">
+
             <h2>EVENTORA</h2>
+
             <p>Creating Moments. Designing Memories.</p>
 
             <div class="footer-links">
@@ -1033,10 +1075,12 @@
             </div>
 
             <p>© <span id="year"></span> EVENTORA. All Rights Reserved.</p>
+
         </div>
+
     </footer>
 
-    <!-- EXISTING JAVASCRIPT FILES -->
+    <!-- EXISTING JAVASCRIPT -->
     <script src="js/script.js"></script>
     <script type="module" src="js/booking.js"></script>
 
@@ -1064,14 +1108,18 @@
             document.getElementById("advancePaymentSection");
 
         advanceBooking.addEventListener("change", function () {
+
             advancePaymentSection.hidden = !this.checked;
 
             if (this.checked) {
+
                 advancePaymentSection.scrollIntoView({
                     behavior: "smooth",
                     block: "center"
                 });
+
             }
+
         });
 
         // RESET QR VISIBILITY AFTER FORM RESET
