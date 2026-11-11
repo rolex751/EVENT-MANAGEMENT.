@@ -5,186 +5,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Celebrity Gallery | EVENTORA</title>
-    <meta name="description" content="Explore celebrity couple photographs, Indian wedding inspiration, birthday celebrations and luxury event decorations at EVENTORA.">
+    <title>Our Gallery | EVENTORA - Creating Moments</title>
+
+    <meta name="description" content="Explore EVENTORA's gallery of Indian celebrity couples, weddings, birthdays, corporate events and beautiful event decorations.">
+
+    <meta name="keywords" content="EVENTORA gallery, Indian weddings, celebrity couples, birthday parties, corporate events, wedding decorations">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="images/logo.png">
 
     <style>
-        .gallery-page {
-            background: #fbf8f2;
-            color: #39291f;
+        /* ==============================
+           EVENTORA GALLERY PAGE
+        ============================== */
+
+        .gallery-section {
+            padding: 65px 7%;
+            background: #fffdf9;
         }
 
-        /* NAVIGATION */
-        .gallery-page .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .gallery-page .nav-links a {
-            text-decoration: none;
-        }
-
-        .gallery-page .nav-links a.active {
-            color: #a77b43;
-            font-weight: 700;
-        }
-
-        .gallery-page .nav-links a.plan-event-link {
-            background: #a77b43;
-            color: white;
-            padding: 11px 19px;
-            border-radius: 25px;
-            font-weight: 700;
-        }
-
-        .gallery-page .nav-links a.plan-event-link:hover {
-            background: #805b30;
-            color: white;
-        }
-
-        .gallery-page .menu-toggle {
-            cursor: pointer;
-        }
-
-        @media(max-width: 900px) {
-            .gallery-page .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #fff;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0;
-                padding: 15px 22px;
-                box-shadow: 0 10px 20px rgba(0,0,0,.1);
-                z-index: 1000;
-            }
-
-            .gallery-page .nav-links.open {
-                display: flex;
-            }
-
-            .gallery-page .nav-links a {
-                padding: 13px 8px;
-            }
-
-            .gallery-page .nav-links a.plan-event-link {
-                text-align: center;
-                margin-top: 8px;
-            }
-        }
-
-        /* HERO */
-        .gallery-hero {
-            min-height: 390px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .gallery-intro {
+            max-width: 750px;
+            margin: 0 auto 35px;
             text-align: center;
-            padding: 90px 20px;
-            color: white;
-            background:
-                linear-gradient(rgba(35, 24, 18, .72), rgba(35, 24, 18, .72)),
-                url("https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2000&q=85")
-                center/cover;
         }
 
-        .gallery-hero h1 {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(42px, 6vw, 68px);
-            margin: 15px 0;
+        .gallery-intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 42px);
+            color: #30251f;
+            margin-bottom: 12px;
         }
 
-        .gallery-hero p {
-            max-width: 650px;
-            margin: auto;
-            color: #eee5d9;
+        .gallery-intro p {
+            color: #777;
             line-height: 1.8;
         }
 
-        .gallery-label {
-            color: #d9b879;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        /* GALLERY SECTION */
-        .gallery-section {
-            max-width: 1250px;
-            margin: auto;
-            padding: 75px 22px;
-        }
-
-        .gallery-heading {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .gallery-heading h2 {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(30px, 4vw, 43px);
-            margin: 12px 0;
-            color: #39291f;
-        }
-
-        .gallery-heading p {
-            color: #786b60;
-            line-height: 1.7;
-        }
-
-        /* FILTERS */
         .gallery-filters {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 12px;
-            margin: 35px 0;
+            margin: 30px auto 40px;
         }
 
         .gallery-filter {
-            border: 1px solid #d8c9b3;
+            border: 1px solid #c49a63;
             background: transparent;
-            color: #513d2e;
+            color: #59432e;
             padding: 11px 22px;
             border-radius: 30px;
             cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
             font-weight: 600;
-            transition: .3s;
+            transition: 0.3s ease;
         }
 
         .gallery-filter:hover,
         .gallery-filter.active {
-            background: #a77b43;
-            border-color: #a77b43;
-            color: white;
+            background: #a87945;
+            color: #fff;
+            border-color: #a87945;
         }
 
-        /* GALLERY GRID */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
         }
 
         .gallery-item {
             position: relative;
-            height: 370px;
+            min-height: 280px;
+            height: 320px;
             overflow: hidden;
-            border-radius: 14px;
-            background: #e9dfd1;
-            box-shadow: 0 8px 25px rgba(53, 38, 25, .12);
+            border-radius: 12px;
+            background: #eee5db;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
         }
 
         .gallery-item img {
@@ -192,123 +97,95 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform .6s ease;
+            transition: transform 0.5s ease;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.07);
+            transform: scale(1.08);
         }
 
         .gallery-overlay {
             position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 22px;
-            background: linear-gradient(
-                transparent 20%,
-                rgba(25, 18, 13, .88)
-            );
-            color: white;
-            opacity: 1;
-            transition: .35s;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            background: linear-gradient(
-                transparent 10%,
-                rgba(25, 18, 13, .94)
-            );
+            inset: auto 0 0;
+            padding: 45px 20px 20px;
+            color: #fff;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.82));
         }
 
         .gallery-overlay h3 {
-            font-family: "Playfair Display", serif;
-            font-size: 23px;
-            margin: 0 0 7px;
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            margin: 0 0 6px;
         }
 
         .gallery-overlay p {
-            margin: 0 0 9px;
-            color: #eee2d2;
             font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .photo-credit {
-            font-size: 11px;
-            color: #e8d3b4;
-        }
-
-        .photo-credit a {
-            color: #f4d49d;
-            text-decoration: underline;
-        }
-
-        .gallery-item[hidden] {
-            display: none;
+            margin: 0;
+            color: #f2e9df;
         }
 
         .gallery-note {
-            margin-top: 30px;
             text-align: center;
-            color: #817367;
-            font-size: 13px;
-            line-height: 1.8;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 30px auto 0;
+            max-width: 750px;
         }
 
-        /* CTA */
         .gallery-cta {
-            background: #38271e;
-            color: white;
+            padding: 65px 7%;
             text-align: center;
-            padding: 75px 20px;
+            background: #30251f;
+            color: #fff;
         }
 
         .gallery-cta h2 {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(30px, 4vw, 43px);
-            margin: 0 0 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(27px, 4vw, 40px);
+            margin-bottom: 12px;
         }
 
         .gallery-cta p {
-            color: #e5d8c9;
-            margin-bottom: 28px;
+            color: #e1d7cc;
+            margin-bottom: 25px;
+            line-height: 1.7;
         }
 
         .gallery-cta a {
             display: inline-block;
-            background: #c39a60;
-            color: white;
-            padding: 14px 30px;
+            padding: 13px 28px;
             border-radius: 30px;
+            background: #c49a63;
+            color: #fff;
             text-decoration: none;
             font-weight: 700;
-            transition: .3s;
+            transition: 0.3s;
         }
 
         .gallery-cta a:hover {
-            background: #dfb879;
-            transform: translateY(-3px);
+            background: #a87945;
+            transform: translateY(-2px);
         }
 
-        @media(max-width: 850px) {
+        @media (max-width: 900px) {
             .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .gallery-item {
-                height: 340px;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        @media(max-width: 550px) {
+        @media (max-width: 600px) {
+            .gallery-section {
+                padding: 45px 5%;
+            }
+
             .gallery-grid {
                 grid-template-columns: 1fr;
+                gap: 18px;
             }
 
             .gallery-item {
-                height: 380px;
+                height: 280px;
             }
 
             .gallery-filters {
@@ -317,400 +194,510 @@
 
             .gallery-filter {
                 padding: 9px 15px;
-                font-size: 13px;
+                font-size: 12px;
             }
         }
     </style>
 </head>
 
-<body class="gallery-page">
+<body>
 
-    <!-- HEADER -->
+    <!-- ==============================
+         HEADER / NAVIGATION
+    ============================== -->
+
     <header class="header">
-        <div class="navbar">
+        <nav class="navbar">
 
-            <a href="index.html" class="logo">EVENTORA</a>
+            <a href="index.html" class="logo">
+                <span class="logo-mark">E</span>
+                <span>EVENTORA</span>
+            </a>
 
             <button class="menu-toggle" id="menuToggle"
-                    aria-label="Toggle navigation"
+                    aria-label="Open navigation menu"
                     aria-expanded="false">
                 ☰
             </button>
 
-            <nav class="nav-links" id="navLinks">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="services.html">Services</a>
-                <a href="gallery.html" class="active" aria-current="page">Gallery</a>
-                <a href="booking.html">Book Event</a>
-                <a href="track-booking.html">Track My Booking</a>
-                <a href="contact.html">Contact</a>
-                <a href="booking.html" class="plan-event-link">Plan Your Event</a>
-            </nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html" class="active" aria-current="page">Gallery</a></li>
+                <li><a href="booking.html">Book Event</a></li>
+                <li><a href="track-booking.html">Track My Booking</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="nav-btn">Plan Your Event</a></li>
+            </ul>
 
-        </div>
+        </nav>
     </header>
 
-    <!-- HERO -->
-    <section class="gallery-hero">
-        <div>
-            <span class="gallery-label">Celebrity Wedding Inspiration</span>
 
-            <h1>Celebrations of Love & Luxury</h1>
+    <!-- ==============================
+         GALLERY HERO
+    ============================== -->
 
+    <section class="page-hero">
+        <div class="hero-content">
+            <span class="section-tag">EVENTORA COLLECTION</span>
+            <h1>Our Event Gallery</h1>
             <p>
-                Discover famous Indian celebrity couples, beautiful
-                wedding styles, grand receptions and unforgettable
-                celebration inspiration.
+                Explore beautiful celebrations, wedding inspiration,
+                birthday parties, corporate gatherings and creative decorations.
             </p>
         </div>
     </section>
 
-    <!-- GALLERY -->
-    <main>
-        <section class="gallery-section">
 
-            <div class="gallery-heading">
-                <span class="gallery-label">The EVENTORA Collection</span>
+    <!-- ==============================
+         GALLERY INTRODUCTION
+    ============================== -->
 
-                <h2>Celebrity Wedding Inspiration</h2>
+    <section class="gallery-section">
 
-                <p>
-                    Explore famous Indian celebrity couples and discover
-                    inspiration for your own special celebration.
-                </p>
-            </div>
-
-            <!-- FILTER BUTTONS -->
-            <div class="gallery-filters" aria-label="Filter gallery">
-
-                <button class="gallery-filter active"
-                        data-filter="all" aria-pressed="true">
-                    All Events
-                </button>
-
-                <button class="gallery-filter"
-                        data-filter="wedding" aria-pressed="false">
-                    Celebrity Couples
-                </button>
-
-                <button class="gallery-filter"
-                        data-filter="birthday" aria-pressed="false">
-                    Birthdays
-                </button>
-
-                <button class="gallery-filter"
-                        data-filter="corporate" aria-pressed="false">
-                    Corporate
-                </button>
-
-                <button class="gallery-filter"
-                        data-filter="decoration" aria-pressed="false">
-                    Decorations
-                </button>
-
-            </div>
-
-            <!-- IMAGE GRID -->
-            <div class="gallery-grid" id="galleryGrid">
-
-                <!-- DEEPIKA AND RANVEER -->
-                <article class="gallery-item" data-category="wedding">
-                    <img
-                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Deepika_Padukone_and_Ranveer_Singh_reception.jpg"
-                        alt="Deepika Padukone and Ranveer Singh at their wedding reception"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Deepika & Ranveer</h3>
-                        <p>Elegant wedding reception and glamorous couple style.</p>
-                        <span class="photo-credit">
-                            Photo: Bollywood Hungama |
-                            <a href="https://commons.wikimedia.org/wiki/File:Deepika_Padukone_and_Ranveer_Singh_reception.jpg"
-                               target="_blank" rel="noopener noreferrer">Photo source</a>
-                        </span>
-                    </div>
-                </article>
-
-                <!-- VIRAT AND ANUSHKA -->
-                <article class="gallery-item" data-category="wedding">
-                    <img
-                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Virat_Kohli_and_Anushka_Sharma_at_Mumbai_reception.jpg"
-                        alt="Virat Kohli and Anushka Sharma at their Mumbai wedding reception"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Virat & Anushka</h3>
-                        <p>Classic Indian celebrity wedding reception inspiration.</p>
-                        <span class="photo-credit">
-                            Photo: Bollywood Hungama |
-                            <a href="https://commons.wikimedia.org/wiki/File:Virat_Kohli_and_Anushka_Sharma_at_Mumbai_reception.jpg"
-                               target="_blank" rel="noopener noreferrer">Photo source</a>
-                        </span>
-                    </div>
-                </article>
-
-                <!-- KIARA AND SIDHARTH -->
-                <article class="gallery-item" data-category="wedding">
-                    <img
-                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Sidharth_Malhotra_and_Kiara_Advani_at_their_wedding_reception_in_Mumbai_(12).jpg"
-                        alt="Kiara Advani and Sidharth Malhotra at their wedding reception"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Kiara & Sidharth</h3>
-                        <p>Modern luxury, elegant outfits and sophisticated styling.</p>
-                        <span class="photo-credit">
-                            Photo: Bollywood Hungama |
-                            <a href="https://commons.wikimedia.org/wiki/File:Sidharth_Malhotra_and_Kiara_Advani_at_their_wedding_reception_in_Mumbai_(12).jpg"
-                               target="_blank" rel="noopener noreferrer">Photo source</a>
-                        </span>
-                    </div>
-                </article>
-
-                <!-- KATRINA AND VICKY -->
-                <article class="gallery-item" data-category="wedding">
-                    <img
-                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Vicky_Kaushal_and_Katrina_Kaif_at_Ramesh_S_Taurani%E2%80%99s_diwali_bash.jpg"
-                        alt="Katrina Kaif and Vicky Kaushal at a Diwali celebration"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Katrina & Vicky</h3>
-                        <p>Traditional Indian fashion and festive couple elegance.</p>
-                        <span class="photo-credit">
-                            Photo: Bollywood Hungama |
-                            <a href="https://commons.wikimedia.org/wiki/File:Vicky_Kaushal_and_Katrina_Kaif_at_Ramesh_S_Taurani%E2%80%99s_diwali_bash.jpg"
-                               target="_blank" rel="noopener noreferrer">Photo source</a>
-                        </span>
-                    </div>
-                </article>
-
-                <!-- ALIA AND RANBIR -->
-                <article class="gallery-item" data-category="wedding">
-                    <img
-                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Ranbir_Kapoor_and_Alia_Bhatt.jpg"
-                        alt="Ranbir Kapoor and Alia Bhatt together"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Alia & Ranbir</h3>
-                        <p>Celebrity couple fashion and contemporary celebration inspiration.</p>
-                        <span class="photo-credit">
-                            Photo: Bollywood Hungama |
-                            <a href="https://commons.wikimedia.org/wiki/File:Ranbir_Kapoor_and_Alia_Bhatt.jpg"
-                               target="_blank" rel="noopener noreferrer">Photo source</a>
-                        </span>
-                    </div>
-                </article>
-
-                <!-- PRIYANKA AND NICK -->
-                <article class="gallery-item" data-category="wedding">
-                    <img
-                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Priyanka_Chopra_and_Nick_Jonas_in_2018.jpg"
-                        alt="Priyanka Chopra and Nick Jonas together in 2018"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Priyanka & Nick</h3>
-                        <p>International celebrity couple style and Indian celebration inspiration.</p>
-                        <span class="photo-credit">
-                            Photo: Bollywood Hungama |
-                            <a href="https://commons.wikimedia.org/wiki/File:Priyanka_Chopra_and_Nick_Jonas_in_2018.jpg"
-                               target="_blank" rel="noopener noreferrer">Photo source</a>
-                        </span>
-                    </div>
-                </article>
-
-                <!-- BIRTHDAY 1 -->
-                <article class="gallery-item" data-category="birthday">
-                    <img
-                        src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=85"
-                        alt="Colourful birthday celebration"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Birthday Celebrations</h3>
-                        <p>Make every birthday special.</p>
-                    </div>
-                </article>
-
-                <!-- BIRTHDAY 2 -->
-                <article class="gallery-item" data-category="birthday">
-                    <img
-                        src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1000&q=85"
-                        alt="Birthday cake and celebration"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Birthday Moments</h3>
-                        <p>Celebrate life's milestones.</p>
-                    </div>
-                </article>
-
-                <!-- CORPORATE 1 -->
-                <article class="gallery-item" data-category="corporate">
-                    <img
-                        src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
-                        alt="Corporate event setup"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Corporate Events</h3>
-                        <p>Professional events with style.</p>
-                    </div>
-                </article>
-
-                <!-- CORPORATE 2 -->
-                <article class="gallery-item" data-category="corporate">
-                    <img
-                        src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
-                        alt="Conference and business event"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Business Gatherings</h3>
-                        <p>Ideas, people and experiences.</p>
-                    </div>
-                </article>
-
-                <!-- DECORATION 1 -->
-                <article class="gallery-item" data-category="decoration">
-                    <img
-                        src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
-                        alt="Beautiful event decoration"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Luxury Decorations</h3>
-                        <p>Details that make a difference.</p>
-                    </div>
-                </article>
-
-                <!-- DECORATION 2 -->
-                <article class="gallery-item" data-category="decoration">
-                    <img
-                        src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=85"
-                        alt="Floral event decoration"
-                        loading="lazy">
-
-                    <div class="gallery-overlay">
-                        <h3>Floral Designs</h3>
-                        <p>Beautiful settings and arrangements.</p>
-                    </div>
-                </article>
-
-            </div>
-
-            <p class="gallery-note">
-                Celebrity photographs are used for inspiration and are
-                credited to their respective sources. They do not represent
-                events organised by EVENTORA. Celebrity names and images
-                do not imply endorsement or association with EVENTORA.
+        <div class="gallery-intro">
+            <h2>Moments Worth Remembering</h2>
+            <p>
+                Every celebration has a story. Discover inspiration from
+                Indian weddings, celebrity couples, birthday celebrations,
+                professional events and stunning decorations.
             </p>
+        </div>
 
-        </section>
-    </main>
 
-    <!-- CALL TO ACTION -->
+        <!-- GALLERY FILTER BUTTONS -->
+
+        <div class="gallery-filters" aria-label="Filter gallery">
+
+            <button class="gallery-filter active"
+                    data-filter="all"
+                    aria-pressed="true">
+                All Events
+            </button>
+
+            <button class="gallery-filter"
+                    data-filter="celebrity"
+                    aria-pressed="false">
+                Celebrity Couples
+            </button>
+
+            <button class="gallery-filter"
+                    data-filter="birthday"
+                    aria-pressed="false">
+                Birthdays
+            </button>
+
+            <button class="gallery-filter"
+                    data-filter="corporate"
+                    aria-pressed="false">
+                Corporate
+            </button>
+
+            <button class="gallery-filter"
+                    data-filter="decoration"
+                    aria-pressed="false">
+                Decorations
+            </button>
+
+        </div>
+
+
+        <!-- ==============================
+             ALL GALLERY PHOTOS
+        ============================== -->
+
+        <div class="gallery-grid" id="galleryGrid">
+
+
+            <!-- INDIAN CELEBRITY COUPLES -->
+
+            <article class="gallery-item" data-category="celebrity">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Deepika_Padukone_and_Ranveer_Singh_reception.jpg"
+                     alt="Deepika Padukone and Ranveer Singh"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Deepika & Ranveer</h3>
+                    <p>Indian celebrity wedding reception inspiration</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="celebrity">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Virat_Kohli_and_Anushka_Sharma_at_Mumbai_reception.jpg"
+                     alt="Virat Kohli and Anushka Sharma"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Virat & Anushka</h3>
+                    <p>Elegant celebrity couple style</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="celebrity">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sidharth_Malhotra_and_Kiara_Advani_at_their_wedding_reception_in_Mumbai_(12).jpg"
+                     alt="Kiara Advani and Sidharth Malhotra"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Kiara & Sidharth</h3>
+                    <p>Wedding celebration inspiration</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="celebrity">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ranbir_Kapoor_and_Alia_Bhatt.jpg"
+                     alt="Ranbir Kapoor and Alia Bhatt"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Alia & Ranbir</h3>
+                    <p>Celebrity couple fashion inspiration</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="celebrity">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Priyanka_Chopra_and_Nick_Jonas_in_2018.jpg"
+                     alt="Priyanka Chopra and Nick Jonas"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Priyanka & Nick</h3>
+                    <p>Grand celebration inspiration</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="celebrity">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1000&q=85"
+                     alt="Indian bride and groom wedding portrait"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Indian Wedding Style</h3>
+                    <p>Traditional bridal inspiration</p>
+                </div>
+            </article>
+
+
+            <!-- BIRTHDAY EVENTS -->
+
+            <article class="gallery-item" data-category="birthday">
+                <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=85"
+                     alt="Birthday party balloons and decorations"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Birthday Celebration</h3>
+                    <p>Colourful birthday party decorations</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="birthday">
+                <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1000&q=85"
+                     alt="Beautiful birthday cake"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Birthday Cake</h3>
+                    <p>Beautiful cake arrangements</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="birthday">
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=85"
+                     alt="Birthday party celebration setup"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Party Setup</h3>
+                    <p>Memorable birthday moments</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="birthday">
+                <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
+                     alt="Celebration party decoration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Birthday Party</h3>
+                    <p>Fun-filled celebrations</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="birthday">
+                <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1000&q=85"
+                     alt="Party balloons and celebration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Party Moments</h3>
+                    <p>Celebrating special days</p>
+                </div>
+            </article>
+
+
+            <!-- CORPORATE EVENTS -->
+
+            <article class="gallery-item" data-category="corporate">
+                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
+                     alt="Corporate conference event"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Corporate Conference</h3>
+                    <p>Professional event planning</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="corporate">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=85"
+                     alt="Professional business meeting"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Business Meeting</h3>
+                    <p>Corporate gatherings</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="corporate">
+                <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=85"
+                     alt="Corporate speaker at an event"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Corporate Presentation</h3>
+                    <p>Stage and speaker arrangements</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="corporate">
+                <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=85"
+                     alt="Corporate event audience"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Corporate Gathering</h3>
+                    <p>Business celebrations</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="corporate">
+                <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
+                     alt="Business event and conference"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Business Event</h3>
+                    <p>Professional event experiences</p>
+                </div>
+            </article>
+
+
+            <!-- DECORATIONS -->
+
+            <article class="gallery-item" data-category="decoration">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85"
+                     alt="Wedding floral decoration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Wedding Decoration</h3>
+                    <p>Elegant floral arrangements</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="decoration">
+                <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=85"
+                     alt="Wedding table decoration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Luxury Table Decor</h3>
+                    <p>Beautiful event styling</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="decoration">
+                <img src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=85"
+                     alt="Wedding reception venue decoration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Reception Setup</h3>
+                    <p>Elegant venue decoration</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="decoration">
+                <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
+                     alt="Celebration venue decoration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Celebration Decor</h3>
+                    <p>Beautiful event arrangements</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="decoration">
+                <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
+                     alt="Event decoration inspiration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Event Styling</h3>
+                    <p>Creative decoration concepts</p>
+                </div>
+            </article>
+
+        </div>
+
+        <p class="gallery-note">
+            Celebrity photographs are displayed for inspiration only.
+            They are not EVENTORA client events and do not imply celebrity endorsement.
+            Please verify image permissions and attribution requirements before publishing.
+        </p>
+
+    </section>
+
+
+    <!-- ==============================
+         PLAN YOUR EVENT CTA
+    ============================== -->
+
     <section class="gallery-cta">
 
-        <span class="gallery-label">Let's Create Something Special</span>
-
-        <h2>Your Event Could Be Our Next Story</h2>
+        <h2>Let's Create Your Special Moments</h2>
 
         <p>
-            Tell us your ideas and let EVENTORA help plan your special occasion.
+            From beautiful weddings to unforgettable birthdays and
+            professional corporate events, EVENTORA brings your ideas to life.
         </p>
 
         <a href="booking.html">Plan Your Event</a>
 
-        <p style="margin-top:25px;">
-            Already submitted an enquiry?
-            <a href="track-booking.html"
-               style="background:transparent;padding:0;text-decoration:underline;">
-                Track My Booking
-            </a>
-        </p>
-
     </section>
 
-    <!-- FOOTER -->
+
+    <!-- ==============================
+         FOOTER
+    ============================== -->
+
     <footer class="footer">
 
         <div class="footer-content">
 
-            <h2>EVENTORA</h2>
-
-            <p>Creating Moments. Designing Memories.</p>
+            <div class="footer-brand">
+                <h2>EVENTORA</h2>
+                <p>
+                    Creating moments, designing memories.
+                    We make every celebration special.
+                </p>
+            </div>
 
             <div class="footer-links">
+                <h3>Quick Links</h3>
                 <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="services.html">Services</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Our Services</a>
                 <a href="gallery.html">Gallery</a>
-                <a href="booking.html">Booking</a>
+                <a href="booking.html">Book an Event</a>
                 <a href="track-booking.html">Track My Booking</a>
-                <a href="booking.html">Plan Your Event</a>
                 <a href="contact.html">Contact</a>
             </div>
 
-            <p>
-                © <span id="year"></span> EVENTORA. All Rights Reserved.
-            </p>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Bengaluru, Karnataka, India</p>
+                <p>Phone: +91 79751 06764</p>
+                <p>Email: Contact us through our website</p>
+            </div>
 
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                &copy; <span id="year"></span> EVENTORA.
+                All Rights Reserved.
+            </p>
         </div>
 
     </footer>
 
-    <script src="js/script.js"></script>
 
-    <!-- GALLERY FILTER AND FOOTER YEAR -->
+    <!-- ==============================
+         JAVASCRIPT
+    ============================== -->
+
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        // AUTOMATIC FOOTER YEAR
 
-            const filterButtons =
-                document.querySelectorAll(".gallery-filter");
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
 
-            const galleryItems =
-                document.querySelectorAll(".gallery-item");
 
-            filterButtons.forEach(button => {
+        // GALLERY FILTER FUNCTION
 
-                button.addEventListener("click", () => {
+        const filterButtons =
+            document.querySelectorAll(".gallery-filter");
 
-                    const selectedCategory = button.dataset.filter;
+        const galleryItems =
+            document.querySelectorAll(".gallery-item");
 
-                    filterButtons.forEach(btn => {
-                        btn.classList.remove("active");
-                        btn.setAttribute("aria-pressed", "false");
-                    });
+        filterButtons.forEach(button => {
 
-                    button.classList.add("active");
-                    button.setAttribute("aria-pressed", "true");
+            button.addEventListener("click", () => {
 
-                    galleryItems.forEach(item => {
+                const selectedFilter = button.dataset.filter;
 
-                        const category = item.dataset.category;
+                filterButtons.forEach(btn => {
+                    btn.classList.remove("active");
+                    btn.setAttribute("aria-pressed", "false");
+                });
 
-                        item.hidden = !(
-                            selectedCategory === "all" ||
-                            category === selectedCategory
-                        );
+                button.classList.add("active");
+                button.setAttribute("aria-pressed", "true");
 
-                    });
+                galleryItems.forEach(item => {
+
+                    const category = item.dataset.category;
+
+                    if (
+                        selectedFilter === "all" ||
+                        category === selectedFilter
+                    ) {
+                        item.style.display = "";
+                    } else {
+                        item.style.display = "none";
+                    }
 
                 });
 
             });
 
-            const yearElement = document.getElementById("year");
-
-            if (yearElement) {
-                yearElement.textContent = new Date().getFullYear();
-            }
-
         });
+
+
+        // MOBILE NAVIGATION
+
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        if (menuToggle && navLinks) {
+
+            menuToggle.addEventListener("click", () => {
+
+                navLinks.classList.toggle("active");
+
+                const isOpen =
+                    navLinks.classList.contains("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    isOpen ? "true" : "false"
+                );
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    isOpen ? "Close navigation menu" : "Open navigation menu"
+                );
+
+            });
+
+            navLinks.querySelectorAll("a").forEach(link => {
+
+                link.addEventListener("click", () => {
+
+                    navLinks.classList.remove("active");
+                    menuToggle.setAttribute("aria-expanded", "false");
+
+                });
+
+            });
+
+        }
     </script>
 
 </body>
