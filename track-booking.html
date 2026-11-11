@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Track Your Booking | EVENTORA</title>
+    <meta name="description" content="Track your EVENTORA event booking, view your event details, budget allocation and booking status.">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -15,50 +16,68 @@
             min-height: 75vh;
             padding: 75px 20px;
             background: #f8f5ef;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        }
+
+        .tracking-wrapper {
+            max-width: 850px;
+            margin: auto;
         }
 
         .tracking-card {
-            width: 100%;
-            max-width: 620px;
-            padding: 45px;
             background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 12px 40px rgba(0,0,0,.08);
+            padding: 42px;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0,0,0,.07);
         }
 
-        .tracking-card h1 {
+        .tracking-heading {
             text-align: center;
-            color: #3c2b20;
-            margin-bottom: 12px;
-        }
-
-        .tracking-card .intro {
-            text-align: center;
-            color: #777;
             margin-bottom: 30px;
+        }
+
+        .tracking-heading .eyebrow {
+            color: #b58a45;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .tracking-heading h1 {
+            color: #3c2b20;
+            font-size: 34px;
+            margin: 10px 0;
+        }
+
+        .tracking-heading p {
+            color: #777;
             line-height: 1.7;
         }
 
-        .tracking-card label {
+        .tracking-form label {
             display: block;
             margin-bottom: 9px;
             font-weight: 600;
             color: #3c2b20;
         }
 
-        .tracking-card input {
+        .tracking-form input {
             width: 100%;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 17px;
             font-size: 15px;
+            box-sizing: border-box;
         }
 
-        .tracking-card button {
+        .tracking-form input:focus {
+            outline: none;
+            border-color: #b58a45;
+            box-shadow: 0 0 0 3px rgba(181,138,69,.12);
+        }
+
+        .tracking-form button {
             width: 100%;
             padding: 15px;
             background: #b58a45;
@@ -66,35 +85,51 @@
             border: none;
             border-radius: 8px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
+            transition: .2s;
         }
 
-        .tracking-card button:hover {
+        .tracking-form button:hover {
             background: #967039;
         }
 
-        .tracking-card button:disabled {
+        .tracking-form button:disabled {
             opacity: .6;
             cursor: not-allowed;
         }
 
         #trackingMessage {
             display: none;
-            padding: 13px;
+            padding: 14px 16px;
             border-radius: 8px;
             margin-top: 20px;
-            line-height: 1.5;
+            line-height: 1.6;
             overflow-wrap: anywhere;
         }
 
         #bookingDetails {
-            margin-top: 25px;
+            margin-top: 28px;
+        }
+
+        .booking-details {
+            color: #3c2b20;
         }
 
         .booking-details h2 {
-            color: #3c2b20;
-            margin-bottom: 18px;
+            font-size: 23px;
+            margin: 28px 0 16px;
+        }
+
+        .booking-details h2:first-child {
+            margin-top: 0;
+        }
+
+        .detail-section {
+            border: 1px solid #eee7dc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 18px;
         }
 
         .detail-row {
@@ -102,35 +137,132 @@
             justify-content: space-between;
             gap: 20px;
             padding: 13px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f0ece6;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
         }
 
         .detail-row span:first-child {
             color: #777;
+            flex: 1;
         }
 
         .detail-row span:last-child {
             color: #3c2b20;
             font-weight: 600;
             text-align: right;
+            flex: 1;
             overflow-wrap: anywhere;
         }
 
-        .status {
+        .status-pill {
+            display: inline-block;
+            padding: 6px 13px;
+            border-radius: 30px;
+            background: #fff2d8;
+            color: #94651c !important;
+            font-size: 13px;
             text-transform: capitalize;
-            color: #b58a45 !important;
         }
 
-        .status.accepted {
+        .status-pill.accepted,
+        .status-pill.confirmed {
+            background: #e5f5e9;
             color: #23834b !important;
         }
 
-        .status.completed {
+        .status-pill.in-progress {
+            background: #e7f0ff;
             color: #2464a0 !important;
         }
 
-        .status.rejected {
+        .status-pill.completed {
+            background: #e5efff;
+            color: #2464a0 !important;
+        }
+
+        .status-pill.rejected,
+        .status-pill.cancelled {
+            background: #ffe9e7;
             color: #b83232 !important;
+        }
+
+        .progress-track {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin: 25px 0 12px;
+            position: relative;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-circle {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 9px;
+            border-radius: 50%;
+            background: #e8e3db;
+            color: #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .progress-step.active .progress-circle,
+        .progress-step.done .progress-circle {
+            background: #b58a45;
+            color: #fff;
+        }
+
+        .progress-step span:last-child {
+            display: block;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .progress-step.active span:last-child,
+        .progress-step.done span:last-child {
+            color: #3c2b20;
+            font-weight: 700;
+        }
+
+        .allocation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .allocation-table th,
+        .allocation-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .allocation-table th:last-child,
+        .allocation-table td:last-child {
+            text-align: right;
+        }
+
+        .allocation-summary {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+
+        .allocation-summary .detail-row {
+            padding: 9px 0;
         }
 
         .tracking-note {
@@ -138,12 +270,25 @@
             font-size: 13px;
             color: #888;
             margin-top: 25px;
-            line-height: 1.6;
+            line-height: 1.7;
+        }
+
+        .tracking-note a {
+            color: #967039;
+            font-weight: 600;
         }
 
         @media(max-width: 600px) {
+            .tracking-page {
+                padding: 35px 12px;
+            }
+
             .tracking-card {
-                padding: 25px 18px;
+                padding: 25px 17px;
+            }
+
+            .tracking-heading h1 {
+                font-size: 27px;
             }
 
             .detail-row {
@@ -154,6 +299,25 @@
             .detail-row span:last-child {
                 text-align: left;
             }
+
+            .progress-track {
+                gap: 3px;
+            }
+
+            .progress-step span:last-child {
+                font-size: 10px;
+            }
+
+            .progress-circle {
+                width: 27px;
+                height: 27px;
+            }
+
+            .allocation-table th,
+            .allocation-table td {
+                font-size: 12px;
+                padding: 10px 5px;
+            }
         }
     </style>
 </head>
@@ -162,9 +326,7 @@
 
     <header>
         <nav class="navbar">
-            <a href="index.html" class="logo">
-                EVENTORA
-            </a>
+            <a href="index.html" class="logo">EVENTORA</a>
 
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -172,53 +334,62 @@
                 <li><a href="services.html">Services</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="booking.html">Book an Event</a></li>
-                <li><a href="track-booking.html">Track Booking</a></li>
+                <li><a href="track-booking.html" class="active">Track Booking</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="tracking-page">
+        <div class="tracking-wrapper">
+            <div class="tracking-card">
 
-        <div class="tracking-card">
+                <div class="tracking-heading">
+                    <span class="eyebrow">EVENTORA CUSTOMER PORTAL</span>
+                    <h1>Track Your Booking</h1>
+                    <p>
+                        Your celebration is important to us.
+                        Enter your booking reference ID to view
+                        your event details and latest booking status.
+                    </p>
+                </div>
 
-            <h1>Track Your Booking</h1>
+                <form id="trackingForm" class="tracking-form">
+                    <label for="bookingReference">
+                        Booking Reference ID
+                    </label>
 
-            <p class="intro">
-                Enter your booking reference ID to check
-                your EVENTORA booking details and latest status.
-            </p>
+                    <input
+                        type="text"
+                        id="bookingReference"
+                        placeholder="Enter your booking reference ID"
+                        autocomplete="off"
+                        required
+                    >
 
-            <form id="trackingForm">
+                    <button type="submit" id="trackButton">
+                        Track My Booking
+                    </button>
+                </form>
 
-                <label for="bookingReference">
-                    Booking Reference ID
-                </label>
+                <div
+                    id="trackingMessage"
+                    role="status"
+                    aria-live="polite">
+                </div>
 
-                <input
-                    type="text"
-                    id="bookingReference"
-                    placeholder="Enter your booking reference ID"
-                    required
-                >
+                <div id="bookingDetails"></div>
 
-                <button type="submit" id="trackButton">
-                    Track My Booking
-                </button>
+                <p class="tracking-note">
+                    For security, use the same browser and device
+                    that you used when submitting your booking.
+                    <br>
+                    Need help?
+                    <a href="contact.html">Contact EVENTORA</a>
+                </p>
 
-            </form>
-
-            <div id="trackingMessage" role="status" aria-live="polite"></div>
-
-            <div id="bookingDetails"></div>
-
-            <p class="tracking-note">
-                For security, use the same browser and device
-                that you used when submitting your booking.
-            </p>
-
+            </div>
         </div>
-
     </main>
 
     <footer>
