@@ -1,258 +1,235 @@
 
-/* =========================================================
-   EVENTORA - CUSTOMER BOOKING TRACKING
-   File: js/track-booking.js
-========================================================= */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-import {
-    initializeApp,
-    getApps,
-    getApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    <title>Track Your Booking | EVENTORA</title>
 
-import {
-    getFirestore,
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
-import {
-    getAuth,
-    signInAnonymously
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-/* ---------- FIREBASE CONFIGURATION ---------- */
-
-const firebaseConfig = {
-    apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8Q",
-    authDomain: "event-management-93edc.firebaseapp.com",
-    projectId: "event-management-93edc",
-    storageBucket: "event-management-93edc.firebasestorage.app",
-    messagingSenderId: "327602461080",
-    appId: "1:327602461080:web:eb96abf94de99d1bac73ed",
-    measurementId: "G-NFFDH9C4ZF"
-};
-
-
-/* ---------- INITIALIZE FIREBASE ---------- */
-
-const app = getApps().length
-    ? getApp()
-    : initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-
-/* ---------- PAGE ELEMENTS ---------- */
-
-const trackingForm = document.getElementById("trackingForm");
-const referenceInput = document.getElementById("bookingReference");
-const trackButton = document.getElementById("trackButton");
-const trackingMessage = document.getElementById("trackingMessage");
-const bookingDetails = document.getElementById("bookingDetails");
-
-
-/* ---------- CUSTOMER AUTHENTICATION ---------- */
-
-async function getCustomerUser() {
-    if (auth.currentUser) {
-        return auth.currentUser;
-    }
-
-    const result = await signInAnonymously(auth);
-    return result.user;
-}
-
-
-/* ---------- MESSAGE ---------- */
-
-function showMessage(message, success = false) {
-    trackingMessage.textContent = message;
-    trackingMessage.style.display = "block";
-
-    trackingMessage.style.background = success
-        ? "#e8f5e9"
-        : "#fff0ee";
-
-    trackingMessage.style.color = success
-        ? "#256438"
-        : "#a33b32";
-
-    bookingDetails.replaceChildren();
-}
-
-
-/* ---------- DISPLAY BOOKING DETAILS ---------- */
-
-function addDetail(container, label, value) {
-    const row = document.createElement("div");
-    row.className = "detail-row";
-
-    const left = document.createElement("span");
-    left.textContent = label;
-
-    const right = document.createElement("span");
-    right.textContent = value || "Not provided";
-
-    row.append(left, right);
-    container.appendChild(row);
-}
-
-
-function displayBooking(data, reference) {
-
-    bookingDetails.replaceChildren();
-
-    const section = document.createElement("section");
-    section.className = "booking-details";
-
-    const heading = document.createElement("h2");
-    heading.textContent = "Booking Details";
-
-    section.appendChild(heading);
-
-    addDetail(section, "Reference ID", reference);
-    addDetail(section, "Customer Name", data.name);
-    addDetail(section, "Event Type", data.eventType);
-    addDetail(section, "Event Date", data.date);
-    addDetail(section, "Guests", String(data.guests));
-    addDetail(section, "Location", data.location);
-    addDetail(
-        section,
-        "Selected Services",
-        Array.isArray(data.services)
-            ? data.services.join(", ")
-            : "Not provided"
-    );
-
-    const statusRow = document.createElement("div");
-    statusRow.className = "detail-row";
-
-    const statusLabel = document.createElement("span");
-    statusLabel.textContent = "Booking Status";
-
-    const statusValue = document.createElement("span");
-    const status = String(data.status || "pending").toLowerCase();
-
-    statusValue.className = "status " + status;
-    statusValue.textContent = status;
-
-    statusRow.append(statusLabel, statusValue);
-    section.appendChild(statusRow);
-
-    bookingDetails.appendChild(section);
-
-    showMessage(
-        "Booking found! Here is your latest booking information.",
-        true
-    );
-}
-
-
-/* ---------- TRACK BOOKING ---------- */
-
-async function trackBooking(reference) {
-
-    const cleanReference = reference.trim();
-
-    if (!cleanReference) {
-        showMessage("Please enter your booking reference ID.");
-        return;
-    }
-
-    trackButton.disabled = true;
-    trackButton.textContent = "Checking Booking...";
-
-    showMessage("Please wait. Checking your booking...");
-
-    try {
-
-        const customer = await getCustomerUser();
-
-        const bookingRef = doc(
-            db,
-            "bookings",
-            cleanReference
-        );
-
-        const bookingSnapshot = await getDoc(bookingRef);
-
-        if (!bookingSnapshot.exists()) {
-            showMessage(
-                "Booking not found. Please check your reference ID."
-            );
-            return;
+    <style>
+        .tracking-page {
+            min-height: 75vh;
+            padding: 75px 20px;
+            background: #f8f5ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        const bookingData = bookingSnapshot.data();
-
-        // Additional client-side ownership check.
-        if (bookingData.ownerUid !== customer.uid) {
-            showMessage(
-                "This booking cannot be accessed from this browser. Please use the browser and device used to submit it."
-            );
-            return;
+        .tracking-card {
+            width: 100%;
+            max-width: 620px;
+            padding: 45px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,.08);
         }
 
-        displayBooking(bookingData, cleanReference);
-
-    } catch (error) {
-
-        console.error("EVENTORA tracking error:", error);
-        console.error("Error code:", error.code);
-        console.error("Error message:", error.message);
-
-        if (error.code === "permission-denied") {
-            showMessage(
-                "Access denied. Use the same browser and device that submitted this booking."
-            );
-        } else if (error.code === "auth/operation-not-allowed") {
-            showMessage(
-                "Anonymous Authentication is not enabled in Firebase."
-            );
-        } else {
-            showMessage(
-                "Unable to check your booking. Please try again. " +
-                (error.code || error.message || "")
-            );
+        .tracking-card h1 {
+            text-align: center;
+            color: #3c2b20;
+            margin-bottom: 12px;
         }
 
-    } finally {
+        .tracking-card .intro {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
 
-        trackButton.disabled = false;
-        trackButton.textContent = "Track My Booking";
+        .tracking-card label {
+            display: block;
+            margin-bottom: 9px;
+            font-weight: 600;
+            color: #3c2b20;
+        }
 
-    }
-}
+        .tracking-card input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
 
+        .tracking-card button {
+            width: 100%;
+            padding: 15px;
+            background: #b58a45;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
-/* ---------- FORM SUBMISSION ---------- */
+        .tracking-card button:hover {
+            background: #967039;
+        }
 
-trackingForm.addEventListener("submit", function (event) {
+        .tracking-card button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
 
-    event.preventDefault();
+        #trackingMessage {
+            display: none;
+            padding: 13px;
+            border-radius: 8px;
+            margin-top: 20px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
 
-    trackBooking(referenceInput.value);
+        #bookingDetails {
+            margin-top: 25px;
+        }
 
-});
+        .booking-details h2 {
+            color: #3c2b20;
+            margin-bottom: 18px;
+        }
 
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 13px 0;
+            border-bottom: 1px solid #eee;
+        }
 
-/* ---------- LOAD LAST BOOKING REFERENCE ---------- */
+        .detail-row span:first-child {
+            color: #777;
+        }
 
-const urlReference = new URLSearchParams(
-    window.location.search
-).get("ref");
+        .detail-row span:last-child {
+            color: #3c2b20;
+            font-weight: 600;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
 
-const savedReference = localStorage.getItem(
-    "eventoraLastBookingRef"
-);
+        .status {
+            text-transform: capitalize;
+            color: #b58a45 !important;
+        }
 
-if (urlReference) {
-    referenceInput.value = urlReference;
-} else if (savedReference) {
-    referenceInput.value = savedReference;
-}
+        .status.accepted {
+            color: #23834b !important;
+        }
 
-console.log("EVENTORA Booking Tracking initialized.");
+        .status.completed {
+            color: #2464a0 !important;
+        }
+
+        .status.rejected {
+            color: #b83232 !important;
+        }
+
+        .tracking-note {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            margin-top: 25px;
+            line-height: 1.6;
+        }
+
+        @media(max-width: 600px) {
+            .tracking-card {
+                padding: 25px 18px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .detail-row span:last-child {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                EVENTORA
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="booking.html">Book an Event</a></li>
+                <li><a href="track-booking.html">Track Booking</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="tracking-page">
+
+        <div class="tracking-card">
+
+            <h1>Track Your Booking</h1>
+
+            <p class="intro">
+                Enter your booking reference ID to check
+                your EVENTORA booking details and latest status.
+            </p>
+
+            <form id="trackingForm">
+
+                <label for="bookingReference">
+                    Booking Reference ID
+                </label>
+
+                <input
+                    type="text"
+                    id="bookingReference"
+                    placeholder="Enter your booking reference ID"
+                    required
+                >
+
+                <button type="submit" id="trackButton">
+                    Track My Booking
+                </button>
+
+            </form>
+
+            <div id="trackingMessage" role="status" aria-live="polite"></div>
+
+            <div id="bookingDetails"></div>
+
+            <p class="tracking-note">
+                For security, use the same browser and device
+                that you used when submitting your booking.
+            </p>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>
+            &copy; <span id="year"></span> EVENTORA.
+            Creating Moments. Designing Memories.
+        </p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script type="module" src="js/track-booking.js"></script>
+
+</body>
+</html>
