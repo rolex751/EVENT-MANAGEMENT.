@@ -25,12 +25,13 @@ import {
 
 
 /* =========================================================
-   1. FIREBASE CONFIGURATION
+   1. FIREBASE CONFIGURATION - CORRECTED
 ========================================================= */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA184UnR0cJ0DEm9yj0UN44y0VM1SgTxa8Q",
+    apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8Q",
     authDomain: "event-management-93edc.firebaseapp.com",
+    databaseURL: "https://event-management-93edc-default-rtdb.firebaseio.com",
     projectId: "event-management-93edc",
     storageBucket: "event-management-93edc.firebasestorage.app",
     messagingSenderId: "327602461080",
@@ -342,7 +343,6 @@ async function getCustomerUser() {
 
 /* =========================================================
    7. MESSAGE DISPLAY
-   FIX: DO NOT CLEAR BOOKING DETAILS AFTER SUCCESS
 ========================================================= */
 
 function showMessage(
@@ -368,7 +368,6 @@ function showMessage(
         ? "#256438"
         : "#a33b32";
 
-    // Clear details only when displaying a new search/error.
     if (clearDetails && bookingDetails) {
         bookingDetails.replaceChildren();
     }
@@ -781,13 +780,7 @@ function displayBooking(data, reference) {
 
     wrapper.appendChild(title);
 
-
-    /* BOOKING STATUS */
-
     displayStatus(data, wrapper);
-
-
-    /* CUSTOMER INFORMATION */
 
     wrapper.appendChild(
         createHeading("Customer Information")
@@ -797,9 +790,6 @@ function displayBooking(data, reference) {
     addDetail(wrapper, "Customer Name", data.name);
     addDetail(wrapper, "Phone Number", data.phone);
     addDetail(wrapper, "Email Address", data.email);
-
-
-    /* EVENT INFORMATION */
 
     wrapper.appendChild(
         createHeading("Event Information")
@@ -816,9 +806,6 @@ function displayBooking(data, reference) {
     );
 
     addDetail(wrapper, "Location", data.location);
-
-
-    /* BUDGET INFORMATION */
 
     wrapper.appendChild(
         createHeading("Budget Information")
@@ -841,9 +828,6 @@ function displayBooking(data, reference) {
         "Guest Estimate Method",
         data.guestEstimateMethod
     );
-
-
-    /* SELECTED SERVICES */
 
     wrapper.appendChild(
         createHeading("Selected Services")
@@ -878,18 +862,9 @@ function displayBooking(data, reference) {
 
     wrapper.appendChild(serviceList);
 
-
-    /* SERVICE BUDGET ALLOCATION */
-
     displayServiceAllocation(data, wrapper);
 
-
-    /* ADVANCE BOOKING */
-
     displayAdvancePayment(data, wrapper);
-
-
-    /* ADDITIONAL REQUIREMENTS */
 
     wrapper.appendChild(
         createHeading("Additional Requirements")
@@ -900,9 +875,6 @@ function displayBooking(data, reference) {
         "Customer Requirements",
         data.requirements
     );
-
-
-    /* AUTOMATIC UPDATE MESSAGE */
 
     const updateNote = document.createElement("p");
 
@@ -916,9 +888,6 @@ function displayBooking(data, reference) {
 
     bookingDetails.appendChild(wrapper);
 
-
-    // IMPORTANT FIX:
-    // Keep the displayed booking details visible.
     showMessage(
         "Booking found! Your latest booking information is displayed below.",
         true,
@@ -933,7 +902,6 @@ function displayBooking(data, reference) {
 ========================================================= */
 
 let unsubscribeBooking = null;
-
 let trackingRequest = 0;
 
 
@@ -949,9 +917,6 @@ async function trackBooking(reference) {
 
     }
 
-
-    // Stop any previous live listener.
-
     if (unsubscribeBooking) {
 
         unsubscribeBooking();
@@ -959,7 +924,6 @@ async function trackBooking(reference) {
         unsubscribeBooking = null;
 
     }
-
 
     const requestNumber = ++trackingRequest;
 
@@ -969,26 +933,17 @@ async function trackBooking(reference) {
 
     showMessage("Please wait. Checking your booking...");
 
-
     try {
-
-        /* CUSTOMER AUTHENTICATION */
 
         const customer = await getCustomerUser();
 
         if (requestNumber !== trackingRequest) return;
-
-
-        /* FIRESTORE DOCUMENT */
 
         const bookingReference = doc(
             db,
             "bookings",
             cleanReference
         );
-
-
-        /* LIVE FIRESTORE LISTENER */
 
         unsubscribeBooking = onSnapshot(
 
@@ -997,9 +952,6 @@ async function trackBooking(reference) {
             snapshot => {
 
                 if (requestNumber !== trackingRequest) return;
-
-
-                /* BOOKING NOT FOUND */
 
                 if (!snapshot.exists()) {
 
@@ -1016,11 +968,7 @@ async function trackBooking(reference) {
 
                 }
 
-
                 const bookingData = snapshot.data();
-
-
-                /* CUSTOMER OWNERSHIP CHECK */
 
                 if (
                     !bookingData.ownerUid ||
@@ -1041,9 +989,6 @@ async function trackBooking(reference) {
 
                 }
 
-
-                /* SAVE REFERENCE */
-
                 try {
 
                     localStorage.setItem(
@@ -1058,9 +1003,6 @@ async function trackBooking(reference) {
                     );
 
                 }
-
-
-                /* DISPLAY LATEST INFORMATION */
 
                 displayBooking(
                     bookingData,
@@ -1196,7 +1138,6 @@ try {
     );
 
 }
-
 
 if (referenceInput) {
 
