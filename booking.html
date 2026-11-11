@@ -312,6 +312,48 @@
             line-height: 1.7;
         }
 
+        /* PHONEPE UPI PAYMENT SECTION */
+        .upi-payment-card {
+            margin: 30px 0;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fffefa;
+            text-align: center;
+        }
+
+        .upi-payment-card h3 {
+            margin: 0 0 8px;
+            font: 600 22px "Playfair Display", serif;
+            color: var(--brown);
+        }
+
+        .upi-payment-card p {
+            margin: 8px 0 16px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .upi-qr-image {
+            display: block;
+            width: min(100%, 320px);
+            height: auto;
+            margin: 0 auto;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #fff;
+        }
+
+        .upi-payment-note {
+            margin-top: 14px !important;
+            padding: 12px;
+            border-radius: 7px;
+            background: #f5eee4;
+            color: #514033 !important;
+            font-size: 12px !important;
+        }
+
         @media(max-width: 850px) {
             .booking-layout {
                 grid-template-columns: 1fr;
@@ -571,7 +613,36 @@
 
                 </div>
 
-                <h3 class="form-section-title">04. Additional Requirements</h3>
+                <!-- PHONEPE PAYMENT -->
+                <h3 class="form-section-title">04. UPI Payment</h3>
+
+                <div class="upi-payment-card">
+                    <h3>Pay Using PhonePe</h3>
+
+                    <p>
+                        Scan the QR code below using your PhonePe app
+                        to make a UPI payment.
+                    </p>
+
+                    <img
+                        src="images/phonepe-qr.jpeg"
+                        alt="EVENTORA PhonePe UPI payment QR code"
+                        class="upi-qr-image"
+                        loading="lazy"
+                    >
+
+                    <p class="upi-payment-note">
+                        Please confirm the payment amount with the EVENTORA team
+                        before paying. After payment, keep your transaction ID
+                        or payment screenshot for reference.
+
+                        Your booking enquiry is not confirmed until EVENTORA
+                        verifies the payment and confirms the event arrangements.
+                    </p>
+                </div>
+
+                <!-- ADDITIONAL REQUIREMENTS -->
+                <h3 class="form-section-title">05. Additional Requirements</h3>
 
                 <div class="form-group">
                     <label for="requirements">Describe Your Event</label>
@@ -630,6 +701,7 @@
         </div>
     </footer>
 
+    <!-- EXISTING JAVASCRIPT FILES -->
     <script src="js/script.js"></script>
     <script type="module" src="js/booking.js"></script>
 
