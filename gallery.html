@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Our Gallery | EVENTORA - Creating Moments</title>
+    <title>Gallery | EVENTORA - Creating Moments</title>
 
-    <meta name="description" content="Explore EVENTORA's gallery of Indian celebrity couples, weddings, birthdays, corporate events and beautiful event decorations.">
+    <meta name="description" content="Explore EVENTORA's gallery featuring Indian weddings, marriage celebrations, birthdays, corporate events and beautiful decorations.">
 
-    <meta name="keywords" content="EVENTORA gallery, Indian weddings, celebrity couples, birthday parties, corporate events, wedding decorations">
+    <meta name="keywords" content="EVENTORA gallery, Indian marriage, wedding decoration, birthday parties, corporate events, event management Bengaluru">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -21,9 +21,9 @@
     <link rel="icon" href="images/logo.png">
 
     <style>
-        /* ==============================
+        /* =================================
            EVENTORA GALLERY PAGE
-        ============================== */
+        ================================= */
 
         .gallery-section {
             padding: 65px 7%;
@@ -47,6 +47,8 @@
             color: #777;
             line-height: 1.8;
         }
+
+        /* FILTER BUTTONS */
 
         .gallery-filters {
             display: flex;
@@ -76,6 +78,8 @@
             border-color: #a87945;
         }
 
+        /* IMAGE GRID */
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -84,7 +88,6 @@
 
         .gallery-item {
             position: relative;
-            min-height: 280px;
             height: 320px;
             overflow: hidden;
             border-radius: 12px;
@@ -104,12 +107,17 @@
             transform: scale(1.08);
         }
 
+        /* IMAGE CAPTIONS */
+
         .gallery-overlay {
             position: absolute;
             inset: auto 0 0;
             padding: 45px 20px 20px;
             color: #fff;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.82));
+            background: linear-gradient(
+                transparent,
+                rgba(0, 0, 0, 0.85)
+            );
         }
 
         .gallery-overlay h3 {
@@ -132,6 +140,8 @@
             margin: 30px auto 0;
             max-width: 750px;
         }
+
+        /* CALL TO ACTION */
 
         .gallery-cta {
             padding: 65px 7%;
@@ -168,11 +178,15 @@
             transform: translateY(-2px);
         }
 
+        /* TABLET */
+
         @media (max-width: 900px) {
             .gallery-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
+
+        /* MOBILE */
 
         @media (max-width: 600px) {
             .gallery-section {
@@ -202,9 +216,9 @@
 
 <body>
 
-    <!-- ==============================
+    <!-- =================================
          HEADER / NAVIGATION
-    ============================== -->
+    ================================= -->
 
     <header class="header">
         <nav class="navbar">
@@ -214,60 +228,95 @@
                 <span>EVENTORA</span>
             </a>
 
-            <button class="menu-toggle" id="menuToggle"
+            <button class="menu-toggle"
+                    id="menuToggle"
                     aria-label="Open navigation menu"
                     aria-expanded="false">
                 ☰
             </button>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html" class="active" aria-current="page">Gallery</a></li>
-                <li><a href="booking.html">Book Event</a></li>
-                <li><a href="track-booking.html">Track My Booking</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="booking.html" class="nav-btn">Plan Your Event</a></li>
+
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="about.html">About</a>
+                </li>
+
+                <li>
+                    <a href="services.html">Services</a>
+                </li>
+
+                <li>
+                    <a href="gallery.html" class="active" aria-current="page">Gallery</a>
+                </li>
+
+                <li>
+                    <a href="booking.html">Book Event</a>
+                </li>
+
+                <li>
+                    <a href="track-booking.html">Track My Booking</a>
+                </li>
+
+                <li>
+                    <a href="contact.html">Contact</a>
+                </li>
+
+                <li>
+                    <a href="booking.html" class="nav-btn">Plan Your Event</a>
+                </li>
+
             </ul>
 
         </nav>
     </header>
 
 
-    <!-- ==============================
+    <!-- =================================
          GALLERY HERO
-    ============================== -->
+    ================================= -->
 
     <section class="page-hero">
+
         <div class="hero-content">
+
             <span class="section-tag">EVENTORA COLLECTION</span>
+
             <h1>Our Event Gallery</h1>
+
             <p>
-                Explore beautiful celebrations, wedding inspiration,
+                Explore beautiful weddings, marriage celebrations,
                 birthday parties, corporate gatherings and creative decorations.
             </p>
+
         </div>
+
     </section>
 
 
-    <!-- ==============================
-         GALLERY INTRODUCTION
-    ============================== -->
+    <!-- =================================
+         GALLERY SECTION
+    ================================= -->
 
     <section class="gallery-section">
 
         <div class="gallery-intro">
+
             <h2>Moments Worth Remembering</h2>
+
             <p>
                 Every celebration has a story. Discover inspiration from
-                Indian weddings, celebrity couples, birthday celebrations,
-                professional events and stunning decorations.
+                Indian marriages, birthday celebrations, professional events
+                and stunning decorations.
             </p>
+
         </div>
 
 
-        <!-- GALLERY FILTER BUTTONS -->
+        <!-- GALLERY FILTERS -->
 
         <div class="gallery-filters" aria-label="Filter gallery">
 
@@ -278,9 +327,9 @@
             </button>
 
             <button class="gallery-filter"
-                    data-filter="celebrity"
+                    data-filter="marriage"
                     aria-pressed="false">
-                Celebrity Couples
+                Marriage
             </button>
 
             <button class="gallery-filter"
@@ -304,77 +353,96 @@
         </div>
 
 
-        <!-- ==============================
-             ALL GALLERY PHOTOS
-        ============================== -->
+        <!-- =================================
+             MARRIAGE PHOTOGRAPHS
+        ================================= -->
 
         <div class="gallery-grid" id="galleryGrid">
 
-
-            <!-- INDIAN CELEBRITY COUPLES -->
-
-            <article class="gallery-item" data-category="celebrity">
-                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Deepika_Padukone_and_Ranveer_Singh_reception.jpg"
-                     alt="Deepika Padukone and Ranveer Singh"
-                     loading="lazy">
-                <div class="gallery-overlay">
-                    <h3>Deepika & Ranveer</h3>
-                    <p>Indian celebrity wedding reception inspiration</p>
-                </div>
-            </article>
-
-            <article class="gallery-item" data-category="celebrity">
-                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Virat_Kohli_and_Anushka_Sharma_at_Mumbai_reception.jpg"
-                     alt="Virat Kohli and Anushka Sharma"
-                     loading="lazy">
-                <div class="gallery-overlay">
-                    <h3>Virat & Anushka</h3>
-                    <p>Elegant celebrity couple style</p>
-                </div>
-            </article>
-
-            <article class="gallery-item" data-category="celebrity">
-                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sidharth_Malhotra_and_Kiara_Advani_at_their_wedding_reception_in_Mumbai_(12).jpg"
-                     alt="Kiara Advani and Sidharth Malhotra"
-                     loading="lazy">
-                <div class="gallery-overlay">
-                    <h3>Kiara & Sidharth</h3>
-                    <p>Wedding celebration inspiration</p>
-                </div>
-            </article>
-
-            <article class="gallery-item" data-category="celebrity">
-                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ranbir_Kapoor_and_Alia_Bhatt.jpg"
-                     alt="Ranbir Kapoor and Alia Bhatt"
-                     loading="lazy">
-                <div class="gallery-overlay">
-                    <h3>Alia & Ranbir</h3>
-                    <p>Celebrity couple fashion inspiration</p>
-                </div>
-            </article>
-
-            <article class="gallery-item" data-category="celebrity">
-                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Priyanka_Chopra_and_Nick_Jonas_in_2018.jpg"
-                     alt="Priyanka Chopra and Nick Jonas"
-                     loading="lazy">
-                <div class="gallery-overlay">
-                    <h3>Priyanka & Nick</h3>
-                    <p>Grand celebration inspiration</p>
-                </div>
-            </article>
-
-            <article class="gallery-item" data-category="celebrity">
+            <article class="gallery-item" data-category="marriage">
                 <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1000&q=85"
                      alt="Indian bride and groom wedding portrait"
                      loading="lazy">
                 <div class="gallery-overlay">
-                    <h3>Indian Wedding Style</h3>
-                    <p>Traditional bridal inspiration</p>
+                    <h3>Traditional Indian Marriage</h3>
+                    <p>Beautiful bridal and groom inspiration</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="marriage">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85"
+                     alt="Beautiful wedding ceremony"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Wedding Ceremony</h3>
+                    <p>Elegant wedding celebrations</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="marriage">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=85"
+                     alt="Wedding couple celebration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Wedding Moments</h3>
+                    <p>Memories to cherish forever</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="marriage">
+                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=1000&q=85"
+                     alt="Wedding ceremony decoration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Grand Wedding</h3>
+                    <p>Beautiful marriage arrangements</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="marriage">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=85"
+                     alt="Wedding celebration and guests"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Wedding Celebration</h3>
+                    <p>Family and friends together</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="marriage">
+                <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1000&q=85"
+                     alt="Romantic wedding photography"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Wedding Photography</h3>
+                    <p>Capturing special moments</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="marriage">
+                <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1000&q=85"
+                     alt="Wedding bride and groom"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Beautiful Couple Moments</h3>
+                    <p>Timeless wedding memories</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="marriage">
+                <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
+                     alt="Wedding celebration setup"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Marriage Celebration</h3>
+                    <p>Celebrate your special day</p>
                 </div>
             </article>
 
 
-            <!-- BIRTHDAY EVENTS -->
+            <!-- =================================
+                 BIRTHDAY PHOTOGRAPHS
+            ================================= -->
 
             <article class="gallery-item" data-category="birthday">
                 <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=85"
@@ -382,7 +450,7 @@
                      loading="lazy">
                 <div class="gallery-overlay">
                     <h3>Birthday Celebration</h3>
-                    <p>Colourful birthday party decorations</p>
+                    <p>Colourful birthday decorations</p>
                 </div>
             </article>
 
@@ -398,21 +466,11 @@
 
             <article class="gallery-item" data-category="birthday">
                 <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=85"
-                     alt="Birthday party celebration setup"
-                     loading="lazy">
-                <div class="gallery-overlay">
-                    <h3>Party Setup</h3>
-                    <p>Memorable birthday moments</p>
-                </div>
-            </article>
-
-            <article class="gallery-item" data-category="birthday">
-                <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
-                     alt="Celebration party decoration"
+                     alt="Birthday party celebration"
                      loading="lazy">
                 <div class="gallery-overlay">
                     <h3>Birthday Party</h3>
-                    <p>Fun-filled celebrations</p>
+                    <p>Memorable birthday moments</p>
                 </div>
             </article>
 
@@ -422,12 +480,24 @@
                      loading="lazy">
                 <div class="gallery-overlay">
                     <h3>Party Moments</h3>
-                    <p>Celebrating special days</p>
+                    <p>Fun-filled celebrations</p>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="birthday">
+                <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
+                     alt="Birthday celebration decoration"
+                     loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Birthday Decoration</h3>
+                    <p>Special celebrations made beautiful</p>
                 </div>
             </article>
 
 
-            <!-- CORPORATE EVENTS -->
+            <!-- =================================
+                 CORPORATE PHOTOGRAPHS
+            ================================= -->
 
             <article class="gallery-item" data-category="corporate">
                 <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
@@ -441,7 +511,7 @@
 
             <article class="gallery-item" data-category="corporate">
                 <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=85"
-                     alt="Professional business meeting"
+                     alt="Business meeting"
                      loading="lazy">
                 <div class="gallery-overlay">
                     <h3>Business Meeting</h3>
@@ -471,7 +541,7 @@
 
             <article class="gallery-item" data-category="corporate">
                 <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
-                     alt="Business event and conference"
+                     alt="Corporate business event"
                      loading="lazy">
                 <div class="gallery-overlay">
                     <h3>Business Event</h3>
@@ -480,7 +550,9 @@
             </article>
 
 
-            <!-- DECORATIONS -->
+            <!-- =================================
+                 DECORATION PHOTOGRAPHS
+            ================================= -->
 
             <article class="gallery-item" data-category="decoration">
                 <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85"
@@ -535,24 +607,24 @@
         </div>
 
         <p class="gallery-note">
-            Celebrity photographs are displayed for inspiration only.
-            They are not EVENTORA client events and do not imply celebrity endorsement.
-            Please verify image permissions and attribution requirements before publishing.
+            Images are displayed for event inspiration. They do not necessarily
+            represent events organised by EVENTORA. Please verify image permissions
+            and attribution requirements before publishing.
         </p>
 
     </section>
 
 
-    <!-- ==============================
-         PLAN YOUR EVENT CTA
-    ============================== -->
+    <!-- =================================
+         PLAN YOUR EVENT
+    ================================= -->
 
     <section class="gallery-cta">
 
         <h2>Let's Create Your Special Moments</h2>
 
         <p>
-            From beautiful weddings to unforgettable birthdays and
+            From beautiful marriages to unforgettable birthdays and
             professional corporate events, EVENTORA brings your ideas to life.
         </p>
 
@@ -561,9 +633,9 @@
     </section>
 
 
-    <!-- ==============================
+    <!-- =================================
          FOOTER
-    ============================== -->
+    ================================= -->
 
     <footer class="footer">
 
@@ -579,6 +651,7 @@
 
             <div class="footer-links">
                 <h3>Quick Links</h3>
+
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
                 <a href="services.html">Our Services</a>
@@ -607,11 +680,12 @@
     </footer>
 
 
-    <!-- ==============================
+    <!-- =================================
          JAVASCRIPT
-    ============================== -->
+    ================================= -->
 
     <script>
+
         // AUTOMATIC FOOTER YEAR
 
         document.getElementById("year").textContent =
@@ -633,8 +707,10 @@
                 const selectedFilter = button.dataset.filter;
 
                 filterButtons.forEach(btn => {
+
                     btn.classList.remove("active");
                     btn.setAttribute("aria-pressed", "false");
+
                 });
 
                 button.classList.add("active");
@@ -662,8 +738,11 @@
 
         // MOBILE NAVIGATION
 
-        const menuToggle = document.getElementById("menuToggle");
-        const navLinks = document.getElementById("navLinks");
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const navLinks =
+            document.getElementById("navLinks");
 
         if (menuToggle && navLinks) {
 
@@ -691,13 +770,18 @@
                 link.addEventListener("click", () => {
 
                     navLinks.classList.remove("active");
-                    menuToggle.setAttribute("aria-expanded", "false");
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
 
                 });
 
             });
 
         }
+
     </script>
 
 </body>
