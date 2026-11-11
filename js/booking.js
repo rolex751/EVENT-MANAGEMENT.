@@ -2,6 +2,7 @@
 /* =========================================================
    EVENTORA - CUSTOMER BOOKING SYSTEM
    Firebase Firestore + Weighted Budget Allocation
+   Automatic Event-Based Guest Estimation
    File: js/booking.js
 ========================================================= */
 
@@ -58,6 +59,14 @@ const budgetInput = document.getElementById("budget");
 const customBudgetGroup = document.getElementById("customBudgetGroup");
 const customBudgetInput = document.getElementById("customBudget");
 
+const eventTypeInput =
+    document.getElementById("eventType") ||
+    document.querySelector('[name="eventType"]');
+
+const guestsInput =
+    document.getElementById("guests") ||
+    document.querySelector('[name="guests"]');
+
 const allocationPanel = document.getElementById("allocationPanel");
 const allocationEmpty = document.getElementById("allocationEmpty");
 const allocationRows = document.getElementById("allocationRows");
@@ -74,42 +83,143 @@ const advancePaymentSection = document.getElementById("advancePaymentSection");
 
 
 /* =========================================================
-   3. SERVICE WEIGHTS
-   These percentages are used to suggest a budget split.
-   The percentages are normalized according to the
-   services selected by the customer.
+   3. EVENT-WISE GUEST ESTIMATION
+
+   Estimates for budgets from ₹6 lakh to ₹10 lakh.
+
+   The guest count automatically changes when:
+   1. Customer changes event type.
+   2. Customer changes budget.
+   3. Customer enters a custom budget.
+
+   Values are indicative planning estimates.
 ========================================================= */
 
-const serviceWeights = {
-    "Venue": 28,
-    "Decoration": 17,
-    "Catering": 26,
-    "Photography": 9,
-    "Videography": 6,
-    "Entertainment": 7,
-    "Sound and Lighting": 7,
-    "Transportation": 5,
-    "Makeup": 4,
-    "Complete Event Management": 15
+const guestEstimates = {
+
+    "wedding": {
+        600000: 150,
+        700000: 175,
+        800000: 200,
+        900000: 225,
+        1000000: 250
+    },
+
+    "birthday": {
+        600000: 250,
+        700000: 300,
+        800000: 350,
+        900000: 400,
+        1000000: 450
+    },
+
+    "corporate": {
+        600000: 200,
+        700000: 250,
+        800000: 300,
+        900000: 350,
+        1000000: 400
+    },
+
+    "engagement": {
+        600000: 200,
+        700000: 250,
+        800000: 275,
+        900000: 300,
+        1000000: 350
+    },
+
+    "anniversary": {
+        600000: 200,
+        700000: 225,
+        800000: 250,
+        900000: 275,
+        1000000: 300
+    },
+
+    "college": {
+        600000: 300,
+        700000: 350,
+        800000: 400,
+        900000: 450,
+        1000000: 500
+    },
+
+    "private": {
+        600000: 250,
+        700000: 300,
+        800000: 350,
+        900000: 400,
+        1000000: 450
+    }
+
 };
 
 
 /* =========================================================
-   4. HELPER FUNCTIONS
+   4. IDENTIFY EVENT TYPE
+========================================================= */
+
+function getEventCategory(value) {
+
+    const event = String(value || "").toLowerCase().trim();
+
+    if (event.includes("wedding")) {
+        return "wedding";
+    }
+
+    if (event.includes("birthday")) {
+        return "birthday";
+    }
+
+    if (event.includes("corporate")) {
+        return "corporate";
+    }
+
+    if (event.includes("engagement")) {
+        return "engagement";
+    }
+
+    if (event.includes("anniversary")) {
+        return "anniversary";
+    }
+
+    if (
+        event.includes("college") ||
+        event.includes("cultural")
+    ) {
+        return "college";
+    }
+
+    if (
+        event.includes("private") ||
+        event.includes("party")
+    ) {
+        return "private";
+    }
+
+    return null;
+}
+
+
+/* =========================================================
+   5. HELPER FUNCTIONS
 ========================================================= */
 
 function getElementValue(id, fallbackName = "") {
+
     const element =
         document.getElementById(id) ||
         (fallbackName
             ? document.querySelector(`[name="${fallbackName}"]`)
             : null);
 
-    return element ? element.value.trim() : "";
+    return element ? String(element.value).trim() : "";
 }
 
 
 function formatRupees(amount) {
+
     return new Intl.NumberFormat("en-IN", {
         style: "currency",
         currency: "INR",
@@ -119,6 +229,7 @@ function formatRupees(amount) {
 
 
 function getSelectedServices() {
+
     return Array.from(
         bookingForm.querySelectorAll(
             'input[type="checkbox"][name="services"]:checked, input[type="checkbox"][name="services[]"]:checked'
@@ -128,6 +239,7 @@ function getSelectedServices() {
 
 
 function getSelectedBudget() {
+
     if (!budgetInput || !budgetInput.value) {
         return 0;
     }
@@ -141,6 +253,7 @@ function getSelectedBudget() {
 
 
 function getBudgetLabel() {
+
     if (!budgetInput) return "";
 
     if (budgetInput.value === "more") {
@@ -152,10 +265,10 @@ function getBudgetLabel() {
 
 
 function showMessage(message, type = "error") {
+
     if (!formMessage) return;
 
     formMessage.textContent = message;
-
     formMessage.style.display = "block";
     formMessage.style.padding = "14px";
     formMessage.style.marginTop = "15px";
@@ -172,6 +285,7 @@ function showMessage(message, type = "error") {
 
 
 function hideMessage() {
+
     if (!formMessage) return;
 
     formMessage.textContent = "";
@@ -180,7 +294,150 @@ function hideMessage() {
 
 
 /* =========================================================
-   5. BUDGET ALLOCATION DATA
+   6. CALCULATE EXPECTED GUEST COUNT
+
+   Uses linear interpolation between budget levels.
+
+   Also supports custom budgets below ₹6 lakh and
+   above ₹10 lakh using the nearest estimate range.
+========================================================= */
+
+function calculateExpectedGuests(eventType, budget) {
+
+    const category = getEventCategory(eventType);
+
+    if (!category || !budget || budget <= 0) {
+        return 0;
+    }
+
+    const estimates = guestEstimates[category];
+
+    const budgetLevels = Object.keys(estimates)
+        .map(Number)
+        .sort((a, b) => a - b);
+
+    // Exact budget match.
+    if (estimates[budget] !== undefined) {
+        return estimates[budget];
+    }
+
+    // Find the two nearest budget levels.
+    let lowerBudget;
+    let upperBudget;
+
+    if (budget < budgetLevels[0]) {
+
+        lowerBudget = budgetLevels[0];
+        upperBudget = budgetLevels[1];
+
+    } else if (budget > budgetLevels[budgetLevels.length - 1]) {
+
+        lowerBudget = budgetLevels[budgetLevels.length - 2];
+        upperBudget = budgetLevels[budgetLevels.length - 1];
+
+    } else {
+
+        for (let i = 0; i < budgetLevels.length - 1; i++) {
+
+            if (
+                budget >= budgetLevels[i] &&
+                budget <= budgetLevels[i + 1]
+            ) {
+                lowerBudget = budgetLevels[i];
+                upperBudget = budgetLevels[i + 1];
+                break;
+            }
+        }
+    }
+
+    const lowerGuests = estimates[lowerBudget];
+    const upperGuests = estimates[upperBudget];
+
+    const ratio =
+        (budget - lowerBudget) /
+        (upperBudget - lowerBudget);
+
+    const calculatedGuests =
+        lowerGuests + (upperGuests - lowerGuests) * ratio;
+
+    // Round to the nearest 5 guests.
+    return Math.max(
+        1,
+        Math.round(calculatedGuests / 5) * 5
+    );
+}
+
+
+/* =========================================================
+   7. AUTOMATICALLY UPDATE GUEST COUNT
+========================================================= */
+
+let suggestedGuestCount = 0;
+
+function updateExpectedGuests() {
+
+    if (!eventTypeInput || !guestsInput) return;
+
+    const eventType = eventTypeInput.value;
+    const totalBudget = getSelectedBudget();
+
+    if (!eventType || totalBudget <= 0) {
+        suggestedGuestCount = 0;
+        return;
+    }
+
+    const estimatedGuests = calculateExpectedGuests(
+        eventType,
+        totalBudget
+    );
+
+    if (estimatedGuests <= 0) {
+        suggestedGuestCount = 0;
+        return;
+    }
+
+    suggestedGuestCount = estimatedGuests;
+
+    // Automatically fill the guest field.
+    guestsInput.value = estimatedGuests;
+
+    // Update the field's helpful information.
+    guestsInput.title =
+        "EVENTORA suggested " +
+        estimatedGuests +
+        " guests based on your event type and budget. You can edit this number.";
+
+    console.log(
+        "EVENTORA Guest Estimate:",
+        eventType,
+        formatRupees(totalBudget),
+        estimatedGuests
+    );
+}
+
+
+/* =========================================================
+   8. SERVICE WEIGHTS
+========================================================= */
+
+const serviceWeights = {
+
+    "Venue": 28,
+    "Decoration": 17,
+    "Catering": 26,
+    "Photography": 9,
+    "Videography": 6,
+    "Entertainment": 7,
+    "Sound and Lighting": 7,
+    "Transportation": 5,
+    "Makeup": 4,
+    "Complete Event Management": 15
+
+};
+
+
+/* =========================================================
+   9. BUDGET ALLOCATION DATA
 ========================================================= */
 
 let currentAllocation = {};
@@ -193,7 +450,9 @@ function calculateSuggestedAllocation(totalBudget, services) {
     }
 
     const totalWeight = services.reduce((sum, service) => {
+
         return sum + (serviceWeights[service] || 1);
+
     }, 0);
 
     const allocations = {};
@@ -218,15 +477,18 @@ function calculateSuggestedAllocation(totalBudget, services) {
             service,
             remainder: exactAmount - roundedAmount
         });
+
     });
 
-    // Distribute remaining rupees based on largest fractions.
     let remaining = totalBudget - allocated;
 
     remainders.sort((a, b) => b.remainder - a.remainder);
 
     for (let i = 0; i < remaining; i++) {
-        const service = remainders[i % remainders.length].service;
+
+        const service =
+            remainders[i % remainders.length].service;
+
         allocations[service]++;
     }
 
@@ -235,7 +497,7 @@ function calculateSuggestedAllocation(totalBudget, services) {
 
 
 /* =========================================================
-   6. DISPLAY BUDGET ALLOCATION
+   10. DISPLAY BUDGET ALLOCATION
 ========================================================= */
 
 function renderAllocation(resetValues = false) {
@@ -254,6 +516,7 @@ function renderAllocation(resetValues = false) {
         }
 
         currentAllocation = {};
+
         updateAllocationSummary();
 
         return;
@@ -267,30 +530,30 @@ function renderAllocation(resetValues = false) {
 
     const previousAllocation = { ...currentAllocation };
 
+    const suggestedAllocation =
+        calculateSuggestedAllocation(totalBudget, selectedServices);
+
     if (resetValues) {
-        currentAllocation = calculateSuggestedAllocation(
-            totalBudget,
-            selectedServices
-        );
+
+        currentAllocation = suggestedAllocation;
+
     } else {
 
         const updatedAllocation = {};
 
         selectedServices.forEach(service => {
 
-            if (
-                previousAllocation[service] !== undefined
-            ) {
+            if (previousAllocation[service] !== undefined) {
+
                 updatedAllocation[service] =
                     previousAllocation[service];
-            } else {
-                const suggested = calculateSuggestedAllocation(
-                    totalBudget,
-                    selectedServices
-                );
 
-                updatedAllocation[service] = suggested[service] || 0;
+            } else {
+
+                updatedAllocation[service] =
+                    suggestedAllocation[service] || 0;
             }
+
         });
 
         currentAllocation = updatedAllocation;
@@ -338,12 +601,14 @@ function renderAllocation(resetValues = false) {
                 Math.max(0, Math.floor(Number(this.value) || 0));
 
             updateAllocationSummary();
+
         });
 
         row.appendChild(serviceLabel);
         row.appendChild(amountInput);
 
         allocationRows.appendChild(row);
+
     });
 
     if (allocationBudget) {
@@ -355,7 +620,7 @@ function renderAllocation(resetValues = false) {
 
 
 /* =========================================================
-   7. UPDATE ALLOCATION TOTAL AND REMAINING BALANCE
+   11. UPDATE ALLOCATION TOTAL AND REMAINING BALANCE
 ========================================================= */
 
 function updateAllocationSummary() {
@@ -376,14 +641,14 @@ function updateAllocationSummary() {
     }
 
     if (allocationRemaining) {
-        allocationRemaining.textContent = formatRupees(
-            Math.max(0, remainingBudget)
-        );
+        allocationRemaining.textContent =
+            formatRupees(Math.max(0, remainingBudget));
     }
 
     if (allocationStatus) {
 
         if (allocatedTotal > totalBudget) {
+
             allocationStatus.textContent =
                 "Your allocated amount exceeds your selected budget.";
 
@@ -410,9 +675,10 @@ function updateAllocationSummary() {
 
 
 /* =========================================================
-   8. BUDGET AND SERVICE CHANGE EVENTS
+   12. BUDGET AND EVENT TYPE CHANGE EVENTS
 ========================================================= */
 
+// Budget selection.
 if (budgetInput) {
 
     budgetInput.addEventListener("change", function () {
@@ -427,6 +693,7 @@ if (budgetInput) {
         }
 
         if (customBudgetInput) {
+
             customBudgetInput.required = isCustom;
 
             if (!isCustom) {
@@ -434,20 +701,55 @@ if (budgetInput) {
             }
         }
 
+        updateExpectedGuests();
+
         renderAllocation(true);
     });
 }
 
 
+// Custom budget input.
 if (customBudgetInput) {
 
     customBudgetInput.addEventListener("input", function () {
+
         hideMessage();
+
+        updateExpectedGuests();
+
         renderAllocation(true);
     });
 }
 
 
+// Event type selection.
+if (eventTypeInput) {
+
+    eventTypeInput.addEventListener("change", function () {
+
+        hideMessage();
+
+        updateExpectedGuests();
+
+    });
+}
+
+
+// Also support event type inputs that update while typing.
+if (
+    eventTypeInput &&
+    eventTypeInput.tagName === "INPUT"
+) {
+
+    eventTypeInput.addEventListener("input", function () {
+
+        updateExpectedGuests();
+
+    });
+}
+
+
+// Service selection.
 if (bookingForm) {
 
     bookingForm.addEventListener("change", function (event) {
@@ -457,12 +759,15 @@ if (bookingForm) {
                 'input[type="checkbox"][name="services"], input[type="checkbox"][name="services[]"]'
             )
         ) {
+
             renderAllocation(false);
+
         }
     });
 }
 
 
+// Suggest budget split.
 if (suggestSplitButton) {
 
     suggestSplitButton.addEventListener("click", function () {
@@ -471,9 +776,11 @@ if (suggestSplitButton) {
         const selectedServices = getSelectedServices();
 
         if (!totalBudget || selectedServices.length === 0) {
+
             showMessage(
                 "Please select your budget and at least one service first."
             );
+
             return;
         }
 
@@ -485,7 +792,7 @@ if (suggestSplitButton) {
 
 
 /* =========================================================
-   9. ADVANCE BOOKING PAYMENT QR
+   13. ADVANCE BOOKING PAYMENT QR
 ========================================================= */
 
 if (advanceBookingCheckbox && advancePaymentSection) {
@@ -494,12 +801,13 @@ if (advanceBookingCheckbox && advancePaymentSection) {
 
         advancePaymentSection.style.display =
             this.checked ? "block" : "none";
+
     });
 }
 
 
 /* =========================================================
-   10. VALIDATE BUDGET ALLOCATION
+   14. VALIDATE BUDGET ALLOCATION
 ========================================================= */
 
 function validateAllocation() {
@@ -515,6 +823,7 @@ function validateAllocation() {
         budgetInput.value === "more" &&
         (!customBudgetInput || Number(customBudgetInput.value) <= 1000000)
     ) {
+
         return "Please enter an amount greater than ₹10,00,000.";
     }
 
@@ -530,6 +839,7 @@ function validateAllocation() {
         .reduce((sum, amount) => sum + (Number(amount) || 0), 0);
 
     if (allocatedTotal > totalBudget) {
+
         return "Your allocated service amounts exceed your selected budget. Please adjust them.";
     }
 
@@ -538,7 +848,7 @@ function validateAllocation() {
 
 
 /* =========================================================
-   11. BOOKING FORM SUBMISSION
+   15. BOOKING FORM SUBMISSION
 ========================================================= */
 
 if (bookingForm) {
@@ -552,7 +862,9 @@ if (bookingForm) {
         const validationError = validateAllocation();
 
         if (validationError) {
+
             showMessage(validationError);
+
             return;
         }
 
@@ -566,7 +878,7 @@ if (bookingForm) {
             getElementValue("date", "date") ||
             getElementValue("eventDate", "eventDate");
 
-        const guests = getElementValue("guests", "guests");
+        const guests = Number(getElementValue("guests", "guests"));
 
         const location = getElementValue("location", "location");
 
@@ -576,6 +888,12 @@ if (bookingForm) {
         const services = getSelectedServices();
 
         const totalBudget = getSelectedBudget();
+
+        // Calculate the system's original guest suggestion.
+        const expectedGuests = calculateExpectedGuests(
+            eventType,
+            totalBudget
+        );
 
         const allocatedTotal = Object.values(currentAllocation)
             .reduce((sum, amount) => sum + (Number(amount) || 0), 0);
@@ -595,35 +913,45 @@ if (bookingForm) {
             !eventType ||
             !date ||
             !guests ||
+            guests <= 0 ||
             !location
         ) {
+
             showMessage(
-                "Please complete all required booking details."
+                "Please complete all required booking details and enter a valid guest count."
             );
+
             return;
         }
 
         if (submitButton) {
+
             submitButton.disabled = true;
             submitButton.textContent = "Submitting Booking...";
+
         }
 
         try {
 
-            // Sign in anonymously if the customer is not signed in.
+            // Anonymous Firebase authentication.
             let customer = auth.currentUser;
 
             if (!customer) {
-                const userCredential = await signInAnonymously(auth);
+
+                const userCredential =
+                    await signInAnonymously(auth);
+
                 customer = userCredential.user;
             }
 
-            // Save the selected service allocations.
+            // Save selected service allocations.
             const serviceBudgetAllocation = {};
 
             services.forEach(service => {
+
                 serviceBudgetAllocation[service] =
                     Number(currentAllocation[service] || 0);
+
             });
 
             // Complete booking information.
@@ -635,7 +963,16 @@ if (bookingForm) {
 
                 eventType: eventType,
                 date: date,
-                guests: Number(guests),
+
+                // Final customer-selected guest count.
+                guests: guests,
+
+                // Original automatic estimate.
+                suggestedGuests: expectedGuests,
+
+                // Indicates that the system generated the estimate.
+                guestEstimateMethod: "event-type-and-budget",
+
                 location: location,
 
                 budget: formatRupees(totalBudget),
@@ -659,6 +996,7 @@ if (bookingForm) {
                 ownerUid: customer.uid,
 
                 createdAt: serverTimestamp()
+
             };
 
             // Save booking to Firestore.
@@ -667,8 +1005,9 @@ if (bookingForm) {
                 bookingData
             );
 
-            // Store the booking reference for customer tracking.
+            // Store booking reference for tracking.
             try {
+
                 localStorage.setItem(
                     "eventoraBookingId",
                     bookingRef.id
@@ -678,11 +1017,14 @@ if (bookingForm) {
                     "eventoraBookingRef",
                     bookingRef.id
                 );
+
             } catch (storageError) {
+
                 console.warn(
                     "Could not save booking reference locally:",
                     storageError
                 );
+
             }
 
             console.log(
@@ -690,13 +1032,15 @@ if (bookingForm) {
                 bookingRef.id
             );
 
-            // Show success message and tracking link.
+            // Success message and tracking link.
             if (formMessage) {
 
                 formMessage.innerHTML = `
                     <div style="padding:15px;background:#e8f7ed;color:#176b36;border-radius:8px;">
                         <strong>Your enquiry was submitted successfully!</strong>
                         <p>Reference ID: ${bookingRef.id}</p>
+                        <p>Suggested guests: ${expectedGuests || "Not available"}</p>
+                        <p>Final guests booked: ${guests}</p>
                         <p>Your booking status is currently Pending.</p>
                         <a href="track-booking.html?ref=${encodeURIComponent(bookingRef.id)}"
                            style="display:inline-block;margin-top:8px;padding:10px 18px;background:#176b36;color:white;text-decoration:none;border-radius:6px;">
@@ -712,6 +1056,7 @@ if (bookingForm) {
             bookingForm.reset();
 
             currentAllocation = {};
+            suggestedGuestCount = 0;
 
             if (customBudgetGroup) {
                 customBudgetGroup.style.display = "none";
@@ -737,7 +1082,10 @@ if (bookingForm) {
 
         } catch (error) {
 
-            console.error("EVENTORA booking submission error:", error);
+            console.error(
+                "EVENTORA booking submission error:",
+                error
+            );
 
             let errorMessage =
                 "Booking could not be submitted. Please try again.";
@@ -745,7 +1093,7 @@ if (bookingForm) {
             if (error.code === "auth/api-key-not-valid") {
 
                 errorMessage =
-                    "Firebase API key is invalid. Please check the Firebase configuration in js/booking.js.";
+                    "Firebase API key is invalid. Please check Firebase configuration.";
 
             } else if (
                 error.code === "permission-denied" ||
@@ -766,6 +1114,7 @@ if (bookingForm) {
 
                 errorMessage =
                     "No internet connection. Please reconnect and try again.";
+
             }
 
             showMessage(errorMessage);
@@ -773,8 +1122,10 @@ if (bookingForm) {
         } finally {
 
             if (submitButton) {
+
                 submitButton.disabled = false;
                 submitButton.textContent = "Submit Booking";
+
             }
         }
     });
@@ -782,19 +1133,38 @@ if (bookingForm) {
 
 
 /* =========================================================
-   12. INITIAL PAGE SETUP
+   16. INITIAL PAGE SETUP
 ========================================================= */
 
 if (customBudgetGroup) {
+
     customBudgetGroup.style.display =
         budgetInput?.value === "more" ? "block" : "none";
+
+}
+
+if (customBudgetInput) {
+
+    customBudgetInput.required =
+        budgetInput?.value === "more";
+
 }
 
 if (advancePaymentSection) {
+
     advancePaymentSection.style.display =
         advanceBookingCheckbox?.checked ? "block" : "none";
+
 }
 
+// Generate guest suggestion if the form already has values.
+updateExpectedGuests();
+
+// Initialize budget allocation.
 if (budgetInput?.value && getSelectedServices().length > 0) {
+
     renderAllocation(true);
+
 }
+
+console.log("EVENTORA automatic guest estimation is ready.");
