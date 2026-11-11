@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Book Your Event | EVENTORA</title>
-    <meta name="description" content="Plan your wedding, birthday, corporate event or special celebration with EVENTORA. Submit your event requirements and receive a booking enquiry confirmation.">
+    <meta name="description" content="Plan your wedding, birthday, corporate event or special celebration with EVENTORA.">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -243,6 +243,161 @@
             height: 16px;
         }
 
+        /* SERVICE BUDGET ALLOCATION */
+        .allocation-intro {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 0 0 16px;
+        }
+
+        .allocation-panel {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #fffefa;
+        }
+
+        .allocation-panel[hidden] {
+            display: none !important;
+        }
+
+        .allocation-panel h4 {
+            margin: 0 0 8px;
+            font: 600 19px "Playfair Display", serif;
+        }
+
+        .allocation-help {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 0 0 18px;
+        }
+
+        .allocation-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(130px, 180px);
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .allocation-row:last-child {
+            border-bottom: 0;
+        }
+
+        .allocation-service-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--brown);
+        }
+
+        .allocation-input-wrap {
+            position: relative;
+        }
+
+        .allocation-input-wrap span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .allocation-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 10px 11px 28px;
+            border: 1px solid #ddd3c5;
+            border-radius: 7px;
+            background: white;
+            color: var(--brown);
+            font: 14px "DM Sans", sans-serif;
+        }
+
+        .allocation-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(182, 139, 82, .12);
+        }
+
+        .allocation-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .allocation-summary-item {
+            padding: 13px 10px;
+            border-radius: 8px;
+            background: #f5eee4;
+            text-align: center;
+        }
+
+        .allocation-summary-item span {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        .allocation-summary-item strong {
+            font-size: 15px;
+            color: var(--brown);
+            overflow-wrap: anywhere;
+        }
+
+        .allocation-status {
+            margin: 14px 0 0;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        .allocation-status.error {
+            color: #b42318;
+            font-weight: 700;
+        }
+
+        .allocation-status.success {
+            color: #256438;
+        }
+
+        .allocation-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .suggest-split-button {
+            border: 1px solid var(--gold);
+            border-radius: 7px;
+            padding: 10px 15px;
+            background: #fffaf1;
+            color: var(--brown);
+            font: 600 12px "DM Sans", sans-serif;
+            cursor: pointer;
+        }
+
+        .suggest-split-button:hover {
+            background: #f5ead8;
+        }
+
+        .allocation-empty {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 15px;
+            background: #f8f4ed;
+            border-radius: 8px;
+        }
+
         .consent-row {
             display: flex;
             align-items: flex-start;
@@ -438,6 +593,15 @@
             .advance-amount {
                 font-size: 16px;
             }
+
+            .allocation-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .allocation-summary {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -591,7 +755,8 @@
                     <div class="form-group">
                         <label for="guests">Expected Guests <span class="required">*</span></label>
                         <input type="number" id="guests" name="guests"
-                               min="1" placeholder="Number of guests" required>
+                               min="1" step="1"
+                               placeholder="Number of guests" required>
                     </div>
 
                     <div class="form-group">
@@ -600,18 +765,27 @@
                                placeholder="Enter event location" required>
                     </div>
 
+                    <!-- EXACT TOTAL BUDGET -->
                     <div class="form-group full">
-                        <label for="budget">Estimated Budget <span class="required">*</span></label>
-                        <select id="budget" name="budget" required>
-                            <option value="">Select your estimated budget</option>
-                            <option value="Below ₹50,000">Below ₹50,000</option>
-                            <option value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</option>
-                            <option value="₹1,00,000 - ₹3,00,000">₹1,00,000 - ₹3,00,000</option>
-                            <option value="₹3,00,000 - ₹5,00,000">₹3,00,000 - ₹5,00,000</option>
-                            <option value="₹5,00,000 - ₹10,00,000">₹5,00,000 - ₹10,00,000</option>
-                            <option value="Above ₹10,00,000">Above ₹10,00,000</option>
-                            <option value="Not decided">Not decided yet</option>
-                        </select>
+                        <label for="budget">
+                            Total Event Budget (₹) <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="budget"
+                            name="budget"
+                            min="1"
+                            step="1"
+                            inputmode="numeric"
+                            placeholder="Example: 100000"
+                            required
+                        >
+
+                        <small style="color:#786b60;font-size:12px;line-height:1.6;">
+                            Enter your total planned budget in rupees. You will be able
+                            to distribute this amount across your selected services.
+                        </small>
                     </div>
 
                 </div>
@@ -677,8 +851,73 @@
 
                 </div>
 
+                <!-- SERVICE-WISE BUDGET ALLOCATION -->
+                <h3 class="form-section-title">04. Service-Wise Budget Allocation</h3>
+
+                <p class="allocation-intro">
+                    Select your services and enter your total budget above.
+                    EVENTORA will suggest an equal budget split. You can edit
+                    each service amount to match your preferences.
+                </p>
+
+                <div class="allocation-panel" id="allocationPanel" hidden>
+
+                    <h4>Allocate Your Event Budget</h4>
+
+                    <p class="allocation-help">
+                        These are your planned budget amounts, not confirmed
+                        service prices. You can change any amount. The final
+                        quotation will be discussed with the EVENTORA team.
+                    </p>
+
+                    <div id="allocationRows"></div>
+
+                    <div class="allocation-actions">
+                        <button
+                            type="button"
+                            class="suggest-split-button"
+                            id="suggestSplitButton"
+                        >
+                            Suggest Equal Split
+                        </button>
+                    </div>
+
+                    <div class="allocation-summary">
+
+                        <div class="allocation-summary-item">
+                            <span>Total Budget</span>
+                            <strong id="allocationBudget">₹0</strong>
+                        </div>
+
+                        <div class="allocation-summary-item">
+                            <span>Allocated Amount</span>
+                            <strong id="allocationTotal">₹0</strong>
+                        </div>
+
+                        <div class="allocation-summary-item">
+                            <span>Remaining Balance</span>
+                            <strong id="allocationRemaining">₹0</strong>
+                        </div>
+
+                    </div>
+
+                    <p
+                        id="allocationStatus"
+                        class="allocation-status"
+                        aria-live="polite"
+                    >
+                        Select services to begin allocating your budget.
+                    </p>
+
+                </div>
+
+                <div class="allocation-empty" id="allocationEmpty">
+                    Select at least one service above to see the service-wise
+                    budget allocation fields.
+                </div>
+
                 <!-- ADVANCE BOOKING PAYMENT -->
-                <h3 class="form-section-title">04. Advance Booking</h3>
+                <h3 class="form-section-title">05. Advance Booking</h3>
 
                 <p style="color:#786b60;font-size:13px;line-height:1.7;">
                     Select the option below if you want to make an
@@ -736,7 +975,7 @@
                 </div>
 
                 <!-- ADDITIONAL REQUIREMENTS -->
-                <h3 class="form-section-title">05. Additional Requirements</h3>
+                <h3 class="form-section-title">06. Additional Requirements</h3>
 
                 <div class="form-group">
                     <label for="requirements">Describe Your Event</label>
@@ -825,7 +1064,6 @@
             document.getElementById("advancePaymentSection");
 
         advanceBooking.addEventListener("change", function () {
-
             advancePaymentSection.hidden = !this.checked;
 
             if (this.checked) {
@@ -834,7 +1072,11 @@
                     block: "center"
                 });
             }
+        });
 
+        // RESET QR VISIBILITY AFTER FORM RESET
+        document.getElementById("bookingForm").addEventListener("reset", function () {
+            advancePaymentSection.hidden = true;
         });
     </script>
 
