@@ -37,6 +37,52 @@
             font-family: 'Playfair Display', serif;
         }
 
+        /* UPDATED HEADER NAVIGATION */
+
+        .header .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .header .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 17px;
+            flex-wrap: wrap;
+        }
+
+        .header .nav-links a {
+            text-decoration: none;
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .header .nav-links a.track-nav-link {
+            color: #9a7439;
+            font-weight: 600;
+        }
+
+        .header .nav-links a.plan-nav-button {
+            background: #392a1d;
+            color: #fff;
+            padding: 12px 17px;
+            border-radius: 6px;
+            transition: .25s ease;
+        }
+
+        .header .nav-links a.plan-nav-button:hover {
+            background: #a17c3f;
+            color: #fff;
+        }
+
+        .header .nav-links a.active {
+            color: #a17c3f;
+        }
+
         .about-hero {
             min-height: 460px;
             display: flex;
@@ -299,6 +345,14 @@
             line-height: 1.9;
         }
 
+        .about-cta-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
         .about-cta .about-btn {
             display: inline-block;
             padding: 14px 28px;
@@ -315,6 +369,34 @@
             background: #6a4d32;
         }
 
+        .about-cta .about-btn.secondary {
+            background: transparent;
+            border: 1px solid var(--brown);
+            color: var(--brown);
+        }
+
+        .about-cta .about-btn.secondary:hover {
+            background: var(--brown);
+            color: white;
+        }
+
+        /* FOOTER LINKS */
+
+        .footer-column a {
+            display: block;
+            margin: 9px 0;
+        }
+
+        @media(max-width: 1100px) {
+            .header .nav-links {
+                gap: 10px;
+            }
+
+            .header .nav-links a {
+                font-size: 11px;
+            }
+        }
+
         @media(max-width: 900px) {
             .about-intro-grid {
                 grid-template-columns: 1fr;
@@ -328,6 +410,37 @@
 
             .about-why-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 768px) {
+            .header .navbar {
+                flex-wrap: wrap;
+            }
+
+            .header .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 12px 0;
+            }
+
+            .header .nav-links.active,
+            .header .nav-links.open {
+                display: flex;
+            }
+
+            .header .nav-links a {
+                display: block;
+                padding: 12px 15px;
+                font-size: 13px;
+            }
+
+            .header .nav-links a.plan-nav-button {
+                text-align: center;
+                margin-top: 8px;
             }
         }
 
@@ -378,13 +491,28 @@
                 ☰
             </button>
 
-            <nav class="nav-links">
+            <nav class="nav-links" id="navLinks">
+
                 <a href="index.html">Home</a>
+
                 <a href="about.html" class="active" aria-current="page">About</a>
+
                 <a href="services.html">Services</a>
+
                 <a href="gallery.html">Gallery</a>
+
                 <a href="booking.html">Book Event</a>
+
+                <a href="track-booking.html" class="track-nav-link">
+                    Track My Booking
+                </a>
+
                 <a href="contact.html">Contact</a>
+
+                <a href="booking.html" class="plan-nav-button">
+                    Plan Your Event
+                </a>
+
             </nav>
 
         </div>
@@ -739,9 +867,17 @@
                     Let's start planning together.
                 </p>
 
-                <a href="booking.html" class="about-btn">
-                    Plan Your Event
-                </a>
+                <div class="about-cta-buttons">
+
+                    <a href="booking.html" class="about-btn">
+                        Plan Your Event
+                    </a>
+
+                    <a href="track-booking.html" class="about-btn secondary">
+                        Track My Booking
+                    </a>
+
+                </div>
 
             </div>
 
@@ -774,6 +910,8 @@
                 <a href="about.html">About Us</a>
                 <a href="services.html">Services</a>
                 <a href="gallery.html">Gallery</a>
+                <a href="booking.html">Book an Event</a>
+                <a href="track-booking.html">Track My Booking</a>
 
             </div>
 
@@ -793,7 +931,8 @@
                 <h3>Get In Touch</h3>
 
                 <a href="contact.html">Contact Us</a>
-                <a href="booking.html">Book an Event</a>
+                <a href="booking.html">Plan Your Event</a>
+                <a href="track-booking.html">Track My Booking</a>
                 <a href="admin.html">Admin Login</a>
 
             </div>
@@ -810,8 +949,50 @@
     </footer>
 
 
+    <!-- MOBILE MENU + FOOTER YEAR -->
     <script src="js/script.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const menuToggle = document.getElementById("menuToggle");
+            const navLinks = document.getElementById("navLinks");
+
+            if (menuToggle && navLinks) {
+
+                menuToggle.addEventListener("click", function () {
+
+                    const isOpen =
+                        navLinks.classList.toggle("open");
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        isOpen ? "true" : "false"
+                    );
+
+                });
+
+                navLinks.querySelectorAll("a").forEach(function (link) {
+
+                    link.addEventListener("click", function () {
+
+                        navLinks.classList.remove("open");
+                        menuToggle.setAttribute("aria-expanded", "false");
+
+                    });
+
+                });
+
+            }
+
+            const yearElement = document.getElementById("year");
+
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+
+        });
+    </script>
 
 </body>
 </html>
-
