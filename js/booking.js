@@ -1,7 +1,7 @@
 
 /* =========================================================
    EVENTORA - CUSTOMER BOOKING SYSTEM
-   Firebase + Weighted Service-Wise Budget Allocation
+   Firebase Firestore + Weighted Budget Allocation
    File: js/booking.js
 ========================================================= */
 
@@ -24,11 +24,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-/* ---------- FIREBASE CONFIGURATION ---------- */
+/* =========================================================
+   1. FIREBASE CONFIGURATION
+========================================================= */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8",
+    apiKey: "AIzaSyA184UnR0cJDEm9yj0UN44y0VM1SgTxa8Q",
     authDomain: "event-management-93edc.firebaseapp.com",
+    databaseURL: "https://event-management-93edc-default-rtdb.firebaseio.com",
     projectId: "event-management-93edc",
     storageBucket: "event-management-93edc.firebasestorage.app",
     messagingSenderId: "327602461080",
@@ -36,28 +39,16 @@ const firebaseConfig = {
     measurementId: "G-NFFDH9C4ZF"
 };
 
-
-/* ---------- INITIALIZE FIREBASE ---------- */
-
-const app = getApps().length
-    ? getApp()
-    : initializeApp(firebaseConfig);
-
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-
-/* ---------- CUSTOMER AUTHENTICATION ---------- */
-
-async function getCustomerUser() {
-    if (auth.currentUser) return auth.currentUser;
-
-    const result = await signInAnonymously(auth);
-    return result.user;
-}
+console.log("EVENTORA Booking System initialized successfully.");
 
 
-/* ---------- FORM ELEMENTS ---------- */
+/* =========================================================
+   2. GET HTML ELEMENTS
+========================================================= */
 
 const bookingForm = document.getElementById("bookingForm");
 const submitButton = document.getElementById("submitBooking");
@@ -77,15 +68,19 @@ const allocationRemaining = document.getElementById("allocationRemaining");
 const allocationStatus = document.getElementById("allocationStatus");
 
 const suggestSplitButton = document.getElementById("suggestSplitButton");
-const advanceBookingInput = document.getElementById("advanceBooking");
+
+const advanceBookingCheckbox = document.getElementById("advanceBooking");
+const advancePaymentSection = document.getElementById("advancePaymentSection");
 
 
-/* ---------- SERVICE WEIGHTS ---------- */
+/* =========================================================
+   3. SERVICE WEIGHTS
+   These percentages are used to suggest a budget split.
+   The percentages are normalized according to the
+   services selected by the customer.
+========================================================= */
 
-// These weights determine the recommended proportions.
-// They are planning suggestions, not actual service prices.
-
-const SERVICE_WEIGHTS = {
+const serviceWeights = {
     "Venue": 28,
     "Decoration": 17,
     "Catering": 26,
@@ -99,623 +94,499 @@ const SERVICE_WEIGHTS = {
 };
 
 
-/* ---------- CURRENCY FORMAT ---------- */
+/* =========================================================
+   4. HELPER FUNCTIONS
+========================================================= */
+
+function getElementValue(id, fallbackName = "") {
+    const element =
+        document.getElementById(id) ||
+        (fallbackName
+            ? document.querySelector(`[name="${fallbackName}"]`)
+            : null);
+
+    return element ? element.value.trim() : "";
+}
+
 
 function formatRupees(amount) {
     return new Intl.NumberFormat("en-IN", {
         style: "currency",
         currency: "INR",
         maximumFractionDigits: 0
-    }).format(amount);
+    }).format(Number(amount) || 0);
 }
 
-
-/* ---------- GET TOTAL BUDGET ---------- */
-
-function getTotalBudget() {
-
-    if (!budgetInput || !budgetInput.value) return 0;
-
-    if (budgetInput.value === "more") {
-
-        const customAmount = Number(customBudgetInput?.value);
-
-        if (
-            !Number.isSafeInteger(customAmount) ||
-            customAmount <= 1000000
-        ) {
-            return 0;
-        }
-
-        return customAmount;
-    }
-
-    const amount = Number(budgetInput.value);
-
-    return Number.isSafeInteger(amount) && amount >= 1
-        ? amount
-        : 0;
-}
-
-
-/* ---------- GET SELECTED SERVICES ---------- */
 
 function getSelectedServices() {
-
     return Array.from(
         bookingForm.querySelectorAll(
-            'input[name="services"]:checked'
+            'input[type="checkbox"][name="services"]:checked, input[type="checkbox"][name="services[]"]:checked'
         )
-    ).map(input => input.value);
+    ).map(input => input.value.trim());
 }
 
 
-/* ---------- GET ALLOCATION INPUTS ---------- */
+function getSelectedBudget() {
+    if (!budgetInput || !budgetInput.value) {
+        return 0;
+    }
 
-function getAllocationInputs() {
+    if (budgetInput.value === "more") {
+        return Number(customBudgetInput?.value || 0);
+    }
 
-    return Array.from(
-        allocationRows.querySelectorAll(".allocation-input")
-    );
+    return Number(budgetInput.value);
 }
 
 
-/* ---------- UPDATE SUMMARY ---------- */
+function getBudgetLabel() {
+    if (!budgetInput) return "";
 
-function updateAllocationSummary() {
-
-    const totalBudget = getTotalBudget();
-    const inputs = getAllocationInputs();
-
-    let allocatedTotal = 0;
-    let invalidAmount = false;
-
-    inputs.forEach(input => {
-
-        const raw = input.value.trim();
-
-        if (raw === "") {
-            invalidAmount = true;
-            return;
-        }
-
-        const amount = Number(raw);
-
-        if (!Number.isSafeInteger(amount) || amount < 0) {
-            invalidAmount = true;
-            return;
-        }
-
-        allocatedTotal += amount;
-    });
-
-    const remaining = totalBudget - allocatedTotal;
-
-    allocationBudget.textContent = formatRupees(totalBudget);
-    allocationTotal.textContent = formatRupees(allocatedTotal);
-    allocationRemaining.textContent = formatRupees(remaining);
-
-    allocationStatus.className = "allocation-status";
-
-    if (inputs.length === 0) {
-        allocationStatus.textContent =
-            "Select at least one service to allocate your budget.";
-        return;
+    if (budgetInput.value === "more") {
+        return "More than ₹10,00,000";
     }
 
-    if (totalBudget < 1) {
-        allocationStatus.textContent =
-            "Select your total budget above to see suggested amounts.";
-        return;
-    }
-
-    if (invalidAmount) {
-        allocationStatus.textContent =
-            "Please enter a valid amount for every selected service.";
-        allocationStatus.classList.add("error");
-        return;
-    }
-
-    if (allocatedTotal > totalBudget) {
-        allocationStatus.textContent =
-            "Your allocated amount exceeds your total budget. Please reduce the amounts.";
-
-        allocationStatus.classList.add("error");
-        return;
-    }
-
-    if (allocatedTotal === totalBudget) {
-        allocationStatus.textContent =
-            "Your full budget has been allocated successfully.";
-
-        allocationStatus.classList.add("success");
-        return;
-    }
-
-    allocationStatus.textContent =
-        "Remaining balance: " + formatRupees(remaining) +
-        ". You can allocate it later or leave it unallocated.";
-
-    allocationStatus.classList.add("success");
+    return budgetInput.options[budgetInput.selectedIndex]?.text || "";
 }
 
 
-/* ---------- CALCULATE WEIGHTED ALLOCATION ---------- */
+function showMessage(message, type = "error") {
+    if (!formMessage) return;
 
-function calculateWeightedSplit(services, totalBudget) {
+    formMessage.textContent = message;
 
-    if (!services.length || totalBudget < 1) return {};
+    formMessage.style.display = "block";
+    formMessage.style.padding = "14px";
+    formMessage.style.marginTop = "15px";
+    formMessage.style.borderRadius = "8px";
 
-    const totalWeight = services.reduce(
-        (sum, service) => sum + (SERVICE_WEIGHTS[service] || 1),
-        0
-    );
+    if (type === "success") {
+        formMessage.style.background = "#e8f7ed";
+        formMessage.style.color = "#176b36";
+    } else {
+        formMessage.style.background = "#fdecec";
+        formMessage.style.color = "#a12626";
+    }
+}
+
+
+function hideMessage() {
+    if (!formMessage) return;
+
+    formMessage.textContent = "";
+    formMessage.style.display = "none";
+}
+
+
+/* =========================================================
+   5. BUDGET ALLOCATION DATA
+========================================================= */
+
+let currentAllocation = {};
+
+
+function calculateSuggestedAllocation(totalBudget, services) {
+
+    if (!totalBudget || services.length === 0) {
+        return {};
+    }
+
+    const totalWeight = services.reduce((sum, service) => {
+        return sum + (serviceWeights[service] || 1);
+    }, 0);
 
     const allocations = {};
-    const fractions = [];
+    const remainders = [];
 
     let allocated = 0;
 
     services.forEach(service => {
 
-        const weight = SERVICE_WEIGHTS[service] || 1;
+        const weight = serviceWeights[service] || 1;
 
         const exactAmount =
             (totalBudget * weight) / totalWeight;
 
-        const amount = Math.floor(exactAmount);
+        const roundedAmount = Math.floor(exactAmount);
 
-        allocations[service] = amount;
-        allocated += amount;
+        allocations[service] = roundedAmount;
 
-        fractions.push({
+        allocated += roundedAmount;
+
+        remainders.push({
             service,
-            fraction: exactAmount - amount
+            remainder: exactAmount - roundedAmount
         });
     });
 
-    // Distribute any remaining rupees so the suggested split
-    // exactly matches the selected budget.
+    // Distribute remaining rupees based on largest fractions.
+    let remaining = totalBudget - allocated;
 
-    let remainder = totalBudget - allocated;
+    remainders.sort((a, b) => b.remainder - a.remainder);
 
-    fractions.sort((a, b) => b.fraction - a.fraction);
-
-    for (let i = 0; i < remainder; i++) {
-
-        const service = fractions[i % fractions.length].service;
-
-        allocations[service] += 1;
+    for (let i = 0; i < remaining; i++) {
+        const service = remainders[i % remainders.length].service;
+        allocations[service]++;
     }
 
     return allocations;
 }
 
 
-/* ---------- SUGGEST WEIGHTED SPLIT ---------- */
+/* =========================================================
+   6. DISPLAY BUDGET ALLOCATION
+========================================================= */
 
-function suggestWeightedSplit() {
+function renderAllocation(resetValues = false) {
 
-    const services = getSelectedServices();
-    const totalBudget = getTotalBudget();
+    if (!allocationRows || !allocationPanel) return;
 
-    if (!services.length) {
-        updateAllocationSummary();
-        return;
-    }
+    const selectedServices = getSelectedServices();
+    const totalBudget = getSelectedBudget();
 
-    if (totalBudget < 1) {
-        updateAllocationSummary();
-        return;
-    }
+    if (selectedServices.length === 0 || totalBudget <= 0) {
 
-    const suggestions =
-        calculateWeightedSplit(services, totalBudget);
+        allocationPanel.style.display = "none";
 
-    services.forEach(service => {
-
-        const input = getAllocationInputs().find(
-            field => field.dataset.service === service
-        );
-
-        if (input) {
-            input.value = suggestions[service];
+        if (allocationEmpty) {
+            allocationEmpty.style.display = "block";
         }
+
+        currentAllocation = {};
+        updateAllocationSummary();
+
+        return;
+    }
+
+    allocationPanel.style.display = "block";
+
+    if (allocationEmpty) {
+        allocationEmpty.style.display = "none";
+    }
+
+    const previousAllocation = { ...currentAllocation };
+
+    if (resetValues) {
+        currentAllocation = calculateSuggestedAllocation(
+            totalBudget,
+            selectedServices
+        );
+    } else {
+
+        const updatedAllocation = {};
+
+        selectedServices.forEach(service => {
+
+            if (
+                previousAllocation[service] !== undefined
+            ) {
+                updatedAllocation[service] =
+                    previousAllocation[service];
+            } else {
+                const suggested = calculateSuggestedAllocation(
+                    totalBudget,
+                    selectedServices
+                );
+
+                updatedAllocation[service] = suggested[service] || 0;
+            }
+        });
+
+        currentAllocation = updatedAllocation;
+    }
+
+    allocationRows.innerHTML = "";
+
+    selectedServices.forEach(service => {
+
+        const row = document.createElement("div");
+
+        row.className = "allocation-row";
+
+        row.style.display = "flex";
+        row.style.justifyContent = "space-between";
+        row.style.alignItems = "center";
+        row.style.gap = "15px";
+        row.style.padding = "12px";
+        row.style.marginBottom = "10px";
+        row.style.border = "1px solid #ddd";
+        row.style.borderRadius = "8px";
+
+        const serviceLabel = document.createElement("label");
+
+        serviceLabel.textContent = service;
+        serviceLabel.style.fontWeight = "600";
+        serviceLabel.style.flex = "1";
+
+        const amountInput = document.createElement("input");
+
+        amountInput.type = "number";
+        amountInput.min = "0";
+        amountInput.step = "1";
+        amountInput.value = currentAllocation[service] || 0;
+        amountInput.dataset.service = service;
+
+        amountInput.style.width = "150px";
+        amountInput.style.padding = "10px";
+        amountInput.style.border = "1px solid #ccc";
+        amountInput.style.borderRadius = "6px";
+
+        amountInput.addEventListener("input", function () {
+
+            currentAllocation[service] =
+                Math.max(0, Math.floor(Number(this.value) || 0));
+
+            updateAllocationSummary();
+        });
+
+        row.appendChild(serviceLabel);
+        row.appendChild(amountInput);
+
+        allocationRows.appendChild(row);
     });
+
+    if (allocationBudget) {
+        allocationBudget.textContent = formatRupees(totalBudget);
+    }
 
     updateAllocationSummary();
 }
 
 
-/* ---------- CREATE ALLOCATION ROW ---------- */
+/* =========================================================
+   7. UPDATE ALLOCATION TOTAL AND REMAINING BALANCE
+========================================================= */
 
-function createAllocationRow(service, amount = 0) {
+function updateAllocationSummary() {
 
-    const row = document.createElement("div");
-    row.className = "allocation-row";
+    const totalBudget = getSelectedBudget();
 
-    const label = document.createElement("label");
-    label.className = "allocation-service-name";
+    const allocatedTotal = Object.values(currentAllocation)
+        .reduce((sum, amount) => sum + (Number(amount) || 0), 0);
 
-    const inputId = "allocation-" +
-        service.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const remainingBudget = totalBudget - allocatedTotal;
 
-    label.textContent = service;
-    label.htmlFor = inputId;
-
-    const wrap = document.createElement("div");
-    wrap.className = "allocation-input-wrap";
-
-    const symbol = document.createElement("span");
-    symbol.textContent = "₹";
-
-    const input = document.createElement("input");
-
-    input.type = "number";
-    input.min = "0";
-    input.step = "1";
-    input.required = true;
-    input.inputMode = "numeric";
-    input.className = "allocation-input";
-    input.dataset.service = service;
-    input.id = inputId;
-    input.value = amount;
-
-    input.setAttribute(
-        "aria-label",
-        "Planned budget for " + service
-    );
-
-    input.addEventListener("input", updateAllocationSummary);
-
-    wrap.append(symbol, input);
-    row.append(label, wrap);
-
-    return row;
-}
-
-
-/* ---------- RENDER ALLOCATION FIELDS ---------- */
-
-function renderAllocationFields() {
-
-    const services = getSelectedServices();
-
-    allocationRows.replaceChildren();
-
-    if (!services.length) {
-
-        allocationPanel.hidden = true;
-        allocationEmpty.hidden = false;
-
-        updateAllocationSummary();
-        return;
+    if (allocationBudget) {
+        allocationBudget.textContent = formatRupees(totalBudget);
     }
 
-    allocationPanel.hidden = false;
-    allocationEmpty.hidden = true;
+    if (allocationTotal) {
+        allocationTotal.textContent = formatRupees(allocatedTotal);
+    }
 
-    services.forEach(service => {
-        allocationRows.appendChild(
-            createAllocationRow(service)
+    if (allocationRemaining) {
+        allocationRemaining.textContent = formatRupees(
+            Math.max(0, remainingBudget)
         );
-    });
+    }
 
-    suggestWeightedSplit();
+    if (allocationStatus) {
+
+        if (allocatedTotal > totalBudget) {
+            allocationStatus.textContent =
+                "Your allocated amount exceeds your selected budget.";
+
+            allocationStatus.style.color = "#c62828";
+
+        } else if (remainingBudget === 0) {
+
+            allocationStatus.textContent =
+                "Your entire budget has been allocated.";
+
+            allocationStatus.style.color = "#188038";
+
+        } else {
+
+            allocationStatus.textContent =
+                "You still have " +
+                formatRupees(remainingBudget) +
+                " remaining to allocate.";
+
+            allocationStatus.style.color = "#555";
+        }
+    }
 }
 
 
-/* ---------- BUDGET DROPDOWN EVENTS ---------- */
-
-function updateBudgetSelection() {
-
-    const isCustom = budgetInput.value === "more";
-
-    customBudgetGroup.hidden = !isCustom;
-
-    if (!isCustom && customBudgetInput) {
-        customBudgetInput.value = "";
-    }
-
-    if (getSelectedServices().length) {
-        suggestWeightedSplit();
-    } else {
-        updateAllocationSummary();
-    }
-}
+/* =========================================================
+   8. BUDGET AND SERVICE CHANGE EVENTS
+========================================================= */
 
 if (budgetInput) {
-    budgetInput.addEventListener("change", updateBudgetSelection);
+
+    budgetInput.addEventListener("change", function () {
+
+        hideMessage();
+
+        const isCustom = this.value === "more";
+
+        if (customBudgetGroup) {
+            customBudgetGroup.style.display =
+                isCustom ? "block" : "none";
+        }
+
+        if (customBudgetInput) {
+            customBudgetInput.required = isCustom;
+
+            if (!isCustom) {
+                customBudgetInput.value = "";
+            }
+        }
+
+        renderAllocation(true);
+    });
 }
+
 
 if (customBudgetInput) {
 
-    customBudgetInput.addEventListener("input", function() {
-
-        if (getSelectedServices().length) {
-            suggestWeightedSplit();
-        } else {
-            updateAllocationSummary();
-        }
+    customBudgetInput.addEventListener("input", function () {
+        hideMessage();
+        renderAllocation(true);
     });
 }
 
-
-/* ---------- SERVICE EVENTS ---------- */
 
 if (bookingForm) {
 
-    bookingForm.querySelectorAll(
-        'input[name="services"]'
-    ).forEach(checkbox => {
+    bookingForm.addEventListener("change", function (event) {
 
-        checkbox.addEventListener("change", renderAllocationFields);
+        if (
+            event.target.matches(
+                'input[type="checkbox"][name="services"], input[type="checkbox"][name="services[]"]'
+            )
+        ) {
+            renderAllocation(false);
+        }
     });
 }
 
-
-/* ---------- SUGGEST BUTTON ---------- */
 
 if (suggestSplitButton) {
-    suggestSplitButton.addEventListener(
-        "click",
-        suggestWeightedSplit
-    );
+
+    suggestSplitButton.addEventListener("click", function () {
+
+        const totalBudget = getSelectedBudget();
+        const selectedServices = getSelectedServices();
+
+        if (!totalBudget || selectedServices.length === 0) {
+            showMessage(
+                "Please select your budget and at least one service first."
+            );
+            return;
+        }
+
+        renderAllocation(true);
+
+        hideMessage();
+    });
 }
 
 
-/* ---------- VALIDATE ALLOCATION ---------- */
+/* =========================================================
+   9. ADVANCE BOOKING PAYMENT QR
+========================================================= */
 
-function validateServiceAllocation() {
+if (advanceBookingCheckbox && advancePaymentSection) {
 
-    const totalBudget = getTotalBudget();
-    const services = getSelectedServices();
+    advanceBookingCheckbox.addEventListener("change", function () {
 
-    if (!Number.isSafeInteger(totalBudget) || totalBudget < 1) {
+        advancePaymentSection.style.display =
+            this.checked ? "block" : "none";
+    });
+}
 
-        return {
-            valid: false,
-            message: budgetInput.value === "more"
-                ? "Please enter an exact budget greater than ₹10,00,000."
-                : "Please select your total event budget."
-        };
+
+/* =========================================================
+   10. VALIDATE BUDGET ALLOCATION
+========================================================= */
+
+function validateAllocation() {
+
+    const totalBudget = getSelectedBudget();
+    const selectedServices = getSelectedServices();
+
+    if (!budgetInput || !budgetInput.value) {
+        return "Please select your event budget.";
     }
 
-    if (!services.length) {
-
-        return {
-            valid: false,
-            message: "Please select at least one service."
-        };
+    if (
+        budgetInput.value === "more" &&
+        (!customBudgetInput || Number(customBudgetInput.value) <= 1000000)
+    ) {
+        return "Please enter an amount greater than ₹10,00,000.";
     }
 
-    const inputs = getAllocationInputs();
-
-    if (inputs.length !== services.length) {
-
-        return {
-            valid: false,
-            message: "Please check your service budget allocation."
-        };
+    if (totalBudget <= 0) {
+        return "Please enter a valid event budget.";
     }
 
-    const serviceBudgetAllocation = {};
-    let allocatedTotal = 0;
-
-    for (const input of inputs) {
-
-        const service = input.dataset.service;
-        const rawAmount = input.value.trim();
-
-        if (rawAmount === "") {
-
-            return {
-                valid: false,
-                message: "Please enter an amount for every selected service."
-            };
-        }
-
-        const amount = Number(rawAmount);
-
-        if (!Number.isSafeInteger(amount) || amount < 0) {
-
-            return {
-                valid: false,
-                message: "Please enter valid whole-rupee amounts."
-            };
-        }
-
-        serviceBudgetAllocation[service] = amount;
-        allocatedTotal += amount;
+    if (selectedServices.length === 0) {
+        return "Please select at least one service.";
     }
 
-    if (!Number.isSafeInteger(allocatedTotal)) {
-
-        return {
-            valid: false,
-            message: "The total allocated amount is too large."
-        };
-    }
+    const allocatedTotal = Object.values(currentAllocation)
+        .reduce((sum, amount) => sum + (Number(amount) || 0), 0);
 
     if (allocatedTotal > totalBudget) {
-
-        return {
-            valid: false,
-            message:
-                "Your allocations total " +
-                formatRupees(allocatedTotal) +
-                ", exceeding your budget of " +
-                formatRupees(totalBudget) + "."
-        };
+        return "Your allocated service amounts exceed your selected budget. Please adjust them.";
     }
 
-    return {
-        valid: true,
-        totalBudget,
-        allocatedTotal,
-        remainingBudget: totalBudget - allocatedTotal,
-        serviceBudgetAllocation
-    };
+    return "";
 }
 
 
-/* ---------- FORM MESSAGE ---------- */
+/* =========================================================
+   11. BOOKING FORM SUBMISSION
+========================================================= */
 
-function showMessage(message, type = "success") {
+if (bookingForm) {
 
-    formMessage.textContent = message;
-    formMessage.style.display = "block";
-    formMessage.style.padding = "12px 15px";
-    formMessage.style.marginTop = "15px";
-    formMessage.style.borderRadius = "8px";
-    formMessage.style.fontSize = "14px";
-
-    if (type === "success") {
-
-        formMessage.style.background = "#e8f5e9";
-        formMessage.style.color = "#256438";
-        formMessage.style.border = "1px solid #b8dfbd";
-
-    } else {
-
-        formMessage.style.background = "#fff0ee";
-        formMessage.style.color = "#a33b32";
-        formMessage.style.border = "1px solid #efc4bf";
-    }
-}
-
-
-/* ---------- FIELD VALUE ---------- */
-
-function getFieldValue(name) {
-
-    const field = bookingForm.elements.namedItem(name);
-
-    return field ? field.value.trim() : "";
-}
-
-
-/* ---------- VALIDATION HELPERS ---------- */
-
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function isValidPhone(phone) {
-
-    const cleanedPhone = phone.replace(/[\s()+-]/g, "");
-
-    return /^\d{10,13}$/.test(cleanedPhone);
-}
-
-function isValidEventDate(dateValue) {
-
-    if (!dateValue) return false;
-
-    const selectedDate = new Date(dateValue + "T00:00:00");
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    return !Number.isNaN(selectedDate.getTime()) &&
-        selectedDate >= today;
-}
-
-
-/* ---------- SUCCESS DISPLAY ---------- */
-
-function showBookingSuccess(referenceId) {
-
-    formMessage.replaceChildren();
-
-    const successText = document.createElement("p");
-    successText.textContent =
-        "Your event enquiry has been submitted successfully!";
-
-    const referenceText = document.createElement("p");
-    referenceText.textContent =
-        "Your Booking Reference ID: " + referenceId;
-
-    const infoText = document.createElement("p");
-    infoText.textContent =
-        "EVENTORA will contact you soon regarding your event.";
-
-    const trackLink = document.createElement("a");
-
-    trackLink.href =
-        "track-booking.html?ref=" +
-        encodeURIComponent(referenceId);
-
-    trackLink.textContent = "Track My Order";
-
-    Object.assign(trackLink.style, {
-        display: "inline-block",
-        marginTop: "12px",
-        padding: "12px 24px",
-        background: "#b58a45",
-        color: "#ffffff",
-        textDecoration: "none",
-        borderRadius: "6px",
-        fontWeight: "600"
-    });
-
-    formMessage.append(
-        successText,
-        referenceText,
-        infoText,
-        trackLink
-    );
-
-    Object.assign(formMessage.style, {
-        display: "block",
-        padding: "15px",
-        marginTop: "15px",
-        borderRadius: "8px",
-        background: "#e8f5e9",
-        color: "#256438",
-        border: "1px solid #b8dfbd"
-    });
-}
-
-
-/* ---------- CHECK REQUIRED ELEMENTS ---------- */
-
-if (!bookingForm || !submitButton || !formMessage) {
-
-    console.error("EVENTORA: Booking form elements were not found.");
-
-} else {
-
-
-    /* ---------- BOOKING SUBMISSION ---------- */
-
-    bookingForm.addEventListener("submit", async function(event) {
+    bookingForm.addEventListener("submit", async function (event) {
 
         event.preventDefault();
 
-        if (submitButton.disabled) return;
+        hideMessage();
 
-        const name = getFieldValue("name");
-        const phone = getFieldValue("phone");
-        const email = getFieldValue("email");
-        const eventType = getFieldValue("eventType");
-        const date = getFieldValue("date");
-        const guests = getFieldValue("guests");
-        const location = getFieldValue("location");
-        const requirements = getFieldValue("requirements");
+        const validationError = validateAllocation();
+
+        if (validationError) {
+            showMessage(validationError);
+            return;
+        }
+
+        const name = getElementValue("name", "name");
+        const phone = getElementValue("phone", "phone");
+        const email = getElementValue("email", "email");
+
+        const eventType = getElementValue("eventType", "eventType");
+
+        const date =
+            getElementValue("date", "date") ||
+            getElementValue("eventDate", "eventDate");
+
+        const guests = getElementValue("guests", "guests");
+
+        const location = getElementValue("location", "location");
+
+        const requirements =
+            getElementValue("requirements", "requirements");
 
         const services = getSelectedServices();
 
-        const consent = bookingForm.elements.namedItem("consent");
+        const totalBudget = getSelectedBudget();
 
-        const advanceBooking = advanceBookingInput
-            ? advanceBookingInput.checked
+        const allocatedTotal = Object.values(currentAllocation)
+            .reduce((sum, amount) => sum + (Number(amount) || 0), 0);
+
+        const remainingBudget = totalBudget - allocatedTotal;
+
+        const advanceBooking = advanceBookingCheckbox
+            ? advanceBookingCheckbox.checked
             : false;
 
         const advanceAmount = advanceBooking ? 10000 : 0;
-
-
-        /* CUSTOMER DETAILS VALIDATION */
 
         if (
             !name ||
@@ -724,120 +595,64 @@ if (!bookingForm || !submitButton || !formMessage) {
             !eventType ||
             !date ||
             !guests ||
-            !location ||
-            !budgetInput.value
+            !location
         ) {
-
-            showMessage("Please complete all required fields.", "error");
+            showMessage(
+                "Please complete all required booking details."
+            );
             return;
         }
 
-        if (name.length < 2) {
-            showMessage("Please enter your full name.", "error");
-            return;
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting Booking...";
         }
-
-        if (!isValidPhone(phone)) {
-            showMessage("Please enter a valid phone number (10–13 digits).", "error");
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            showMessage("Please enter a valid email address.", "error");
-            return;
-        }
-
-        if (!isValidEventDate(date)) {
-            showMessage("Please select today or a future event date.", "error");
-            return;
-        }
-
-        const guestCount = Number(guests);
-
-        if (!Number.isSafeInteger(guestCount) || guestCount < 1) {
-            showMessage("Please enter a valid number of guests.", "error");
-            return;
-        }
-
-        if (consent && !consent.checked) {
-            showMessage("Please accept the consent checkbox.", "error");
-            return;
-        }
-
-
-        /* SERVICE BUDGET VALIDATION */
-
-        const allocationResult = validateServiceAllocation();
-
-        if (!allocationResult.valid) {
-
-            showMessage(allocationResult.message, "error");
-
-            allocationStatus.className = "allocation-status error";
-            allocationStatus.textContent = allocationResult.message;
-
-            allocationPanel.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-            return;
-        }
-
-
-        /* DISABLE SUBMIT BUTTON */
-
-        submitButton.disabled = true;
-        submitButton.textContent = "Submitting Booking...";
-
-        showMessage(
-            "Please wait. Your booking enquiry is being submitted..."
-        );
-
 
         try {
 
-            /* AUTHENTICATE CUSTOMER */
+            // Sign in anonymously if the customer is not signed in.
+            let customer = auth.currentUser;
 
-            const customer = await getCustomerUser();
+            if (!customer) {
+                const userCredential = await signInAnonymously(auth);
+                customer = userCredential.user;
+            }
 
+            // Save the selected service allocations.
+            const serviceBudgetAllocation = {};
 
-            /* PREPARE FIRESTORE DATA */
+            services.forEach(service => {
+                serviceBudgetAllocation[service] =
+                    Number(currentAllocation[service] || 0);
+            });
 
+            // Complete booking information.
             const bookingData = {
 
-                name,
-                phone,
-                email,
+                name: name,
+                phone: phone,
+                email: email,
 
-                eventType,
-                date,
-                guests: guestCount,
-                location,
+                eventType: eventType,
+                date: date,
+                guests: Number(guests),
+                location: location,
 
-                // Budget details
-                budget: formatRupees(allocationResult.totalBudget),
-                totalBudget: allocationResult.totalBudget,
+                budget: formatRupees(totalBudget),
+                totalBudget: totalBudget,
+                budgetSelection: getBudgetLabel(),
 
-                // Original selected budget option
-                budgetSelection: budgetInput.value === "more"
-                    ? "More than ₹10,00,000"
-                    : budgetInput.options[budgetInput.selectedIndex].text,
+                services: services,
 
-                services,
+                serviceBudgetAllocation: serviceBudgetAllocation,
 
-                // Editable weighted service allocation
-                serviceBudgetAllocation:
-                    allocationResult.serviceBudgetAllocation,
+                allocatedBudget: allocatedTotal,
+                remainingBudget: remainingBudget,
 
-                allocatedBudget: allocationResult.allocatedTotal,
+                advanceBooking: advanceBooking,
+                advanceAmount: advanceAmount,
 
-                remainingBudget: allocationResult.remainingBudget,
-
-                advanceBooking,
-                advanceAmount,
-
-                requirements,
+                requirements: requirements,
 
                 status: "pending",
 
@@ -846,153 +661,140 @@ if (!bookingForm || !submitButton || !formMessage) {
                 createdAt: serverTimestamp()
             };
 
-
-            /* SAVE TO FIRESTORE */
-
+            // Save booking to Firestore.
             const bookingRef = await addDoc(
                 collection(db, "bookings"),
                 bookingData
             );
 
-            console.log(
-                "EVENTORA booking submitted:",
-                bookingRef.id
-            );
-
-            console.log(
-                "Weighted service allocation:",
-                allocationResult.serviceBudgetAllocation
-            );
-
-
-            /* SAVE TRACKING REFERENCE */
-
+            // Store the booking reference for customer tracking.
             try {
-
                 localStorage.setItem(
-                    "eventoraLastBookingRef",
+                    "eventoraBookingId",
                     bookingRef.id
                 );
 
-                let savedReferences = [];
-
-                try {
-
-                    savedReferences = JSON.parse(
-                        localStorage.getItem("eventoraBookingRefs") || "[]"
-                    );
-
-                    if (!Array.isArray(savedReferences)) {
-                        savedReferences = [];
-                    }
-
-                } catch (storageError) {
-
-                    savedReferences = [];
-                }
-
-                savedReferences.unshift(bookingRef.id);
-
-                savedReferences = [
-                    ...new Set(savedReferences)
-                ].slice(0, 20);
-
                 localStorage.setItem(
-                    "eventoraBookingRefs",
-                    JSON.stringify(savedReferences)
+                    "eventoraBookingRef",
+                    bookingRef.id
                 );
-
             } catch (storageError) {
-
                 console.warn(
-                    "Booking saved, but tracking reference could not be stored.",
+                    "Could not save booking reference locally:",
                     storageError
                 );
             }
 
+            console.log(
+                "EVENTORA booking successfully saved:",
+                bookingRef.id
+            );
 
-            /* SHOW SUCCESS */
+            // Show success message and tracking link.
+            if (formMessage) {
 
-            showBookingSuccess(bookingRef.id);
+                formMessage.innerHTML = `
+                    <div style="padding:15px;background:#e8f7ed;color:#176b36;border-radius:8px;">
+                        <strong>Your enquiry was submitted successfully!</strong>
+                        <p>Reference ID: ${bookingRef.id}</p>
+                        <p>Your booking status is currently Pending.</p>
+                        <a href="track-booking.html?ref=${encodeURIComponent(bookingRef.id)}"
+                           style="display:inline-block;margin-top:8px;padding:10px 18px;background:#176b36;color:white;text-decoration:none;border-radius:6px;">
+                           Track My Order
+                        </a>
+                    </div>
+                `;
 
+                formMessage.style.display = "block";
+            }
+
+            // Reset the form after successful submission.
             bookingForm.reset();
 
-            allocationRows.replaceChildren();
-            allocationPanel.hidden = true;
-            allocationEmpty.hidden = false;
+            currentAllocation = {};
 
             if (customBudgetGroup) {
-                customBudgetGroup.hidden = true;
+                customBudgetGroup.style.display = "none";
             }
 
-            if (advanceBookingInput) {
-                advanceBookingInput.checked = false;
+            if (customBudgetInput) {
+                customBudgetInput.required = false;
             }
-
-            const advancePaymentSection =
-                document.getElementById("advancePaymentSection");
 
             if (advancePaymentSection) {
-                advancePaymentSection.hidden = true;
+                advancePaymentSection.style.display = "none";
+            }
+
+            if (allocationPanel) {
+                allocationPanel.style.display = "none";
+            }
+
+            if (allocationRows) {
+                allocationRows.innerHTML = "";
             }
 
             updateAllocationSummary();
 
-
         } catch (error) {
 
-            console.error("EVENTORA booking error:", error);
-            console.error("Error code:", error.code);
-            console.error("Error message:", error.message);
+            console.error("EVENTORA booking submission error:", error);
 
-            let errorMessage = "Booking could not be submitted. ";
+            let errorMessage =
+                "Booking could not be submitted. Please try again.";
 
-            if (
+            if (error.code === "auth/api-key-not-valid") {
+
+                errorMessage =
+                    "Firebase API key is invalid. Please check the Firebase configuration in js/booking.js.";
+
+            } else if (
                 error.code === "permission-denied" ||
                 error.code === "firestore/permission-denied"
             ) {
 
-                errorMessage +=
-                    "Firebase permission denied. Please check Firestore rules.";
-
-            } else if (error.code === "auth/operation-not-allowed") {
-
-                errorMessage +=
-                    "Enable Anonymous Authentication in Firebase.";
+                errorMessage =
+                    "Firebase permission denied. Please check your Firestore security rules.";
 
             } else if (
-                error.code === "unavailable" ||
-                error.code === "failed-precondition"
+                error.code === "auth/operation-not-allowed"
             ) {
 
-                errorMessage +=
-                    "Firebase is temporarily unavailable. Please try again.";
+                errorMessage =
+                    "Anonymous Authentication is not enabled in Firebase.";
 
-            } else {
+            } else if (!navigator.onLine) {
 
-                errorMessage +=
-                    "Please try again. " +
-                    (error.code || error.message || "Unknown error");
+                errorMessage =
+                    "No internet connection. Please reconnect and try again.";
             }
 
-            showMessage(errorMessage, "error");
-
+            showMessage(errorMessage);
 
         } finally {
 
-            submitButton.disabled = false;
-
-            submitButton.textContent =
-                "Submit Booking Enquiry →";
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit Booking";
+            }
         }
-
     });
-
 }
 
 
-/* ---------- EVENTORA BRANDING ---------- */
+/* =========================================================
+   12. INITIAL PAGE SETUP
+========================================================= */
 
-console.log(
-    "EVENTORA Booking System with Weighted Service Budget Allocation initialized successfully."
-);
+if (customBudgetGroup) {
+    customBudgetGroup.style.display =
+        budgetInput?.value === "more" ? "block" : "none";
+}
+
+if (advancePaymentSection) {
+    advancePaymentSection.style.display =
+        advanceBookingCheckbox?.checked ? "block" : "none";
+}
+
+if (budgetInput?.value && getSelectedServices().length > 0) {
+    renderAllocation(true);
+}
