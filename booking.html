@@ -1089,17 +1089,55 @@
         document.getElementById("year").textContent =
             new Date().getFullYear();
 
-        // PREVENT SELECTING A DATE IN THE PAST
-        const eventDate = document.getElementById("date");
+        // EVENT DATE BOOKING LIMIT
+const eventDate = document.getElementById("date");
 
-        const today = new Date();
+const today = new Date();
 
-        const localToday = new Date(
-            today.getTime() - today.getTimezoneOffset() * 60000
-        ).toISOString().split("T")[0];
+function formatLocalDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
 
-        eventDate.min = localToday;
+    return `${year}-${month}-${day}`;
+}
 
+// Customers cannot select past dates
+eventDate.min = formatLocalDate(today);
+
+// Normal booking period: next 2 years
+const twoYearLimit = new Date(today);
+twoYearLimit.setFullYear(twoYearLimit.getFullYear() + 2);
+
+// Absolute maximum booking period: 3 years
+const threeYearLimit = new Date(today);
+threeYearLimit.setFullYear(threeYearLimit.getFullYear() + 3);
+
+// Allow selection up to 3 years
+eventDate.max = formatLocalDate(threeYearLimit);
+
+// Display the normal booking period
+eventDate.title =
+    "Preferred booking period: next 2 years. Maximum allowed: 3 years.";
+
+// Validate the selected date
+eventDate.addEventListener("change", function () {
+
+    if (!this.value) return;
+
+    const selectedDate = new Date(this.value + "T00:00:00");
+
+    if (selectedDate > threeYearLimit) {
+        alert("Sorry! EVENTORA accepts bookings only up to 3 years in advance.");
+        this.value = "";
+        return;
+    }
+
+    if (selectedDate > twoYearLimit) {
+        alert("This date is beyond our normal 2-year booking period. Please contact EVENTORA to discuss availability.");
+    }
+
+});
         // SHOW OR HIDE ADVANCE BOOKING QR CODE
         const advanceBooking =
             document.getElementById("advanceBooking");
