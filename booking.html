@@ -312,9 +312,9 @@
             line-height: 1.7;
         }
 
-        /* PHONEPE UPI PAYMENT SECTION */
+        /* PHONEPE QR PAYMENT */
         .upi-payment-card {
-            margin: 30px 0;
+            margin: 25px 0;
             padding: 24px;
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -354,6 +354,58 @@
             font-size: 12px !important;
         }
 
+        /* ADVANCE BOOKING OPTION */
+        .advance-booking-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            background: #fffaf1;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: .2s;
+        }
+
+        .advance-booking-option:hover {
+            background: #fcf3e4;
+            border-color: var(--brown);
+        }
+
+        .advance-booking-option input {
+            width: 19px;
+            height: 19px;
+            accent-color: var(--gold);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .advance-booking-option strong {
+            display: block;
+            font-size: 15px;
+            color: var(--brown);
+        }
+
+        .advance-booking-option small {
+            display: block;
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .advance-amount {
+            margin-left: auto;
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        #advancePaymentSection[hidden] {
+            display: none !important;
+        }
+
         @media(max-width: 850px) {
             .booking-layout {
                 grid-template-columns: 1fr;
@@ -376,6 +428,15 @@
 
             .form-heading h2 {
                 font-size: 27px;
+            }
+
+            .advance-booking-option {
+                gap: 9px;
+                padding: 14px;
+            }
+
+            .advance-amount {
+                font-size: 16px;
             }
         }
     </style>
@@ -474,6 +535,7 @@
 
             <form id="bookingForm">
 
+                <!-- PERSONAL INFORMATION -->
                 <h3 class="form-section-title">01. Personal Information</h3>
 
                 <div class="form-grid">
@@ -501,6 +563,7 @@
 
                 </div>
 
+                <!-- EVENT INFORMATION -->
                 <h3 class="form-section-title">02. Event Information</h3>
 
                 <div class="form-grid">
@@ -553,6 +616,7 @@
 
                 </div>
 
+                <!-- SERVICES -->
                 <h3 class="form-section-title">03. Services Required</h3>
 
                 <p style="color:#786b60;font-size:13px;margin-bottom:17px;">
@@ -613,15 +677,42 @@
 
                 </div>
 
-                <!-- PHONEPE PAYMENT -->
-                <h3 class="form-section-title">04. UPI Payment</h3>
+                <!-- ADVANCE BOOKING PAYMENT -->
+                <h3 class="form-section-title">04. Advance Booking</h3>
 
-                <div class="upi-payment-card">
-                    <h3>Pay Using PhonePe</h3>
+                <p style="color:#786b60;font-size:13px;line-height:1.7;">
+                    Select the option below if you want to make an
+                    advance payment of ₹10,000 for your event booking.
+                </p>
+
+                <label class="advance-booking-option" for="advanceBooking">
+
+                    <input
+                        type="checkbox"
+                        id="advanceBooking"
+                        name="advanceBooking"
+                        value="10000"
+                    >
+
+                    <span>
+                        <strong>Advance Booking Payment</strong>
+                        <small>
+                            Select this option to display the PhonePe QR code.
+                        </small>
+                    </span>
+
+                    <span class="advance-amount">₹10,000</span>
+
+                </label>
+
+                <!-- PHONEPE QR - HIDDEN INITIALLY -->
+                <div class="upi-payment-card" id="advancePaymentSection" hidden>
+
+                    <h3>Pay ₹10,000 Using PhonePe</h3>
 
                     <p>
                         Scan the QR code below using your PhonePe app
-                        to make a UPI payment.
+                        to make your advance booking payment.
                     </p>
 
                     <img
@@ -632,13 +723,16 @@
                     >
 
                     <p class="upi-payment-note">
-                        Please confirm the payment amount with the EVENTORA team
-                        before paying. After payment, keep your transaction ID
-                        or payment screenshot for reference.
+                        Please pay exactly ₹10,000 as advance booking.
+                        Keep your UPI transaction ID or payment screenshot
+                        for reference.
 
-                        Your booking enquiry is not confirmed until EVENTORA
-                        verifies the payment and confirms the event arrangements.
+                        Your payment will be verified manually by the
+                        EVENTORA team. Your event booking is not confirmed
+                        until the team verifies the payment and confirms
+                        your event arrangements.
                     </p>
+
                 </div>
 
                 <!-- ADDITIONAL REQUIREMENTS -->
@@ -650,6 +744,7 @@
                               placeholder="Tell us about your theme, preferences, special arrangements or other requirements..."></textarea>
                 </div>
 
+                <!-- CONSENT -->
                 <label class="consent-row">
                     <input type="checkbox" id="consent" name="consent" required>
                     <span>
@@ -658,6 +753,7 @@
                     </span>
                 </label>
 
+                <!-- SUBMIT -->
                 <button type="submit" id="submitBooking" class="booking-submit">
                     Submit Booking Enquiry →
                 </button>
@@ -706,17 +802,40 @@
     <script type="module" src="js/booking.js"></script>
 
     <script>
+        // FOOTER YEAR
         document.getElementById("year").textContent =
             new Date().getFullYear();
 
-        // Prevent selecting a date in the past.
+        // PREVENT SELECTING A DATE IN THE PAST
         const eventDate = document.getElementById("date");
+
         const today = new Date();
+
         const localToday = new Date(
             today.getTime() - today.getTimezoneOffset() * 60000
         ).toISOString().split("T")[0];
 
         eventDate.min = localToday;
+
+        // SHOW OR HIDE ADVANCE BOOKING QR CODE
+        const advanceBooking =
+            document.getElementById("advanceBooking");
+
+        const advancePaymentSection =
+            document.getElementById("advancePaymentSection");
+
+        advanceBooking.addEventListener("change", function () {
+
+            advancePaymentSection.hidden = !this.checked;
+
+            if (this.checked) {
+                advancePaymentSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+
+        });
     </script>
 
 </body>
