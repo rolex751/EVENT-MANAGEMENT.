@@ -31,6 +31,66 @@
             font-family: "DM Sans", sans-serif;
         }
 
+        /* NAVIGATION */
+        .contact-page .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contact-page .nav-links a {
+            text-decoration: none;
+        }
+
+        .contact-page .nav-links a.active {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .contact-page .nav-links a.plan-event-link {
+            background: var(--gold);
+            color: white;
+            padding: 11px 19px;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+
+        .contact-page .nav-links a.plan-event-link:hover {
+            background: var(--brown);
+            color: white;
+        }
+
+        @media(max-width: 900px) {
+            .contact-page .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 15px 22px;
+                box-shadow: 0 10px 20px rgba(0,0,0,.1);
+                z-index: 1000;
+            }
+
+            .contact-page .nav-links.open {
+                display: flex;
+            }
+
+            .contact-page .nav-links a {
+                padding: 13px 8px;
+            }
+
+            .contact-page .nav-links a.plan-event-link {
+                text-align: center;
+                margin-top: 8px;
+            }
+        }
+
+        /* HERO */
         .contact-hero {
             padding: 90px 20px;
             text-align: center;
@@ -146,6 +206,7 @@
             text-decoration: underline;
         }
 
+        /* TEAM */
         .team-section {
             background: #f1e9dd;
             padding: 75px 20px;
@@ -226,6 +287,7 @@
             text-decoration: underline;
         }
 
+        /* LOCATION */
         .location-section {
             max-width: 1150px;
             margin: auto;
@@ -287,6 +349,7 @@
             border: 0;
         }
 
+        /* CTA */
         .contact-cta {
             padding: 75px 20px;
             text-align: center;
@@ -321,6 +384,21 @@
             transform: translateY(-3px);
         }
 
+        .contact-cta .track-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 0;
+            background: transparent;
+            color: var(--gold-light);
+            text-decoration: underline;
+        }
+
+        .contact-cta .track-link:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* RESPONSIVE */
         @media(max-width: 850px) {
             .contact-cards {
                 grid-template-columns: repeat(2, 1fr);
@@ -356,15 +434,17 @@
     </style>
 </head>
 
-<body>
+<body class="contact-page">
 
     <!-- HEADER -->
     <header class="header">
         <div class="navbar">
+
             <a href="index.html" class="logo">EVENTORA</a>
 
             <button class="menu-toggle" id="menuToggle"
-                    aria-label="Toggle navigation" aria-expanded="false">
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">
                 ☰
             </button>
 
@@ -374,15 +454,20 @@
                 <a href="services.html">Services</a>
                 <a href="gallery.html">Gallery</a>
                 <a href="booking.html">Book Event</a>
-                <a href="contact.html" class="active">Contact</a>
+                <a href="track-booking.html">Track My Booking</a>
+                <a href="contact.html" class="active" aria-current="page">Contact</a>
+                <a href="booking.html" class="plan-event-link">Plan Your Event</a>
             </nav>
+
         </div>
     </header>
 
     <!-- HERO -->
     <section class="contact-hero">
         <span>We Would Love to Hear From You</span>
+
         <h1>Get in Touch With Us</h1>
+
         <p>
             Have an event in mind? Contact EVENTORA and tell us
             about your celebration. Let's start planning something special.
@@ -391,11 +476,14 @@
 
     <!-- CONTACT INFORMATION -->
     <main>
+
         <section class="contact-section">
 
             <div class="contact-heading">
                 <span class="section-label">Contact Information</span>
+
                 <h2>We're Here to Help</h2>
+
                 <p>
                     Reach out to us through phone, WhatsApp or our
                     business location details.
@@ -405,29 +493,55 @@
             <div class="contact-cards">
 
                 <article class="contact-card">
+
                     <div class="contact-icon">☎</div>
+
                     <h3>Call Us</h3>
-                    <p>Speak directly with our team about your event requirements.</p>
-                    <a href="tel:+917975106764">+91 79751 06764</a>
+
+                    <p>
+                        Speak directly with our team about your event requirements.
+                    </p>
+
+                    <a href="tel:+917975106764">
+                        +91 79751 06764
+                    </a>
+
                 </article>
 
                 <article class="contact-card">
+
                     <div class="contact-icon">✉</div>
+
                     <h3>WhatsApp</h3>
-                    <p>Send us your event details and questions through WhatsApp.</p>
-                    <a href="https://wa.me/917975106764" target="_blank" rel="noopener noreferrer">
+
+                    <p>
+                        Send us your event details and questions through WhatsApp.
+                    </p>
+
+                    <a href="https://wa.me/917975106764"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         Chat With EVENTORA
                     </a>
+
                 </article>
 
                 <article class="contact-card">
+
                     <div class="contact-icon">⌖</div>
+
                     <h3>Our Location</h3>
-                    <p>Our displayed business location in Bengaluru, Karnataka.</p>
+
+                    <p>
+                        Our displayed business location in Bengaluru, Karnataka.
+                    </p>
+
                     <a href="https://www.google.com/maps/search/?api=1&query=UB+City%2C+Vittal+Mallya+Road%2C+Bengaluru"
-                       target="_blank" rel="noopener noreferrer">
+                       target="_blank"
+                       rel="noopener noreferrer">
                         View Location
                     </a>
+
                 </article>
 
             </div>
@@ -436,50 +550,73 @@
 
         <!-- TEAM CONTACTS -->
         <section class="team-section">
+
             <div class="team-container">
 
                 <div class="team-heading">
                     <span class="section-label">Connect With Our Team</span>
+
                     <h2>Talk to Our Representatives</h2>
                 </div>
 
                 <div class="team-grid">
 
                     <article class="team-card">
+
                         <div class="team-avatar">D</div>
+
                         <div>
                             <h3>Dileep</h3>
+
                             <p>EVENTORA Representative</p>
 
                             <div class="team-actions">
-                                <a href="tel:+917975106764">Call Now</a>
+
+                                <a href="tel:+917975106764">
+                                    Call Now
+                                </a>
+
                                 <a href="https://wa.me/917975106764"
-                                   target="_blank" rel="noopener noreferrer">
+                                   target="_blank"
+                                   rel="noopener noreferrer">
                                     WhatsApp
                                 </a>
+
                             </div>
                         </div>
+
                     </article>
 
                     <article class="team-card">
+
                         <div class="team-avatar">A</div>
+
                         <div>
                             <h3>Amith</h3>
+
                             <p>EVENTORA Representative</p>
 
                             <div class="team-actions">
-                                <a href="tel:+919448209827">Call Now</a>
+
+                                <a href="tel:+919448209827">
+                                    Call Now
+                                </a>
+
                                 <a href="https://wa.me/919448209827"
-                                   target="_blank" rel="noopener noreferrer">
+                                   target="_blank"
+                                   rel="noopener noreferrer">
                                     WhatsApp
                                 </a>
+
                             </div>
                         </div>
+
                     </article>
 
                 </div>
 
             </div>
+
         </section>
 
         <!-- LOCATION -->
@@ -488,7 +625,9 @@
             <div class="location-card">
 
                 <div class="location-info">
+
                     <span class="section-label">Find Us</span>
+
                     <h2>Our Business Location</h2>
 
                     <p>
@@ -503,12 +642,15 @@
                     </p>
 
                     <a href="https://www.google.com/maps/search/?api=1&query=UB+City%2C+Vittal+Mallya+Road%2C+Bengaluru"
-                       target="_blank" rel="noopener noreferrer">
+                       target="_blank"
+                       rel="noopener noreferrer">
                         Get Directions →
                     </a>
+
                 </div>
 
                 <div class="location-map">
+
                     <iframe
                         src="https://maps.google.com/maps?q=UB%20City%2C%20Bengaluru&t=&z=15&ie=UTF8&iwloc=&output=embed"
                         title="Map showing UB City Bengaluru"
@@ -516,6 +658,7 @@
                         referrerpolicy="no-referrer-when-downgrade"
                         allowfullscreen>
                     </iframe>
+
                 </div>
 
             </div>
@@ -526,19 +669,35 @@
 
     <!-- CTA -->
     <section class="contact-cta">
+
         <span class="section-label">Your Celebration Starts Here</span>
+
         <h2>Let's Create Something Unforgettable</h2>
+
         <p>
             Share your ideas with EVENTORA and take the first step
             towards planning your special event.
         </p>
+
         <a href="booking.html">Book Your Event →</a>
+
+        <p style="margin-top:25px;">
+            Already submitted an enquiry?
+        </p>
+
+        <a href="track-booking.html" class="track-link">
+            Track My Booking
+        </a>
+
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
+
         <div class="footer-content">
+
             <h2>EVENTORA</h2>
+
             <p>Creating Moments. Designing Memories.</p>
 
             <div class="footer-links">
@@ -547,17 +706,65 @@
                 <a href="services.html">Services</a>
                 <a href="gallery.html">Gallery</a>
                 <a href="booking.html">Booking</a>
+                <a href="track-booking.html">Track My Booking</a>
+                <a href="booking.html">Plan Your Event</a>
+                <a href="contact.html">Contact</a>
             </div>
 
-            <p>© <span id="year"></span> EVENTORA. All Rights Reserved.</p>
+            <p>
+                © <span id="year"></span> EVENTORA. All Rights Reserved.
+            </p>
+
         </div>
+
     </footer>
 
     <script src="js/script.js"></script>
 
+    <!-- MOBILE NAVIGATION AND FOOTER YEAR -->
     <script>
-        document.getElementById("year").textContent =
-            new Date().getFullYear();
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const menuToggle = document.getElementById("menuToggle");
+            const navLinks = document.getElementById("navLinks");
+
+            if (menuToggle && navLinks) {
+
+                menuToggle.addEventListener("click", function () {
+
+                    const isOpen = navLinks.classList.toggle("open");
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        isOpen ? "true" : "false"
+                    );
+
+                });
+
+                navLinks.querySelectorAll("a").forEach(function (link) {
+
+                    link.addEventListener("click", function () {
+
+                        navLinks.classList.remove("open");
+
+                        menuToggle.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    });
+
+                });
+
+            }
+
+            const yearElement = document.getElementById("year");
+
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+
+        });
     </script>
 
 </body>
