@@ -1,7 +1,7 @@
 
 /* =========================================================
    EVENTORA - ADVANCED CUSTOMER BOOKING TRACKING
-   Firebase Firestore + Live Booking Status
+   Firebase Firestore + LIVE Booking Status
    File: js/track-booking.js
 ========================================================= */
 
@@ -50,7 +50,7 @@ const app = getApps().length
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-console.log("EVENTORA Advanced Tracking initialized.");
+console.log("EVENTORA Live Tracking Initialized");
 
 
 /* =========================================================
@@ -66,44 +66,226 @@ const bookingDetails = document.getElementById("bookingDetails");
 
 
 /* =========================================================
-   4. BOOKING STATUS INFORMATION
+   4. ADDITIONAL TRACKING STYLES
+========================================================= */
+
+const trackingStyles = document.createElement("style");
+
+trackingStyles.textContent = `
+    .booking-status-section {
+        padding: 20px;
+        background: #faf7f1;
+        border-radius: 12px;
+        margin: 20px 0;
+    }
+
+    .booking-status-section h3 {
+        margin-bottom: 12px;
+        color: #3c2b20;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 30px;
+        background: #fff2d8;
+        color: #94651c;
+        font-weight: 700;
+        font-size: 13px;
+        text-transform: capitalize;
+    }
+
+    .status.accepted,
+    .status.confirmed {
+        background: #e5f5e9;
+        color: #23834b;
+    }
+
+    .status.in-progress {
+        background: #e7f0ff;
+        color: #2464a0;
+    }
+
+    .status.completed {
+        background: #e5efff;
+        color: #2464a0;
+    }
+
+    .status.rejected,
+    .status.cancelled {
+        background: #ffe9e7;
+        color: #b83232;
+    }
+
+    .booking-timeline {
+        padding: 20px;
+        margin: 22px 0;
+        border: 1px solid #eee7dc;
+        border-radius: 12px;
+    }
+
+    .booking-timeline h3 {
+        margin-bottom: 20px;
+        color: #3c2b20;
+    }
+
+    .timeline-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        position: relative;
+        padding-bottom: 22px;
+    }
+
+    .timeline-step:last-child {
+        padding-bottom: 0;
+    }
+
+    .timeline-marker {
+        min-width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e8e3db;
+        color: #777;
+        font-weight: 700;
+        z-index: 1;
+    }
+
+    .timeline-step.completed .timeline-marker,
+    .timeline-step.active .timeline-marker {
+        background: #b58a45;
+        color: white;
+    }
+
+    .timeline-content strong {
+        color: #3c2b20;
+        display: block;
+        margin: 5px 0;
+    }
+
+    .timeline-content p,
+    .timeline-message {
+        color: #777;
+        line-height: 1.6;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .tracking-services {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin: 12px 0 22px;
+    }
+
+    .tracking-service {
+        display: inline-block;
+        padding: 8px 13px;
+        background: #f8f3e9;
+        color: #71542c;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .tracking-budget-row {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .tracking-budget-row:last-child {
+        border-bottom: none;
+    }
+
+    .payment-note,
+    .tracking-update-note {
+        color: #777;
+        font-size: 13px;
+        line-height: 1.7;
+        margin-top: 15px;
+    }
+
+    .tracking-update-note {
+        padding: 13px;
+        background: #faf7f1;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .booking-details h3 {
+        color: #3c2b20;
+        margin: 24px 0 12px;
+    }
+
+    @media(max-width: 600px) {
+        .booking-timeline {
+            padding: 15px;
+        }
+
+        .timeline-step {
+            gap: 10px;
+        }
+    }
+`;
+
+document.head.appendChild(trackingStyles);
+
+
+/* =========================================================
+   5. BOOKING STATUS INFORMATION
 ========================================================= */
 
 const statusInformation = {
 
     pending: {
         label: "Pending",
-        description: "Your enquiry has been received. EVENTORA will review your booking.",
+        description:
+            "Your enquiry has been received. EVENTORA will review your booking.",
         step: 1
     },
 
     accepted: {
         label: "Accepted",
-        description: "Your booking has been accepted by EVENTORA.",
+        description:
+            "Your booking has been accepted by EVENTORA.",
+        step: 2
+    },
+
+    confirmed: {
+        label: "Confirmed",
+        description:
+            "Your booking has been confirmed by EVENTORA.",
         step: 2
     },
 
     "in progress": {
         label: "In Progress",
-        description: "Our team is preparing and organizing your event.",
+        description:
+            "Our team is preparing and organizing your event.",
         step: 3
     },
 
     completed: {
         label: "Completed",
-        description: "Your event booking has been completed successfully.",
+        description:
+            "Your event booking has been completed successfully.",
         step: 4
     },
 
     rejected: {
         label: "Rejected",
-        description: "Your booking request was not accepted. Please contact EVENTORA.",
+        description:
+            "Your booking request was not accepted. Please contact EVENTORA.",
         step: 0
     },
 
     cancelled: {
         label: "Cancelled",
-        description: "This booking has been cancelled.",
+        description:
+            "This booking has been cancelled.",
         step: 0
     }
 
@@ -111,38 +293,39 @@ const statusInformation = {
 
 
 /* =========================================================
-   5. AUTHENTICATION
+   6. AUTHENTICATION
 ========================================================= */
 
 function waitForAuth() {
 
     return new Promise((resolve, reject) => {
 
-        const unsubscribe = onAuthStateChanged(
+        let unsubscribe = () => {};
+
+        unsubscribe = onAuthStateChanged(
             auth,
             user => {
-
                 unsubscribe();
-
                 resolve(user);
-
             },
             error => {
-
                 unsubscribe();
-
                 reject(error);
-
             }
         );
 
     });
+
 }
 
 
 async function getCustomerUser() {
 
-    let customer = await waitForAuth();
+    let customer = auth.currentUser;
+
+    if (!customer) {
+        customer = await waitForAuth();
+    }
 
     if (!customer) {
 
@@ -153,14 +336,20 @@ async function getCustomerUser() {
     }
 
     return customer;
+
 }
 
 
 /* =========================================================
-   6. MESSAGE DISPLAY
+   7. MESSAGE DISPLAY
+   FIX: DO NOT CLEAR BOOKING DETAILS AFTER SUCCESS
 ========================================================= */
 
-function showMessage(message, success = false) {
+function showMessage(
+    message,
+    success = false,
+    clearDetails = true
+) {
 
     if (!trackingMessage) return;
 
@@ -179,23 +368,66 @@ function showMessage(message, success = false) {
         ? "#256438"
         : "#a33b32";
 
-    if (bookingDetails) {
+    // Clear details only when displaying a new search/error.
+    if (clearDetails && bookingDetails) {
         bookingDetails.replaceChildren();
     }
+
 }
 
 
 /* =========================================================
-   7. HELPER FUNCTIONS
+   8. HELPER FUNCTIONS
 ========================================================= */
 
 function formatRupees(amount) {
+
+    if (
+        amount === null ||
+        amount === undefined ||
+        amount === ""
+    ) {
+        return "Not provided";
+    }
+
+    const number = Number(amount);
+
+    if (!Number.isFinite(number)) {
+        return "Not provided";
+    }
 
     return new Intl.NumberFormat("en-IN", {
         style: "currency",
         currency: "INR",
         maximumFractionDigits: 0
-    }).format(Number(amount) || 0);
+    }).format(number);
+
+}
+
+
+function formatValue(value) {
+
+    if (
+        value === undefined ||
+        value === null ||
+        value === ""
+    ) {
+        return "Not provided";
+    }
+
+    if (Array.isArray(value)) {
+        return value.length
+            ? value.join(", ")
+            : "Not provided";
+    }
+
+    if (typeof value === "object") {
+        return Object.entries(value)
+            .map(([key, item]) => `${key}: ${item}`)
+            .join(", ");
+    }
+
+    return String(value);
 
 }
 
@@ -214,16 +446,7 @@ function addDetail(container, label, value) {
     const right = document.createElement("span");
 
     right.className = "detail-value";
-
-    if (
-        value === undefined ||
-        value === null ||
-        value === ""
-    ) {
-        right.textContent = "Not provided";
-    } else {
-        right.textContent = String(value);
-    }
+    right.textContent = formatValue(value);
 
     row.append(left, right);
 
@@ -243,8 +466,19 @@ function createHeading(text) {
 }
 
 
+function normalizeStatus(value) {
+
+    return String(value || "pending")
+        .trim()
+        .toLowerCase()
+        .replace(/_/g, " ")
+        .replace(/-/g, " ");
+
+}
+
+
 /* =========================================================
-   8. BOOKING PROGRESS TIMELINE
+   9. BOOKING PROGRESS TIMELINE
 ========================================================= */
 
 function createTimeline(status, container) {
@@ -253,9 +487,9 @@ function createTimeline(status, container) {
 
     timeline.className = "booking-timeline";
 
-    const heading = createHeading("Booking Progress");
-
-    timeline.appendChild(heading);
+    timeline.appendChild(
+        createHeading("Booking Progress")
+    );
 
     const currentStatus =
         statusInformation[status] ||
@@ -268,7 +502,10 @@ function createTimeline(status, container) {
         "Booking Completed"
     ];
 
-    if (status === "rejected" || status === "cancelled") {
+    if (
+        status === "rejected" ||
+        status === "cancelled"
+    ) {
 
         const message = document.createElement("p");
 
@@ -280,6 +517,7 @@ function createTimeline(status, container) {
         container.appendChild(timeline);
 
         return;
+
     }
 
     steps.forEach((step, index) => {
@@ -301,8 +539,11 @@ function createTimeline(status, container) {
         const marker = document.createElement("span");
 
         marker.className = "timeline-marker";
+
         marker.textContent =
-            stepNumber < currentStatus.step ? "✓" : stepNumber;
+            stepNumber < currentStatus.step
+                ? "✓"
+                : stepNumber;
 
         const content = document.createElement("div");
 
@@ -318,9 +559,11 @@ function createTimeline(status, container) {
 
             const description = document.createElement("p");
 
-            description.textContent = currentStatus.description;
+            description.textContent =
+                currentStatus.description;
 
             content.appendChild(description);
+
         }
 
         item.append(marker, content);
@@ -335,16 +578,12 @@ function createTimeline(status, container) {
 
 
 /* =========================================================
-   9. DISPLAY BOOKING STATUS
+   10. DISPLAY BOOKING STATUS
 ========================================================= */
 
 function displayStatus(data, section) {
 
-    const rawStatus = String(
-        data.status || "pending"
-    ).toLowerCase().trim();
-
-    const normalizedStatus = rawStatus.replace(/_/g, " ");
+    const normalizedStatus = normalizeStatus(data.status);
 
     const statusData =
         statusInformation[normalizedStatus] ||
@@ -359,19 +598,16 @@ function displayStatus(data, section) {
     const statusBadge = document.createElement("span");
 
     statusBadge.className =
-        "status " +
-        (
-            ["pending", "accepted", "completed", "rejected", "cancelled"]
-                .includes(normalizedStatus)
-                ? normalizedStatus
-                : "pending"
-        ).replace(/\s+/g, "-");
+        "status " + normalizedStatus.replace(/\s+/g, "-");
 
     statusBadge.textContent = statusData.label;
 
     const description = document.createElement("p");
 
     description.textContent = statusData.description;
+
+    description.style.marginTop = "12px";
+    description.style.lineHeight = "1.6";
 
     statusSection.append(
         heading,
@@ -387,21 +623,20 @@ function displayStatus(data, section) {
 
 
 /* =========================================================
-   10. DISPLAY SERVICE BUDGET BREAKDOWN
+   11. DISPLAY SERVICE BUDGET BREAKDOWN
 ========================================================= */
 
 function displayServiceAllocation(data, section) {
 
-    const allocation =
-        data.serviceBudgetAllocation || {};
-
-    const heading = createHeading("Service-wise Budget Breakdown");
-
-    section.appendChild(heading);
+    const allocation = data.serviceBudgetAllocation || {};
 
     const services = Array.isArray(data.services)
         ? data.services
         : [];
+
+    section.appendChild(
+        createHeading("Service-Wise Budget Breakdown")
+    );
 
     if (services.length === 0) {
 
@@ -412,6 +647,7 @@ function displayServiceAllocation(data, section) {
         section.appendChild(message);
 
         return;
+
     }
 
     services.forEach(service => {
@@ -426,9 +662,37 @@ function displayServiceAllocation(data, section) {
 
         const serviceAmount = document.createElement("strong");
 
-        serviceAmount.textContent = formatRupees(
-            allocation[service] || 0
-        );
+        let amount = 0;
+
+        if (Array.isArray(allocation)) {
+
+            const matchingService = allocation.find(item =>
+                item &&
+                (item.service === service || item.name === service)
+            );
+
+            if (matchingService) {
+                amount = Number(
+                    matchingService.amount ??
+                    matchingService.budget ??
+                    matchingService.allocated ??
+                    0
+                );
+            }
+
+        } else if (typeof allocation === "object") {
+
+            const entry = allocation[service];
+
+            amount = Number(
+                typeof entry === "object" && entry !== null
+                    ? entry.amount ?? entry.budget ?? entry.allocated ?? 0
+                    : entry ?? 0
+            );
+
+        }
+
+        serviceAmount.textContent = formatRupees(amount);
 
         row.append(serviceName, serviceAmount);
 
@@ -439,7 +703,7 @@ function displayServiceAllocation(data, section) {
     addDetail(
         section,
         "Total Event Budget",
-        formatRupees(data.totalBudget)
+        formatRupees(data.totalBudget ?? data.budget)
     );
 
     addDetail(
@@ -458,25 +722,30 @@ function displayServiceAllocation(data, section) {
 
 
 /* =========================================================
-   11. DISPLAY ADVANCE BOOKING INFORMATION
+   12. DISPLAY ADVANCE BOOKING INFORMATION
 ========================================================= */
 
 function displayAdvancePayment(data, section) {
 
     section.appendChild(
-        createHeading("Advance Booking")
+        createHeading("Advance Booking & Payment")
     );
+
+    const advanceSelected =
+        data.advanceBooking === true ||
+        String(data.advanceBooking).toLowerCase() === "true" ||
+        String(data.advanceBooking).toLowerCase() === "yes";
 
     addDetail(
         section,
         "Advance Booking",
-        data.advanceBooking ? "Selected" : "Not Selected"
+        advanceSelected ? "Selected" : "Not Selected"
     );
 
     addDetail(
         section,
         "Advance Amount",
-        formatRupees(data.advanceAmount || 0)
+        formatRupees(data.advanceAmount)
     );
 
     const note = document.createElement("p");
@@ -484,7 +753,7 @@ function displayAdvancePayment(data, section) {
     note.className = "payment-note";
 
     note.textContent =
-        "Payment confirmation should be verified by EVENTORA. " +
+        "Payment confirmation must be verified by EVENTORA. " +
         "Selecting advance booking does not itself confirm payment.";
 
     section.appendChild(note);
@@ -493,7 +762,7 @@ function displayAdvancePayment(data, section) {
 
 
 /* =========================================================
-   12. DISPLAY COMPLETE BOOKING DETAILS
+   13. DISPLAY COMPLETE BOOKING DETAILS
 ========================================================= */
 
 function displayBooking(data, reference) {
@@ -518,7 +787,7 @@ function displayBooking(data, reference) {
     displayStatus(data, wrapper);
 
 
-    /* CUSTOMER DETAILS */
+    /* CUSTOMER INFORMATION */
 
     wrapper.appendChild(
         createHeading("Customer Information")
@@ -530,7 +799,7 @@ function displayBooking(data, reference) {
     addDetail(wrapper, "Email Address", data.email);
 
 
-    /* EVENT DETAILS */
+    /* EVENT INFORMATION */
 
     wrapper.appendChild(
         createHeading("Event Information")
@@ -539,10 +808,17 @@ function displayBooking(data, reference) {
     addDetail(wrapper, "Event Type", data.eventType);
     addDetail(wrapper, "Event Date", data.date);
     addDetail(wrapper, "Expected Guests", data.guests);
+
+    addDetail(
+        wrapper,
+        "Automatically Suggested Guests",
+        data.suggestedGuests
+    );
+
     addDetail(wrapper, "Location", data.location);
 
 
-    /* BUDGET DETAILS */
+    /* BUDGET INFORMATION */
 
     wrapper.appendChild(
         createHeading("Budget Information")
@@ -551,7 +827,7 @@ function displayBooking(data, reference) {
     addDetail(
         wrapper,
         "Selected Budget",
-        formatRupees(data.totalBudget)
+        formatRupees(data.totalBudget ?? data.budget)
     );
 
     addDetail(
@@ -562,12 +838,12 @@ function displayBooking(data, reference) {
 
     addDetail(
         wrapper,
-        "Automatically Suggested Guests",
-        data.suggestedGuests || "Not available"
+        "Guest Estimate Method",
+        data.guestEstimateMethod
     );
 
 
-    /* SERVICE DETAILS */
+    /* SELECTED SERVICES */
 
     wrapper.appendChild(
         createHeading("Selected Services")
@@ -590,17 +866,25 @@ function displayBooking(data, reference) {
 
         });
 
+    } else {
+
+        const message = document.createElement("p");
+
+        message.textContent = "No services were provided.";
+
+        serviceList.appendChild(message);
+
     }
 
     wrapper.appendChild(serviceList);
 
 
-    /* SERVICE ALLOCATION */
+    /* SERVICE BUDGET ALLOCATION */
 
     displayServiceAllocation(data, wrapper);
 
 
-    /* ADVANCE PAYMENT */
+    /* ADVANCE BOOKING */
 
     displayAdvancePayment(data, wrapper);
 
@@ -618,34 +902,40 @@ function displayBooking(data, reference) {
     );
 
 
-    /* FINAL UPDATE */
+    /* AUTOMATIC UPDATE MESSAGE */
 
     const updateNote = document.createElement("p");
 
     updateNote.className = "tracking-update-note";
 
     updateNote.textContent =
-        "This page updates automatically when EVENTORA changes your booking status.";
+        "Live tracking is active. Your booking information " +
+        "will update automatically when EVENTORA changes it.";
 
     wrapper.appendChild(updateNote);
 
     bookingDetails.appendChild(wrapper);
 
+
+    // IMPORTANT FIX:
+    // Keep the displayed booking details visible.
     showMessage(
         "Booking found! Your latest booking information is displayed below.",
-        true
+        true,
+        false
     );
 
 }
 
 
 /* =========================================================
-   13. LIVE BOOKING TRACKING
+   14. LIVE BOOKING TRACKING
 ========================================================= */
 
 let unsubscribeBooking = null;
 
 let trackingRequest = 0;
+
 
 async function trackBooking(reference) {
 
@@ -656,15 +946,20 @@ async function trackBooking(reference) {
         showMessage("Please enter your booking reference ID.");
 
         return;
+
     }
 
-    // Stop previous live listener.
+
+    // Stop any previous live listener.
+
     if (unsubscribeBooking) {
 
         unsubscribeBooking();
 
         unsubscribeBooking = null;
+
     }
+
 
     const requestNumber = ++trackingRequest;
 
@@ -673,6 +968,7 @@ async function trackBooking(reference) {
     trackButton.textContent = "Checking Booking...";
 
     showMessage("Please wait. Checking your booking...");
+
 
     try {
 
@@ -695,35 +991,46 @@ async function trackBooking(reference) {
         /* LIVE FIRESTORE LISTENER */
 
         unsubscribeBooking = onSnapshot(
+
             bookingReference,
 
             snapshot => {
 
                 if (requestNumber !== trackingRequest) return;
 
+
+                /* BOOKING NOT FOUND */
+
                 if (!snapshot.exists()) {
 
-                    unsubscribeBooking?.();
-
-                    unsubscribeBooking = null;
+                    if (unsubscribeBooking) {
+                        unsubscribeBooking();
+                        unsubscribeBooking = null;
+                    }
 
                     showMessage(
                         "Booking not found. Please check your reference ID."
                     );
 
                     return;
+
                 }
+
 
                 const bookingData = snapshot.data();
 
 
                 /* CUSTOMER OWNERSHIP CHECK */
 
-                if (bookingData.ownerUid !== customer.uid) {
+                if (
+                    !bookingData.ownerUid ||
+                    bookingData.ownerUid !== customer.uid
+                ) {
 
-                    unsubscribeBooking?.();
-
-                    unsubscribeBooking = null;
+                    if (unsubscribeBooking) {
+                        unsubscribeBooking();
+                        unsubscribeBooking = null;
+                    }
 
                     showMessage(
                         "This booking cannot be accessed from this browser. " +
@@ -731,10 +1038,29 @@ async function trackBooking(reference) {
                     );
 
                     return;
+
                 }
 
 
-                /* DISPLAY LATEST BOOKING */
+                /* SAVE REFERENCE */
+
+                try {
+
+                    localStorage.setItem(
+                        "eventoraLastBookingRef",
+                        cleanReference
+                    );
+
+                } catch (error) {
+
+                    console.warn(
+                        "Could not save booking reference."
+                    );
+
+                }
+
+
+                /* DISPLAY LATEST INFORMATION */
 
                 displayBooking(
                     bookingData,
@@ -746,7 +1072,7 @@ async function trackBooking(reference) {
             error => {
 
                 console.error(
-                    "EVENTORA live tracking error:",
+                    "EVENTORA Live Tracking Error:",
                     error
                 );
 
@@ -760,7 +1086,8 @@ async function trackBooking(reference) {
                 } else {
 
                     showMessage(
-                        "Unable to retrieve booking details. Please try again."
+                        "Unable to retrieve booking details. Please try again. " +
+                        (error.code || "")
                     );
 
                 }
@@ -770,15 +1097,17 @@ async function trackBooking(reference) {
                     unsubscribeBooking();
 
                     unsubscribeBooking = null;
+
                 }
 
             }
+
         );
 
     } catch (error) {
 
         console.error(
-            "EVENTORA tracking error:",
+            "EVENTORA Authentication Error:",
             error
         );
 
@@ -792,7 +1121,7 @@ async function trackBooking(reference) {
 
             showMessage(
                 "Unable to check your booking. Please try again. " +
-                (error.code || "")
+                (error.code || error.message || "")
             );
 
         }
@@ -813,7 +1142,7 @@ async function trackBooking(reference) {
 
 
 /* =========================================================
-   14. TRACKING FORM SUBMISSION
+   15. TRACKING FORM SUBMISSION
 ========================================================= */
 
 if (
@@ -835,14 +1164,15 @@ if (
 } else {
 
     console.error(
-        "EVENTORA: Tracking HTML elements are missing. Check track-booking.html."
+        "EVENTORA: Tracking HTML elements are missing. " +
+        "Please check track-booking.html."
     );
 
 }
 
 
 /* =========================================================
-   15. LOAD SAVED BOOKING REFERENCE
+   16. LOAD SAVED BOOKING REFERENCE
 ========================================================= */
 
 const urlReference = new URLSearchParams(
@@ -861,7 +1191,9 @@ try {
 
 } catch (error) {
 
-    console.warn("Could not read saved booking reference.");
+    console.warn(
+        "EVENTORA could not read saved booking reference."
+    );
 
 }
 
@@ -882,10 +1214,15 @@ if (referenceInput) {
 
 
 /* =========================================================
-   16. AUTOMATICALLY TRACK URL REFERENCE
+   17. AUTOMATICALLY TRACK URL REFERENCE
 ========================================================= */
 
-if (urlReference && referenceInput && trackingForm) {
+if (
+    urlReference &&
+    referenceInput &&
+    trackingForm &&
+    trackButton
+) {
 
     trackBooking(urlReference);
 
@@ -893,9 +1230,9 @@ if (urlReference && referenceInput && trackingForm) {
 
 
 /* =========================================================
-   17. INITIALIZATION
+   18. INITIALIZATION
 ========================================================= */
 
 console.log(
-    "EVENTORA live booking tracking is ready."
+    "EVENTORA Advanced Live Booking Tracking Ready."
 );
