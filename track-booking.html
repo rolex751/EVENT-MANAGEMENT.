@@ -7,186 +7,28 @@
 
     <title>Track Your Booking | EVENTORA</title>
 
-    <meta name="description" content="Track your EVENTORA event booking and view your latest booking status, event details and budget breakdown.">
+    <meta name="description" content="Track your EVENTORA event booking and view your latest booking status, event details and updates.">
+
+    <meta name="theme-color" content="#f8f4eb">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-    <style>
-        /* TRACK BOOKING PAGE */
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        .tracking-page {
-            min-height: 75vh;
-            padding: 65px 20px 85px;
-            background: #f8f7f4;
-        }
-
-        .tracking-wrapper {
-            width: 100%;
-            max-width: 950px;
-            margin: 0 auto;
-        }
-
-        .tracking-card {
-            background: #ffffff;
-            padding: 45px;
-            border-radius: 18px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
-        }
-
-        .tracking-heading {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .tracking-eyebrow {
-            display: inline-block;
-            color: #b68b45;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 3px;
-            margin-bottom: 12px;
-        }
-
-        .tracking-heading h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(30px, 5vw, 43px);
-            color: #202020;
-            margin-bottom: 12px;
-        }
-
-        .tracking-heading p {
-            max-width: 620px;
-            margin: 0 auto;
-            color: #777;
-            line-height: 1.7;
-            font-size: 15px;
-        }
-
-        .tracking-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .tracking-form label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .tracking-input-group {
-            display: flex;
-            gap: 12px;
-        }
-
-        .tracking-form input {
-            flex: 1;
-            min-width: 0;
-            padding: 15px 17px;
-            border: 1px solid #dedede;
-            border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .tracking-form input:focus {
-            border-color: #b68b45;
-        }
-
-        .tracking-form button {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 8px;
-            background: #b68b45;
-            color: #fff;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .tracking-form button:hover {
-            background: #967035;
-        }
-
-        .tracking-form button:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-        }
-
-        #trackingMessage {
-            margin-top: 22px;
-            text-align: center;
-        }
-
-        .tracking-note {
-            margin-top: 30px;
-            padding: 17px 20px;
-            border-radius: 9px;
-            background: #faf6ee;
-            border-left: 4px solid #b68b45;
-            color: #666;
-            font-size: 13px;
-            line-height: 1.7;
-        }
-
-        .tracking-note a {
-            color: #a77b35;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .tracking-note a:hover {
-            text-decoration: underline;
-        }
-
-        #bookingDetails {
-            margin-top: 30px;
-        }
-
-        #bookingDetails:empty {
-            display: none;
-        }
-
-        /* MOBILE RESPONSIVE */
-
-        @media (max-width: 600px) {
-            .tracking-page {
-                padding: 35px 14px 55px;
-            }
-
-            .tracking-card {
-                padding: 28px 18px;
-            }
-
-            .tracking-input-group {
-                flex-direction: column;
-            }
-
-            .tracking-form button {
-                width: 100%;
-            }
-
-            .tracking-heading h1 {
-                font-size: 31px;
-            }
-        }
-    </style>
+    <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <header>
+    <!-- =========================================
+         EVENTORA NAVIGATION
+    ========================================== -->
+
+    <header class="header">
         <nav class="navbar">
 
             <a href="index.html" class="logo">EVENTORA</a>
@@ -194,9 +36,9 @@
             <button
                 class="menu-toggle"
                 id="menuToggle"
+                type="button"
                 aria-label="Open navigation menu"
-                aria-expanded="false"
-                type="button">
+                aria-expanded="false">
                 ☰
             </button>
 
@@ -222,7 +64,9 @@
                 </li>
 
                 <li>
-                    <a href="track-booking.html" class="active" aria-current="page">
+                    <a href="track-booking.html"
+                       class="active"
+                       aria-current="page">
                         Track Booking
                     </a>
                 </li>
@@ -236,119 +80,280 @@
     </header>
 
 
-    <!-- TRACKING SECTION -->
-    <main class="tracking-page">
+    <!-- =========================================
+         PAGE BANNER
+    ========================================== -->
 
-        <div class="tracking-wrapper">
+    <section class="page-banner">
+        <div class="container">
 
-            <section class="tracking-card">
+            <span class="subtitle">EVENTORA CUSTOMER SERVICE</span>
 
-                <div class="tracking-heading">
+            <h1>Track Your Booking</h1>
 
-                    <span class="tracking-eyebrow">
-                        EVENTORA CUSTOMER PORTAL
-                    </span>
+            <p>
+                Stay updated on your celebration.
+                Check your booking status and event details anytime.
+            </p>
 
-                    <h1>Track Your Booking</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                &nbsp; / &nbsp;
+                <span>Track Booking</span>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         BOOKING TRACKING SECTION
+    ========================================== -->
+
+    <main class="tracking-section tracking-page">
+
+        <div class="tracking-container">
+
+            <div class="tracking-card">
+
+                <div class="section-heading intro">
+
+                    <span class="subtitle">YOUR EVENT, OUR PRIORITY</span>
+
+                    <h2>Booking Status</h2>
 
                     <p>
-                        Your celebration is important to us.
-                        Enter your booking reference ID below to check
-                        your event booking status and view your booking details.
+                        Enter your booking reference number to view
+                        your event booking details and its latest status.
                     </p>
 
                 </div>
 
 
-                <!-- TRACKING FORM -->
-                <form id="trackingForm" class="tracking-form">
+                <!-- BOOKING REFERENCE FORM -->
 
-                    <label for="bookingReference">
-                        Booking Reference ID
-                    </label>
+                <form id="trackingForm">
 
-                    <div class="tracking-input-group">
+                    <div class="form-group">
+
+                        <label for="bookingReference">
+                            Booking Reference Number
+                        </label>
 
                         <input
                             type="text"
                             id="bookingReference"
                             name="bookingReference"
-                            placeholder="Enter your booking reference ID"
+                            placeholder="Enter your booking reference"
                             autocomplete="off"
                             required
                         >
 
-                        <button type="submit" id="trackButton">
-                            Track Booking
-                        </button>
-
                     </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-block"
+                        id="trackButton">
+
+                        Track My Booking
+
+                    </button>
 
                 </form>
 
 
-                <!-- MESSAGE -->
-                <div id="trackingMessage" aria-live="polite"></div>
+                <!-- TRACKING MESSAGE -->
+
+                <div
+                    id="trackingMessage"
+                    class="tracking-message"
+                    role="status"
+                    aria-live="polite"
+                    hidden>
+                </div>
 
 
-                <!-- BOOKING DETAILS -->
-                <div id="bookingDetails"></div>
+                <!-- BOOKING DETAILS ARE DISPLAYED HERE -->
+
+                <div
+                    id="bookingDetails"
+                    class="booking-details"
+                    aria-live="polite">
+                </div>
 
 
                 <!-- INFORMATION NOTE -->
+
                 <div class="tracking-note">
 
-                    <strong>Important:</strong>
+                    <p>
+                        <strong>Important:</strong>
+                        Your booking status updates when the EVENTORA
+                        team reviews and updates your enquiry.
+                    </p>
 
-                    Your booking details can be viewed using the same
-                    browser/device used when submitting your booking enquiry.
-
-                    If you need assistance with your booking, please
-                    <a href="contact.html">contact the EVENTORA team</a>.
+                    <p>
+                        Please use the same browser or device used
+                        when submitting your booking.
+                    </p>
 
                 </div>
 
-            </section>
+            </div>
+
+
+            <!-- CUSTOMER SUPPORT -->
+
+            <div class="tracking-card support-card">
+
+                <h2>Need Assistance?</h2>
+
+                <p>
+                    Our EVENTORA team is here to help you with your
+                    booking and event-related questions.
+                </p>
+
+                <div class="contact-item">
+
+                    <div>
+                        <h3>EVENTORA Support</h3>
+
+                        <p>
+                            <a href="tel:+917975106764">
+                                +91 79751 06764
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="contact-item">
+
+                    <div>
+                        <h3>Additional Partner Contact</h3>
+
+                        <p>
+                            <a href="tel:+919448209827">
+                                +91 94482 09827
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+
+                <a
+                    href="https://wa.me/917975106764"
+                    class="btn btn-outline"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Contact Us on WhatsApp
+
+                </a>
+
+            </div>
 
         </div>
 
     </main>
 
 
-    <!-- FOOTER -->
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
     <footer class="footer">
 
-        <div class="footer-content">
+        <div class="container">
 
-            <div class="footer-brand">
-                <h2>EVENTORA</h2>
+            <div class="footer-grid">
+
+                <div>
+
+                    <div class="footer-logo">EVENTORA</div>
+
+                    <p>
+                        Creating Moments, Designing Memories.
+                        We make every celebration meaningful,
+                        beautiful and unforgettable.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Quick Links</h3>
+
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Customer Services</h3>
+
+                    <ul>
+                        <li><a href="booking.html">Book an Event</a></li>
+                        <li><a href="track-booking.html">Track Booking</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Contact Information</h3>
+
+                    <p>
+                        <a href="tel:+917975106764">
+                            +91 79751 06764
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="tel:+919448209827">
+                            +91 94482 09827
+                        </a>
+                    </p>
+
+                    <p>Bengaluru, Karnataka, India</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
                 <p>
-                    Creating Moments, Designing Memories.
+                    &copy; <span id="year"></span>
+                    EVENTORA. All Rights Reserved.
                 </p>
-            </div>
 
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="services.html">Services</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="booking.html">Book an Event</a>
-                <a href="track-booking.html">Track Booking</a>
-                <a href="contact.html">Contact</a>
-            </div>
+                <p>Creating Moments, Designing Memories.</p>
 
-            <p class="footer-copy">
-                &copy; <span id="year"></span> EVENTORA.
-                All Rights Reserved.
-            </p>
+            </div>
 
         </div>
 
     </footer>
 
 
-    <!-- JAVASCRIPT -->
+    <!-- =========================================
+         JAVASCRIPT FILES
+    ========================================== -->
+
     <script src="js/script.js"></script>
+
     <script type="module" src="js/track-booking.js"></script>
 
 </body>
