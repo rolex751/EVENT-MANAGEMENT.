@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Our Gallery | EVENTORA - Creating Moments</title>
-
-    <meta name="description" content="Explore Indian weddings, birthdays, corporate events and beautiful celebrations at EVENTORA.">
+    <title>Celebrity Gallery | EVENTORA</title>
+    <meta name="description" content="Explore celebrity couple photographs, Indian wedding inspiration, birthday celebrations and luxury event decorations at EVENTORA.">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -85,7 +84,7 @@
             }
         }
 
-        /* GALLERY HERO */
+        /* HERO */
         .gallery-hero {
             min-height: 390px;
             display: flex;
@@ -145,7 +144,7 @@
             line-height: 1.7;
         }
 
-        /* FILTER BUTTONS */
+        /* FILTERS */
         .gallery-filters {
             display: flex;
             justify-content: center;
@@ -181,11 +180,11 @@
 
         .gallery-item {
             position: relative;
-            height: 330px;
+            height: 370px;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: 14px;
             background: #e9dfd1;
-            box-shadow: 0 8px 25px rgba(53, 38, 25, .09);
+            box-shadow: 0 8px 25px rgba(53, 38, 25, .12);
         }
 
         .gallery-item img {
@@ -197,7 +196,7 @@
         }
 
         .gallery-item:hover img {
-            transform: scale(1.09);
+            transform: scale(1.07);
         }
 
         .gallery-overlay {
@@ -206,27 +205,44 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 25px;
-            background: linear-gradient(transparent 35%, rgba(25, 18, 13, .82));
+            padding: 22px;
+            background: linear-gradient(
+                transparent 20%,
+                rgba(25, 18, 13, .88)
+            );
             color: white;
-            opacity: 0;
+            opacity: 1;
             transition: .35s;
         }
 
         .gallery-item:hover .gallery-overlay {
-            opacity: 1;
+            background: linear-gradient(
+                transparent 10%,
+                rgba(25, 18, 13, .94)
+            );
         }
 
         .gallery-overlay h3 {
             font-family: "Playfair Display", serif;
-            font-size: 24px;
-            margin: 0 0 6px;
+            font-size: 23px;
+            margin: 0 0 7px;
         }
 
         .gallery-overlay p {
-            margin: 0;
+            margin: 0 0 9px;
             color: #eee2d2;
-            font-size: 14px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .photo-credit {
+            font-size: 11px;
+            color: #e8d3b4;
+        }
+
+        .photo-credit a {
+            color: #f4d49d;
+            text-decoration: underline;
         }
 
         .gallery-item[hidden] {
@@ -238,7 +254,7 @@
             text-align: center;
             color: #817367;
             font-size: 13px;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         /* CTA */
@@ -282,7 +298,7 @@
             }
 
             .gallery-item {
-                height: 290px;
+                height: 340px;
             }
         }
 
@@ -292,7 +308,7 @@
             }
 
             .gallery-item {
-                height: 300px;
+                height: 380px;
             }
 
             .gallery-filters {
@@ -302,10 +318,6 @@
             .gallery-filter {
                 padding: 9px 15px;
                 font-size: 13px;
-            }
-
-            .gallery-overlay {
-                opacity: 1;
             }
         }
     </style>
@@ -342,14 +354,14 @@
     <!-- HERO -->
     <section class="gallery-hero">
         <div>
-            <span class="gallery-label">Our Visual Stories</span>
+            <span class="gallery-label">Celebrity Wedding Inspiration</span>
 
-            <h1>Moments Worth Remembering</h1>
+            <h1>Celebrations of Love & Luxury</h1>
 
             <p>
-                Discover beautiful event ideas, traditional Indian weddings,
-                creative decorations and unforgettable celebrations.
-                Every picture tells a story.
+                Discover famous Indian celebrity couples, beautiful
+                wedding styles, grand receptions and unforgettable
+                celebration inspiration.
             </p>
         </div>
     </section>
@@ -361,11 +373,11 @@
             <div class="gallery-heading">
                 <span class="gallery-label">The EVENTORA Collection</span>
 
-                <h2>Explore Our Gallery</h2>
+                <h2>Celebrity Wedding Inspiration</h2>
 
                 <p>
-                    Find inspiration for your next celebration.
-                    Choose a category to explore different event styles.
+                    Explore famous Indian celebrity couples and discover
+                    inspiration for your own special celebration.
                 </p>
             </div>
 
@@ -379,7 +391,7 @@
 
                 <button class="gallery-filter"
                         data-filter="wedding" aria-pressed="false">
-                    Weddings
+                    Celebrity Couples
                 </button>
 
                 <button class="gallery-filter"
@@ -402,131 +414,199 @@
             <!-- IMAGE GRID -->
             <div class="gallery-grid" id="galleryGrid">
 
-                <!-- INDIAN WEDDING 1 -->
+                <!-- DEEPIKA AND RANVEER -->
                 <article class="gallery-item" data-category="wedding">
-                    <img src="https://images.unsplash.com/photo-1766590864665-7c81f43c3318?auto=format&fit=crop&w=1000&q=85"
-                         alt="Traditional Indian bride and groom wedding ceremony" loading="lazy">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Deepika_Padukone_and_Ranveer_Singh_reception.jpg"
+                        alt="Deepika Padukone and Ranveer Singh at their wedding reception"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
-                        <h3>Traditional Indian Weddings</h3>
-                        <p>Beautiful celebrations of love and tradition</p>
+                        <h3>Deepika & Ranveer</h3>
+                        <p>Elegant wedding reception and glamorous couple style.</p>
+                        <span class="photo-credit">
+                            Photo: Bollywood Hungama |
+                            <a href="https://commons.wikimedia.org/wiki/File:Deepika_Padukone_and_Ranveer_Singh_reception.jpg"
+                               target="_blank" rel="noopener noreferrer">Photo source</a>
+                        </span>
                     </div>
                 </article>
 
-                <!-- INDIAN WEDDING 2 -->
+                <!-- VIRAT AND ANUSHKA -->
                 <article class="gallery-item" data-category="wedding">
-                    <img src="https://images.unsplash.com/photo-1760080839508-0231f42de487?auto=format&fit=crop&w=1000&q=85"
-                         alt="Indian bride and groom in traditional wedding attire" loading="lazy">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Virat_Kohli_and_Anushka_Sharma_at_Mumbai_reception.jpg"
+                        alt="Virat Kohli and Anushka Sharma at their Mumbai wedding reception"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
-                        <h3>Royal Bridal Moments</h3>
-                        <p>Traditional outfits and timeless elegance</p>
+                        <h3>Virat & Anushka</h3>
+                        <p>Classic Indian celebrity wedding reception inspiration.</p>
+                        <span class="photo-credit">
+                            Photo: Bollywood Hungama |
+                            <a href="https://commons.wikimedia.org/wiki/File:Virat_Kohli_and_Anushka_Sharma_at_Mumbai_reception.jpg"
+                               target="_blank" rel="noopener noreferrer">Photo source</a>
+                        </span>
                     </div>
                 </article>
 
-                <!-- INDIAN WEDDING 3 -->
+                <!-- KIARA AND SIDHARTH -->
                 <article class="gallery-item" data-category="wedding">
-                    <img src="https://images.unsplash.com/photo-1760080903650-bfbab2177005?auto=format&fit=crop&w=1000&q=85"
-                         alt="Indian wedding couple in traditional attire" loading="lazy">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Sidharth_Malhotra_and_Kiara_Advani_at_their_wedding_reception_in_Mumbai_(12).jpg"
+                        alt="Kiara Advani and Sidharth Malhotra at their wedding reception"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
-                        <h3>Indian Wedding Couple</h3>
-                        <p>Capturing unforgettable memories</p>
+                        <h3>Kiara & Sidharth</h3>
+                        <p>Modern luxury, elegant outfits and sophisticated styling.</p>
+                        <span class="photo-credit">
+                            Photo: Bollywood Hungama |
+                            <a href="https://commons.wikimedia.org/wiki/File:Sidharth_Malhotra_and_Kiara_Advani_at_their_wedding_reception_in_Mumbai_(12).jpg"
+                               target="_blank" rel="noopener noreferrer">Photo source</a>
+                        </span>
                     </div>
                 </article>
 
-                <!-- INDIAN WEDDING 4 -->
+                <!-- KATRINA AND VICKY -->
                 <article class="gallery-item" data-category="wedding">
-                    <img src="https://images.unsplash.com/photo-1755931450429-ea2c88268e5f?auto=format&fit=crop&w=1000&q=85"
-                         alt="Indian newlyweds holding wedding garlands" loading="lazy">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Vicky_Kaushal_and_Katrina_Kaif_at_Ramesh_S_Taurani%E2%80%99s_diwali_bash.jpg"
+                        alt="Katrina Kaif and Vicky Kaushal at a Diwali celebration"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
-                        <h3>Varmala Ceremony</h3>
-                        <p>A beautiful moment of togetherness</p>
+                        <h3>Katrina & Vicky</h3>
+                        <p>Traditional Indian fashion and festive couple elegance.</p>
+                        <span class="photo-credit">
+                            Photo: Bollywood Hungama |
+                            <a href="https://commons.wikimedia.org/wiki/File:Vicky_Kaushal_and_Katrina_Kaif_at_Ramesh_S_Taurani%E2%80%99s_diwali_bash.jpg"
+                               target="_blank" rel="noopener noreferrer">Photo source</a>
+                        </span>
                     </div>
                 </article>
 
-                <!-- INDIAN WEDDING 5 -->
+                <!-- ALIA AND RANBIR -->
                 <article class="gallery-item" data-category="wedding">
-                    <img src="https://images.unsplash.com/photo-1587271636175-90d58cdad458?auto=format&fit=crop&w=1000&q=85"
-                         alt="Wedding couple under a floral mandap" loading="lazy">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Ranbir_Kapoor_and_Alia_Bhatt.jpg"
+                        alt="Ranbir Kapoor and Alia Bhatt together"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
-                        <h3>Wedding Mandap</h3>
-                        <p>Traditional ceremonies with floral elegance</p>
+                        <h3>Alia & Ranbir</h3>
+                        <p>Celebrity couple fashion and contemporary celebration inspiration.</p>
+                        <span class="photo-credit">
+                            Photo: Bollywood Hungama |
+                            <a href="https://commons.wikimedia.org/wiki/File:Ranbir_Kapoor_and_Alia_Bhatt.jpg"
+                               target="_blank" rel="noopener noreferrer">Photo source</a>
+                        </span>
                     </div>
                 </article>
 
-                <!-- INDIAN WEDDING 6 -->
+                <!-- PRIYANKA AND NICK -->
                 <article class="gallery-item" data-category="wedding">
-                    <img src="https://images.unsplash.com/photo-1760080903831-3cfeac3200dc?auto=format&fit=crop&w=1000&q=85"
-                         alt="Indian newlyweds posing with a floral wedding backdrop" loading="lazy">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Priyanka_Chopra_and_Nick_Jonas_in_2018.jpg"
+                        alt="Priyanka Chopra and Nick Jonas together in 2018"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
-                        <h3>Grand Wedding Portraits</h3>
-                        <p>Beautifully captured wedding memories</p>
+                        <h3>Priyanka & Nick</h3>
+                        <p>International celebrity couple style and Indian celebration inspiration.</p>
+                        <span class="photo-credit">
+                            Photo: Bollywood Hungama |
+                            <a href="https://commons.wikimedia.org/wiki/File:Priyanka_Chopra_and_Nick_Jonas_in_2018.jpg"
+                               target="_blank" rel="noopener noreferrer">Photo source</a>
+                        </span>
                     </div>
                 </article>
 
                 <!-- BIRTHDAY 1 -->
                 <article class="gallery-item" data-category="birthday">
-                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=85"
-                         alt="Colourful birthday celebration" loading="lazy">
+                    <img
+                        src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=85"
+                        alt="Colourful birthday celebration"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
                         <h3>Birthday Celebrations</h3>
-                        <p>Make every birthday special</p>
+                        <p>Make every birthday special.</p>
                     </div>
                 </article>
 
                 <!-- BIRTHDAY 2 -->
                 <article class="gallery-item" data-category="birthday">
-                    <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1000&q=85"
-                         alt="Birthday cake and celebration" loading="lazy">
+                    <img
+                        src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1000&q=85"
+                        alt="Birthday cake and celebration"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
                         <h3>Birthday Moments</h3>
-                        <p>Celebrate life's milestones</p>
+                        <p>Celebrate life's milestones.</p>
                     </div>
                 </article>
 
                 <!-- CORPORATE 1 -->
                 <article class="gallery-item" data-category="corporate">
-                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
-                         alt="Corporate event setup" loading="lazy">
+                    <img
+                        src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
+                        alt="Corporate event setup"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
                         <h3>Corporate Events</h3>
-                        <p>Professional events with style</p>
+                        <p>Professional events with style.</p>
                     </div>
                 </article>
 
                 <!-- CORPORATE 2 -->
                 <article class="gallery-item" data-category="corporate">
-                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
-                         alt="Conference and business event" loading="lazy">
+                    <img
+                        src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
+                        alt="Conference and business event"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
                         <h3>Business Gatherings</h3>
-                        <p>Ideas, people and experiences</p>
+                        <p>Ideas, people and experiences.</p>
                     </div>
                 </article>
 
                 <!-- DECORATION 1 -->
                 <article class="gallery-item" data-category="decoration">
-                    <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
-                         alt="Beautiful event decoration" loading="lazy">
+                    <img
+                        src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=85"
+                        alt="Beautiful event decoration"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
                         <h3>Luxury Decorations</h3>
-                        <p>Details that make a difference</p>
+                        <p>Details that make a difference.</p>
                     </div>
                 </article>
 
                 <!-- DECORATION 2 -->
                 <article class="gallery-item" data-category="decoration">
-                    <img src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=85"
-                         alt="Floral event decoration" loading="lazy">
+                    <img
+                        src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=85"
+                        alt="Floral event decoration"
+                        loading="lazy">
+
                     <div class="gallery-overlay">
                         <h3>Floral Designs</h3>
-                        <p>Beautiful settings and arrangements</p>
+                        <p>Beautiful settings and arrangements.</p>
                     </div>
                 </article>
 
             </div>
 
             <p class="gallery-note">
-                Note: These photographs are illustrative inspiration images.
-                Replace them with EVENTORA's own event photographs as your portfolio grows.
+                Celebrity photographs are used for inspiration and are
+                credited to their respective sources. They do not represent
+                events organised by EVENTORA. Celebrity names and images
+                do not imply endorsement or association with EVENTORA.
             </p>
 
         </section>
@@ -585,39 +665,10 @@
 
     <script src="js/script.js"></script>
 
-    <!-- GALLERY FILTER AND MOBILE NAVIGATION -->
+    <!-- GALLERY FILTER AND FOOTER YEAR -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
-            // Mobile navigation
-            const menuToggle = document.getElementById("menuToggle");
-            const navLinks = document.getElementById("navLinks");
-
-            if (menuToggle && navLinks) {
-
-                menuToggle.addEventListener("click", function () {
-
-                    const isOpen = navLinks.classList.toggle("open");
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        isOpen ? "true" : "false"
-                    );
-
-                });
-
-                navLinks.querySelectorAll("a").forEach(function (link) {
-
-                    link.addEventListener("click", function () {
-                        navLinks.classList.remove("open");
-                        menuToggle.setAttribute("aria-expanded", "false");
-                    });
-
-                });
-
-            }
-
-            // Gallery filtering
             const filterButtons =
                 document.querySelectorAll(".gallery-filter");
 
@@ -653,7 +704,6 @@
 
             });
 
-            // Footer year
             const yearElement = document.getElementById("year");
 
             if (yearElement) {
