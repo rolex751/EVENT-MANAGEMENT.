@@ -57,11 +57,13 @@ const bookingDetails = document.getElementById("bookingDetails");
 /* ---------- CUSTOMER AUTHENTICATION ---------- */
 
 async function getCustomerUser() {
+
     if (auth.currentUser) {
         return auth.currentUser;
     }
 
     const result = await signInAnonymously(auth);
+
     return result.user;
 }
 
@@ -69,7 +71,9 @@ async function getCustomerUser() {
 /* ---------- MESSAGE ---------- */
 
 function showMessage(message, success = false) {
+
     trackingMessage.textContent = message;
+
     trackingMessage.style.display = "block";
 
     trackingMessage.style.background = success
@@ -87,37 +91,56 @@ function showMessage(message, success = false) {
 /* ---------- DISPLAY BOOKING DETAILS ---------- */
 
 function addDetail(container, label, value) {
+
     const row = document.createElement("div");
+
     row.className = "detail-row";
 
     const left = document.createElement("span");
+
     left.textContent = label;
 
     const right = document.createElement("span");
+
     right.textContent = value || "Not provided";
 
     row.append(left, right);
+
     container.appendChild(row);
 }
 
 
 function displayBooking(data, reference) {
+
     bookingDetails.replaceChildren();
 
     const section = document.createElement("section");
+
     section.className = "booking-details";
 
     const heading = document.createElement("h2");
+
     heading.textContent = "Booking Details";
 
     section.appendChild(heading);
 
+
+    /* BOOKING INFORMATION */
+
     addDetail(section, "Reference ID", reference);
+
     addDetail(section, "Customer Name", data.name);
+
     addDetail(section, "Event Type", data.eventType);
+
     addDetail(section, "Event Date", data.date);
+
     addDetail(section, "Guests", String(data.guests));
+
     addDetail(section, "Location", data.location);
+
+
+    /* SELECTED SERVICES */
 
     addDetail(
         section,
@@ -127,10 +150,15 @@ function displayBooking(data, reference) {
             : "Not provided"
     );
 
+
+    /* BOOKING STATUS */
+
     const statusRow = document.createElement("div");
+
     statusRow.className = "detail-row";
 
     const statusLabel = document.createElement("span");
+
     statusLabel.textContent = "Booking Status";
 
     const statusValue = document.createElement("span");
@@ -150,15 +178,21 @@ function displayBooking(data, reference) {
     statusValue.textContent = status;
 
     statusRow.append(statusLabel, statusValue);
+
     section.appendChild(statusRow);
 
     bookingDetails.appendChild(section);
+
+
+    /* SUCCESS MESSAGE */
 
     trackingMessage.textContent =
         "Booking found! Here is your latest booking information.";
 
     trackingMessage.style.display = "block";
+
     trackingMessage.style.background = "#e8f5e9";
+
     trackingMessage.style.color = "#256438";
 }
 
@@ -166,20 +200,31 @@ function displayBooking(data, reference) {
 /* ---------- TRACK BOOKING ---------- */
 
 async function trackBooking(reference) {
+
     const cleanReference = reference.trim();
 
     if (!cleanReference) {
+
         showMessage("Please enter your booking reference ID.");
+
         return;
     }
 
     trackButton.disabled = true;
+
     trackButton.textContent = "Checking Booking...";
 
     showMessage("Please wait. Checking your booking...");
 
+
     try {
+
+        /* CUSTOMER AUTHENTICATION */
+
         const customer = await getCustomerUser();
+
+
+        /* GET BOOKING FROM FIRESTORE */
 
         const bookingRef = doc(
             db,
@@ -189,40 +234,62 @@ async function trackBooking(reference) {
 
         const bookingSnapshot = await getDoc(bookingRef);
 
+
         if (!bookingSnapshot.exists()) {
+
             showMessage(
                 "Booking not found. Please check your reference ID."
             );
+
             return;
         }
 
+
         const bookingData = bookingSnapshot.data();
 
+
+        /* CUSTOMER OWNERSHIP CHECK */
+
         if (bookingData.ownerUid !== customer.uid) {
+
             showMessage(
                 "This booking cannot be accessed from this browser. " +
                 "Please use the browser and device used to submit it."
             );
+
             return;
         }
 
+
+        /* DISPLAY BOOKING */
+
         displayBooking(bookingData, cleanReference);
 
+
     } catch (error) {
+
         console.error("EVENTORA tracking error:", error);
+
         console.error("Error code:", error.code);
+
         console.error("Error message:", error.message);
 
+
         if (error.code === "permission-denied") {
+
             showMessage(
                 "Access denied. Use the same browser and device " +
                 "that submitted this booking."
             );
+
         } else if (error.code === "auth/operation-not-allowed") {
+
             showMessage(
                 "Anonymous Authentication is not enabled in Firebase."
             );
+
         } else {
+
             showMessage(
                 "Unable to check your booking. Please try again. " +
                 (error.code || error.message || "")
@@ -230,7 +297,9 @@ async function trackBooking(reference) {
         }
 
     } finally {
+
         trackButton.disabled = false;
+
         trackButton.textContent = "Track My Booking";
     }
 }
@@ -238,15 +307,24 @@ async function trackBooking(reference) {
 
 /* ---------- FORM SUBMISSION ---------- */
 
-if (trackingForm && referenceInput && trackButton &&
-    trackingMessage && bookingDetails) {
+if (
+    trackingForm &&
+    referenceInput &&
+    trackButton &&
+    trackingMessage &&
+    bookingDetails
+) {
 
     trackingForm.addEventListener("submit", function(event) {
+
         event.preventDefault();
+
         trackBooking(referenceInput.value);
+
     });
 
 } else {
+
     console.error(
         "EVENTORA: Tracking HTML elements are missing. Check track-booking.html."
     );
@@ -259,16 +337,25 @@ const urlReference = new URLSearchParams(
     window.location.search
 ).get("ref");
 
+
 const savedReference = localStorage.getItem(
     "eventoraLastBookingRef"
 );
 
+
 if (referenceInput) {
+
     if (urlReference) {
+
         referenceInput.value = urlReference;
+
     } else if (savedReference) {
+
         referenceInput.value = savedReference;
     }
 }
+
+
+/* ---------- INITIALIZATION MESSAGE ---------- */
 
 console.log("EVENTORA Booking Tracking initialized.");
