@@ -4,42 +4,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EVENTORA - Professional event management for weddings, celebrations and corporate events.">
+  <meta name="theme-color" content="#f8f4eb">
 
-  <title>EVENTORA | Premium Event Management in Bengaluru</title>
+  <title>EVENTORA | Creating Moments. Designing Memories.</title>
 
-  <meta name="description" content="EVENTORA creates unforgettable weddings, birthdays, corporate events and celebrations with premium event planning, catering, photography and decoration services in Bengaluru.">
-
-  <meta name="keywords" content="EVENTORA, event management Bengaluru, wedding planner, birthday events, catering, event decoration, photography">
-
-  <meta name="theme-color" content="#21180f">
-
+  <link rel="icon" href="images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Existing project stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
-
   <style>
-    /* =================================
-       EVENTORA ROYAL HOMEPAGE
-       Page-specific styles
-    ================================= */
-
     :root {
-      --royal-dark: #21180f;
+      --royal-ink: #21180f;
       --royal-brown: #382719;
       --royal-gold: #c5a15b;
-      --royal-light-gold: #e6d2a5;
+      --royal-pale-gold: #e6d2a5;
       --royal-cream: #f8f4eb;
       --royal-white: #fffdf8;
-      --royal-text: #40372d;
       --royal-muted: #81766a;
+      --royal-line: #e8dfd0;
+      --royal-shadow: 0 14px 40px rgba(33,24,15,.09);
     }
 
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
@@ -48,34 +38,35 @@
     }
 
     body {
-      margin: 0;
       font-family: 'DM Sans', sans-serif;
-      background: var(--royal-cream);
-      color: var(--royal-text);
+      background: var(--royal-white);
+      color: var(--royal-ink);
+      line-height: 1.7;
     }
 
-    .eventora-home a {
+    a {
       text-decoration: none;
     }
 
-    .eventora-home img {
+    img {
       max-width: 100%;
+      display: block;
     }
 
     .royal-container {
-      width: min(1180px, 90%);
+      width: min(1160px, 90%);
       margin: auto;
     }
 
     /* TOP BAR */
 
     .royal-topbar {
-      background: var(--royal-dark);
-      color: var(--royal-light-gold);
-      padding: 9px 5%;
+      background: var(--royal-ink);
+      color: var(--royal-pale-gold);
       text-align: center;
-      font-size: 12px;
-      letter-spacing: 1px;
+      padding: 9px 12px;
+      font-size: 10px;
+      letter-spacing: 2px;
     }
 
     /* NAVIGATION */
@@ -84,27 +75,28 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(248, 244, 235, .97);
-      border-bottom: 1px solid rgba(197, 161, 91, .35);
-      backdrop-filter: blur(12px);
+      background: rgba(248,244,235,.97);
+      border-bottom: 1px solid rgba(197,161,91,.38);
+      box-shadow: 0 5px 24px rgba(33,24,15,.045);
     }
 
     .royal-nav {
-      width: min(1280px, 92%);
+      width: min(1200px, 92%);
       min-height: 82px;
       margin: auto;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 25px;
+      justify-content: space-between;
+      gap: 20px;
     }
 
     .royal-logo {
-      color: var(--royal-dark);
+      color: var(--royal-ink);
       font-family: 'Playfair Display', serif;
-      font-size: 29px;
+      font-size: 27px;
       font-weight: 700;
       letter-spacing: 3px;
+      line-height: 1.2;
       white-space: nowrap;
     }
 
@@ -113,51 +105,70 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 9px;
       letter-spacing: 3px;
-      color: var(--royal-gold);
       text-align: center;
-      margin-top: 2px;
-    }
-
-    .royal-nav-links {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-    }
-
-    .royal-nav-links a {
-      color: var(--royal-dark);
-      font-size: 13px;
-      font-weight: 600;
-      transition: color .2s;
-    }
-
-    .royal-nav-links a:hover,
-    .royal-nav-links a.active {
-      color: #a77c35;
-    }
-
-    .royal-nav-links .royal-nav-cta {
-      background: var(--royal-dark);
-      color: var(--royal-light-gold);
-      padding: 12px 20px;
-      border: 1px solid var(--royal-gold);
-      border-radius: 3px;
-    }
-
-    .royal-nav-links .royal-nav-cta:hover {
-      background: var(--royal-gold);
-      color: var(--royal-dark);
+      color: var(--royal-muted);
+      margin-top: 4px;
     }
 
     .royal-menu-button {
       display: none;
       background: transparent;
-      border: 1px solid var(--royal-gold);
-      color: var(--royal-dark);
-      padding: 9px 12px;
-      border-radius: 3px;
-      font-size: 21px;
+      border: 1px solid var(--royal-line);
+      border-radius: 4px;
+      color: var(--royal-ink);
+      font-size: 23px;
+      width: 44px;
+      height: 42px;
       cursor: pointer;
+    }
+
+    .royal-nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: clamp(12px, 1.5vw, 22px);
+    }
+
+    .royal-nav-links a {
+      color: var(--royal-ink);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      position: relative;
+      transition: .25s;
+    }
+
+    .royal-nav-links a:not(.royal-nav-cta)::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: var(--royal-gold);
+      transition: .25s;
+    }
+
+    .royal-nav-links a:hover {
+      color: #9b7335;
+    }
+
+    .royal-nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .royal-nav-links .royal-nav-cta {
+      background: var(--royal-ink);
+      color: white;
+      padding: 12px 19px;
+      border: 1px solid var(--royal-ink);
+      transition: .25s;
+    }
+
+    .royal-nav-links .royal-nav-cta:hover {
+      background: var(--royal-gold);
+      border-color: var(--royal-gold);
+      color: var(--royal-ink);
     }
 
     /* HERO */
@@ -166,119 +177,100 @@
       min-height: 650px;
       display: flex;
       align-items: center;
-      position: relative;
-      overflow: hidden;
       background:
-        linear-gradient(90deg,
-          rgba(25, 17, 11, .92) 0%,
-          rgba(25, 17, 11, .72) 48%,
-          rgba(25, 17, 11, .2) 100%),
-        url("https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2000&q=90")
-        center/cover no-repeat;
-    }
-
-    .royal-hero-content {
-      width: min(1180px, 90%);
-      margin: auto;
-      padding: 100px 0;
+        linear-gradient(90deg, rgba(22,15,10,.82), rgba(22,15,10,.35)),
+        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=90') center/cover no-repeat;
       color: white;
     }
 
-    .royal-eyebrow {
-      color: var(--royal-light-gold);
-      font-size: 12px;
+    .royal-hero-content {
+      width: min(1160px, 90%);
+      margin: auto;
+      padding: 90px 0;
+    }
+
+    .royal-eyebrow,
+    .royal-section-label {
+      color: var(--royal-gold);
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 4px;
+      letter-spacing: 3px;
       text-transform: uppercase;
+      margin-bottom: 17px;
     }
 
     .royal-hero h1 {
-      max-width: 760px;
       font-family: 'Playfair Display', serif;
-      font-size: clamp(43px, 7vw, 78px);
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.15;
       font-weight: 600;
-      line-height: 1.12;
-      margin: 24px 0;
+      max-width: 750px;
     }
 
     .royal-hero h1 span {
-      color: var(--royal-light-gold);
+      color: var(--royal-pale-gold);
     }
 
     .royal-hero p {
-      max-width: 590px;
-      color: #eee5d7;
+      max-width: 600px;
+      color: #eee5d8;
+      margin: 24px 0 32px;
       font-size: 16px;
-      line-height: 1.9;
     }
 
     .royal-hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
-      margin-top: 35px;
     }
 
     .royal-button {
       display: inline-block;
-      padding: 15px 27px;
-      font-size: 13px;
+      padding: 14px 25px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: .5px;
+      letter-spacing: 1.5px;
       transition: .25s;
-      border: 1px solid var(--royal-gold);
-      border-radius: 3px;
+      text-align: center;
     }
 
     .royal-button-primary {
       background: var(--royal-gold);
-      color: var(--royal-dark);
+      border: 1px solid var(--royal-gold);
+      color: var(--royal-ink);
     }
 
     .royal-button-primary:hover {
-      background: var(--royal-light-gold);
+      background: var(--royal-pale-gold);
+      border-color: var(--royal-pale-gold);
     }
 
     .royal-button-outline {
+      border: 1px solid var(--royal-pale-gold);
       color: white;
-      background: transparent;
     }
 
     .royal-button-outline:hover {
       background: white;
-      color: var(--royal-dark);
+      color: var(--royal-ink);
     }
 
-    /* INTRODUCTION */
+    /* INTRO */
 
     .royal-intro {
-      padding: 95px 0;
+      padding: 90px 0;
       text-align: center;
-      background: var(--royal-cream);
     }
 
-    .royal-section-label {
-      color: #a27b3e;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
+    .royal-intro .royal-section-label {
+      color: #a77c35;
     }
 
     .royal-section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(32px, 4vw, 48px);
-      color: var(--royal-dark);
-      font-weight: 600;
-      margin: 15px 0;
-    }
-
-    .royal-section-description {
-      max-width: 720px;
-      margin: 0 auto;
-      color: var(--royal-muted);
-      font-size: 15px;
-      line-height: 1.9;
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1.25;
+      margin-bottom: 20px;
     }
 
     .royal-divider {
@@ -288,39 +280,45 @@
       margin: 25px auto;
     }
 
+    .royal-section-description {
+      max-width: 760px;
+      margin: auto;
+      color: var(--royal-muted);
+      font-size: 15px;
+    }
+
     /* STATISTICS */
 
     .royal-stats {
-      background: var(--royal-dark);
-      padding: 45px 0;
+      background: var(--royal-ink);
+      padding: 55px 0;
     }
 
     .royal-stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      gap: 25px;
       text-align: center;
     }
 
     .royal-stat h3 {
-      color: var(--royal-light-gold);
+      color: var(--royal-gold);
       font-family: 'Playfair Display', serif;
-      font-size: 34px;
-      margin: 0 0 8px;
+      font-size: 37px;
     }
 
     .royal-stat p {
-      color: #e3d8c5;
-      font-size: 12px;
-      letter-spacing: 1px;
-      margin: 0;
+      color: #e6d2a5;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      margin-top: 8px;
     }
 
     /* EVENT CATEGORIES */
 
     .royal-categories {
       padding: 90px 0;
-      background: var(--royal-white);
+      background: var(--royal-cream);
     }
 
     .royal-heading-center {
@@ -328,18 +326,21 @@
       margin-bottom: 45px;
     }
 
+    .royal-heading-center .royal-section-label {
+      color: #a77c35;
+    }
+
     .royal-category-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 22px;
     }
 
     .royal-category-card {
       position: relative;
-      height: 330px;
+      height: 340px;
       overflow: hidden;
-      border-radius: 5px;
-      background: var(--royal-dark);
+      background: var(--royal-brown);
     }
 
     .royal-category-card img {
@@ -350,302 +351,232 @@
     }
 
     .royal-category-card:hover img {
-      transform: scale(1.08);
+      transform: scale(1.07);
     }
 
-    .royal-category-overlay {
+    .royal-category-card::after {
+      content: '';
       position: absolute;
       inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: end;
-      padding: 25px;
-      background: linear-gradient(transparent 20%, rgba(24, 16, 10, .88));
+      background: linear-gradient(transparent 35%, rgba(20,13,8,.85));
     }
 
-    .royal-category-overlay h3 {
+    .royal-category-card h3 {
+      position: absolute;
+      z-index: 1;
+      bottom: 25px;
+      left: 25px;
+      right: 15px;
       color: white;
       font-family: 'Playfair Display', serif;
       font-size: 25px;
-      margin: 0 0 8px;
-    }
-
-    .royal-category-overlay p {
-      color: #eadfcf;
-      font-size: 13px;
-      margin: 0;
     }
 
     /* SERVICES */
 
     .royal-services {
-      padding: 95px 0;
-      background: var(--royal-cream);
+      padding: 90px 0;
     }
 
     .royal-service-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
     .royal-service-card {
-      background: white;
-      border: 1px solid #e8dfd0;
-      border-radius: 5px;
+      background: var(--royal-white);
+      border: 1px solid var(--royal-line);
+      box-shadow: var(--royal-shadow);
       overflow: hidden;
-      transition: .25s;
+      transition: transform .3s;
     }
 
     .royal-service-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(47, 33, 19, .1);
     }
 
     .royal-service-card img {
       width: 100%;
-      height: 190px;
+      height: 220px;
       object-fit: cover;
-      display: block;
     }
 
-    .royal-service-card-content {
-      padding: 20px;
+    .royal-service-card div {
+      padding: 22px;
     }
 
     .royal-service-card h3 {
       font-family: 'Playfair Display', serif;
-      color: var(--royal-dark);
-      font-size: 20px;
-      margin: 0 0 10px;
+      font-size: 22px;
+      margin-bottom: 8px;
     }
 
     .royal-service-card p {
       color: var(--royal-muted);
-      font-size: 12px;
-      line-height: 1.8;
-      min-height: 45px;
-    }
-
-    .royal-service-card a {
-      display: inline-block;
-      margin-top: 8px;
-      color: #987035;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    /* WHY EVENTORA */
-
-    .royal-why {
-      background: var(--royal-dark);
-      padding: 95px 0;
-      color: white;
-    }
-
-    .royal-why .royal-section-title {
-      color: white;
-    }
-
-    .royal-why .royal-section-description {
-      color: #d6cabb;
-    }
-
-    .royal-why-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-top: 45px;
-    }
-
-    .royal-why-card {
-      border: 1px solid rgba(197, 161, 91, .45);
-      padding: 30px;
-      border-radius: 4px;
-    }
-
-    .royal-why-number {
-      font-family: 'Playfair Display', serif;
-      color: var(--royal-gold);
-      font-size: 32px;
-    }
-
-    .royal-why-card h3 {
-      color: var(--royal-light-gold);
-      font-family: 'Playfair Display', serif;
-      font-size: 21px;
-    }
-
-    .royal-why-card p {
-      color: #d7cbbb;
       font-size: 13px;
-      line-height: 1.9;
     }
 
-    /* HOW IT WORKS */
+    /* PROCESS */
 
     .royal-process {
-      padding: 95px 0;
-      background: var(--royal-white);
+      padding: 85px 0;
+      background: var(--royal-cream);
     }
 
     .royal-process-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-      margin-top: 45px;
+      gap: 20px;
     }
 
     .royal-process-card {
+      padding: 28px 22px;
+      background: var(--royal-white);
+      border: 1px solid var(--royal-line);
       text-align: center;
-      padding: 25px 15px;
     }
 
     .royal-process-icon {
-      width: 58px;
-      height: 58px;
-      border: 1px solid var(--royal-gold);
-      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 18px;
       display: grid;
       place-items: center;
-      margin: auto;
-      color: #987035;
-      font-family: 'Playfair Display', serif;
-      font-size: 23px;
+      background: var(--royal-ink);
+      color: var(--royal-gold);
+      font-weight: 700;
     }
 
     .royal-process-card h3 {
       font-family: 'Playfair Display', serif;
-      color: var(--royal-dark);
-      font-size: 19px;
+      font-size: 21px;
+      margin-bottom: 8px;
     }
 
     .royal-process-card p {
+      font-size: 13px;
       color: var(--royal-muted);
-      font-size: 12px;
-      line-height: 1.8;
     }
 
-    /* GALLERY PREVIEW */
+    /* GALLERY */
 
     .royal-gallery {
       padding: 90px 0;
-      background: #eee6d8;
     }
 
     .royal-gallery-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 40px;
+      gap: 15px;
     }
 
     .royal-gallery-grid img {
       width: 100%;
-      height: 220px;
+      height: 240px;
       object-fit: cover;
-      border-radius: 3px;
     }
 
-    /* CTA */
+    /* FINAL CTA */
 
     .royal-cta {
-      padding: 90px 20px;
-      text-align: center;
-      background:
-        linear-gradient(rgba(28, 19, 12, .88), rgba(28, 19, 12, .88)),
-        url("https://images.unsplash.com/photo-1507504031003-b417219a0fda?auto=format&fit=crop&w=1800&q=85")
-        center/cover;
+      padding: 85px 20px;
+      background: var(--royal-ink);
       color: white;
+      text-align: center;
     }
 
     .royal-cta h2 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(32px, 5vw, 48px);
-      color: var(--royal-light-gold);
+      font-size: clamp(30px, 4vw, 44px);
+      margin-bottom: 15px;
     }
 
     .royal-cta p {
-      color: #eee3d2;
       max-width: 650px;
-      margin: 15px auto 30px;
-      line-height: 1.8;
+      margin: 0 auto 28px;
+      color: #e5d9c9;
+    }
+
+    .royal-cta-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
     }
 
     /* FOOTER */
 
     .royal-footer {
-      background: #17110b;
-      color: #e7ddce;
+      background: #17110c;
+      color: white;
       padding: 65px 0 20px;
     }
 
     .royal-footer-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 1.5fr 1fr 1fr;
       gap: 45px;
     }
 
     .royal-footer h2 {
       font-family: 'Playfair Display', serif;
-      color: var(--royal-light-gold);
+      color: var(--royal-gold);
       letter-spacing: 3px;
+      margin-bottom: 15px;
     }
 
     .royal-footer h3 {
-      color: var(--royal-light-gold);
+      color: var(--royal-pale-gold);
       font-size: 14px;
+      margin-bottom: 18px;
     }
 
-    .royal-footer p,
-    .royal-footer a {
-      color: #c8bcaa;
-      font-size: 12px;
-      line-height: 2;
+    .royal-footer p {
+      color: #cbbda9;
+      font-size: 13px;
+      margin-bottom: 12px;
     }
 
-    .royal-footer a {
+    .royal-footer-grid a {
       display: block;
+      color: #d6cabb;
+      font-size: 13px;
+      margin-bottom: 11px;
+      transition: .2s;
     }
 
-    .royal-footer a:hover {
+    .royal-footer-grid a:hover {
       color: var(--royal-gold);
+      padding-left: 4px;
     }
 
     .royal-footer-bottom {
-      border-top: 1px solid rgba(197, 161, 91, .3);
-      margin-top: 45px;
+      border-top: 1px solid rgba(230,210,165,.2);
+      margin-top: 40px;
       padding-top: 20px;
+      color: #cbbda9;
+      font-size: 12px;
       text-align: center;
-      color: #b9ad9d;
-      font-size: 11px;
     }
 
-    /* RESPONSIVE DESIGN */
+    /* RESPONSIVE */
 
-    @media(max-width: 1000px) {
+    @media(max-width: 1050px) {
       .royal-nav-links {
-        gap: 14px;
+        gap: 11px;
       }
 
       .royal-nav-links a {
-        font-size: 12px;
+        font-size: 11px;
       }
 
-      .royal-service-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .royal-gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .royal-nav-links .royal-nav-cta {
+        padding: 10px 12px;
       }
     }
 
-    @media(max-width: 760px) {
-      .royal-nav {
-        min-height: 72px;
-      }
-
+    @media(max-width: 850px) {
       .royal-menu-button {
         display: block;
       }
@@ -653,10 +584,10 @@
       .royal-nav-links {
         display: none;
         position: absolute;
-        top: 72px;
+        top: 82px;
         left: 0;
         right: 0;
-        padding: 20px 5%;
+        padding: 18px 5%;
         background: var(--royal-cream);
         border-bottom: 1px solid var(--royal-gold);
         flex-direction: column;
@@ -669,8 +600,13 @@
       }
 
       .royal-nav-links a {
-        padding: 13px 5px;
-        border-bottom: 1px solid #e7ddce;
+        padding: 12px 5px;
+        border-bottom: 1px solid var(--royal-line);
+        font-size: 13px;
+      }
+
+      .royal-nav-links a::after {
+        display: none;
       }
 
       .royal-nav-links .royal-nav-cta {
@@ -678,26 +614,18 @@
         margin-top: 12px;
       }
 
-      .royal-hero {
-        min-height: 580px;
-      }
-
-      .royal-hero-content {
-        padding: 75px 0;
-      }
-
-      .royal-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 35px;
-      }
-
       .royal-category-grid,
-      .royal-why-grid {
+      .royal-service-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
       .royal-process-grid {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .royal-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 35px;
       }
 
       .royal-footer-grid {
@@ -709,10 +637,9 @@
       }
     }
 
-    @media(max-width: 480px) {
+    @media(max-width: 550px) {
       .royal-category-grid,
       .royal-service-grid,
-      .royal-why-grid,
       .royal-process-grid,
       .royal-gallery-grid,
       .royal-footer-grid {
@@ -727,21 +654,30 @@
         height: 280px;
       }
 
-      .royal-service-card img {
-        height: 220px;
+      .royal-hero {
+        min-height: 580px;
       }
 
-      .royal-gallery-grid img {
-        height: 240px;
+      .royal-hero-content {
+        padding: 65px 0;
       }
 
-      .royal-hero-actions {
+      .royal-hero-actions,
+      .royal-cta-actions {
         flex-direction: column;
-        align-items: flex-start;
       }
 
       .royal-button {
-        text-align: center;
+        width: 100%;
+      }
+
+      .royal-gallery-grid img {
+        height: 250px;
+      }
+
+      .royal-topbar {
+        font-size: 8px;
+        letter-spacing: 1px;
       }
     }
 
@@ -750,9 +686,7 @@
         scroll-behavior: auto;
       }
 
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         transition-duration: .01ms !important;
         animation-duration: .01ms !important;
       }
@@ -786,11 +720,12 @@
       </button>
 
       <div class="royal-nav-links" id="royalNavigation">
-        <a href="index.html" class="active">Home</a>
+        <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="gallery.html">Gallery</a>
         <a href="booking.html">Booking</a>
+        <a href="track-booking.html">Track My Booking</a>
         <a href="contact.html">Contact</a>
         <a href="booking.html" class="royal-nav-cta">Plan Your Event</a>
       </div>
@@ -897,78 +832,37 @@
         <div class="royal-category-grid">
 
           <article class="royal-category-card">
-            <img
-              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
-              alt="Elegant wedding celebration"
-              loading="lazy">
-
-            <div class="royal-category-overlay">
-              <h3>Weddings</h3>
-              <p>Make your special day unforgettable.</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Wedding celebration" loading="lazy">
+            <h3>Weddings</h3>
           </article>
 
           <article class="royal-category-card">
-            <img
-              src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=85"
-              alt="Birthday party celebration"
-              loading="lazy">
-
-            <div class="royal-category-overlay">
-              <h3>Birthdays</h3>
-              <p>Celebrate another beautiful milestone.</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80" alt="Birthday party" loading="lazy">
+            <h3>Birthdays</h3>
           </article>
 
           <article class="royal-category-card">
-            <img
-              src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85"
-              alt="Professional corporate event"
-              loading="lazy">
-
-            <div class="royal-category-overlay">
-              <h3>Corporate Events</h3>
-              <p>Professional experiences with a lasting impact.</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80" alt="Corporate event" loading="lazy">
+            <h3>Corporate Events</h3>
           </article>
 
           <article class="royal-category-card">
-            <img
-              src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=85"
-              alt="Engagement celebration"
-              loading="lazy">
-
-            <div class="royal-category-overlay">
-              <h3>Engagements</h3>
-              <p>Celebrate the beginning of a new journey.</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80" alt="Engagement celebration" loading="lazy">
+            <h3>Engagements</h3>
           </article>
 
           <article class="royal-category-card">
-            <img
-              src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=85"
-              alt="Party event celebration"
-              loading="lazy">
-
-            <div class="royal-category-overlay">
-              <h3>Parties</h3>
-              <p>Bring people together for great moments.</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="College cultural event" loading="lazy">
+            <h3>College & Cultural Events</h3>
           </article>
 
           <article class="royal-category-card">
-            <img
-              src="https://images.unsplash.com/photo-1507504031003-b417219a0fda?auto=format&fit=crop&w=900&q=85"
-              alt="Special occasion event decoration"
-              loading="lazy">
-
-            <div class="royal-category-overlay">
-              <h3>Special Occasions</h3>
-              <p>Personalized celebrations for your big moments.</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80" alt="Entertainment event" loading="lazy">
+            <h3>Entertainment Events</h3>
           </article>
 
         </div>
+
       </div>
     </section>
 
@@ -978,114 +872,65 @@
 
         <div class="royal-heading-center">
           <div class="royal-section-label">What We Offer</div>
-          <h2 class="royal-section-title">Our Premium Services</h2>
+          <h2 class="royal-section-title">Our Event Services</h2>
           <p class="royal-section-description">
-            Explore the services that help bring your event together.
-            Select what you need and customize your enquiry.
+            Choose the services that make your celebration complete.
           </p>
         </div>
 
         <div class="royal-service-grid">
 
           <article class="royal-service-card">
-            <img
-              src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=80"
-              alt="Professional catering and food presentation"
-              loading="lazy">
-            <div class="royal-service-card-content">
+            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=800&q=80" alt="Event venue" loading="lazy">
+            <div>
+              <h3>Venue Arrangement</h3>
+              <p>Find the right space and setting for your special occasion.</p>
+            </div>
+          </article>
+
+          <article class="royal-service-card">
+            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80" alt="Catering service" loading="lazy">
+            <div>
               <h3>Catering</h3>
-              <p>Food menus, buffet arrangements, live counters and desserts.</p>
-              <a href="services.html#catering">Explore Catering →</a>
+              <p>Thoughtfully planned food and dining arrangements for guests.</p>
             </div>
           </article>
 
           <article class="royal-service-card">
-            <img
-              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80"
-              alt="Wedding photography"
-              loading="lazy">
-            <div class="royal-service-card-content">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80" alt="Event photography" loading="lazy">
+            <div>
               <h3>Photography</h3>
-              <p>Wedding, candid, couple and family photography.</p>
-              <a href="services.html#photography">Explore Photography →</a>
+              <p>Capture the moments and memories that matter most.</p>
             </div>
           </article>
 
           <article class="royal-service-card">
-            <img
-              src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=700&q=80"
-              alt="Professional videography equipment"
-              loading="lazy">
-            <div class="royal-service-card-content">
-              <h3>Videography</h3>
-              <p>Cinematic films, event highlights and video coverage.</p>
-              <a href="services.html#videography">Explore Videography →</a>
-            </div>
-          </article>
-
-          <article class="royal-service-card">
-            <img
-              src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=700&q=80"
-              alt="Wedding decoration"
-              loading="lazy">
-            <div class="royal-service-card-content">
+            <img src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=800&q=80" alt="Event decoration" loading="lazy">
+            <div>
               <h3>Decoration</h3>
-              <p>Stage, floral, entrance and theme-based decoration.</p>
-              <a href="services.html#decoration">Explore Decoration →</a>
+              <p>Create a beautiful atmosphere with thoughtful designs.</p>
             </div>
           </article>
 
           <article class="royal-service-card">
-            <img
-              src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=700&q=80"
-              alt="DJ and entertainment"
-              loading="lazy">
-            <div class="royal-service-card-content">
+            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80" alt="Entertainment and stage" loading="lazy">
+            <div>
               <h3>Entertainment</h3>
-              <p>DJ, live music, dance and event performances.</p>
-              <a href="services.html#entertainment">Explore Entertainment →</a>
+              <p>Make your event lively with stage and entertainment arrangements.</p>
             </div>
           </article>
 
           <article class="royal-service-card">
-            <img
-              src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=80"
-              alt="Professional beauty and makeup"
-              loading="lazy">
-            <div class="royal-service-card-content">
-              <h3>Makeup</h3>
-              <p>Bridal makeup, party makeup and hairstyling.</p>
-              <a href="services.html#makeup">Explore Makeup →</a>
-            </div>
-          </article>
-
-          <article class="royal-service-card">
-            <img
-              src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=80"
-              alt="Luxury event transportation"
-              loading="lazy">
-            <div class="royal-service-card-content">
-              <h3>Transportation</h3>
-              <p>Luxury cars, guest buses and travel arrangements.</p>
-              <a href="services.html#transportation">Explore Transportation →</a>
-            </div>
-          </article>
-
-          <article class="royal-service-card">
-            <img
-              src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=700&q=80"
-              alt="Event venue arrangement"
-              loading="lazy">
-            <div class="royal-service-card-content">
-              <h3>Venue Planning</h3>
-              <p>Explore venue arrangements for your event requirements.</p>
-              <a href="booking.html">Enquire About Venues →</a>
+            <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=800&q=80" alt="Event planning" loading="lazy">
+            <div>
+              <h3>Custom Event Planning</h3>
+              <p>Personalized arrangements based on your preferences and budget.</p>
             </div>
           </article>
 
         </div>
 
-        <div class="royal-heading-center" style="margin-top:40px;margin-bottom:0;">
+        <div class="royal-heading-center" style="margin-top:35px;margin-bottom:0;">
           <a href="services.html" class="royal-button royal-button-primary">
             VIEW ALL SERVICES
           </a>
@@ -1094,61 +939,15 @@
       </div>
     </section>
 
-    <!-- WHY CHOOSE EVENTORA -->
-    <section class="royal-why">
-      <div class="royal-container">
-
-        <div class="royal-heading-center">
-          <div class="royal-section-label">Why EVENTORA</div>
-          <h2 class="royal-section-title">Planning Made More Convenient</h2>
-          <p class="royal-section-description">
-            A structured way to explore services and communicate your
-            event requirements.
-          </p>
-        </div>
-
-        <div class="royal-why-grid">
-
-          <article class="royal-why-card">
-            <div class="royal-why-number">01</div>
-            <h3>Personalized Planning</h3>
-            <p>
-              Share your event type, preferences and requirements
-              instead of choosing only a fixed arrangement.
-            </p>
-          </article>
-
-          <article class="royal-why-card">
-            <div class="royal-why-number">02</div>
-            <h3>Flexible Choices</h3>
-            <p>
-              Explore different service categories and communicate
-              the services that match your celebration.
-            </p>
-          </article>
-
-          <article class="royal-why-card">
-            <div class="royal-why-number">03</div>
-            <h3>Organized Enquiries</h3>
-            <p>
-              Submit your event details through one booking form
-              for review by the EVENTORA admin team.
-            </p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
     <!-- HOW IT WORKS -->
     <section class="royal-process">
       <div class="royal-container">
 
         <div class="royal-heading-center">
-          <div class="royal-section-label">Simple Process</div>
+          <div class="royal-section-label">Simple Planning</div>
           <h2 class="royal-section-title">How EVENTORA Works</h2>
           <p class="royal-section-description">
-            Start planning your event through four simple steps.
+            Plan your event through a simple and convenient process.
           </p>
         </div>
 
@@ -1174,8 +973,8 @@
 
           <article class="royal-process-card">
             <div class="royal-process-icon">04</div>
-            <h3>Follow Up</h3>
-            <p>The team can review and manage your enquiry.</p>
+            <h3>Track</h3>
+            <p>Use your booking reference to follow your enquiry status.</p>
           </article>
 
         </div>
@@ -1225,9 +1024,15 @@
           with EVENTORA.
         </p>
 
-        <a href="booking.html" class="royal-button royal-button-primary">
-          START YOUR BOOKING
-        </a>
+        <div class="royal-cta-actions">
+          <a href="booking.html" class="royal-button royal-button-primary">
+            START YOUR BOOKING
+          </a>
+
+          <a href="track-booking.html" class="royal-button royal-button-outline">
+            TRACK MY BOOKING
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1242,9 +1047,7 @@
 
         <div>
           <h2>EVENTORA</h2>
-          <p>
-            Creating Moments. Designing Memories.
-          </p>
+          <p>Creating Moments. Designing Memories.</p>
           <p>
             Your event planning platform for weddings, celebrations
             and corporate occasions.
@@ -1262,6 +1065,7 @@
         <div>
           <h3>Get Started</h3>
           <a href="booking.html">Book an Event</a>
+          <a href="track-booking.html">Track My Booking</a>
           <a href="contact.html">Contact Us</a>
           <a href="admin.html">Admin Login</a>
         </div>
@@ -1276,10 +1080,10 @@
     </div>
   </footer>
 
-  <!-- Existing project JavaScript -->
+  <!-- EXISTING PROJECT JAVASCRIPT -->
   <script src="js/script.js"></script>
 
-  <!-- Homepage navigation and footer year -->
+  <!-- HOMEPAGE NAVIGATION AND FOOTER YEAR -->
   <script>
     (function () {
       const menuButton = document.getElementById("royalMenuButton");
