@@ -43,6 +43,54 @@ body {
     overflow-x: hidden;
 }
 
+/* ---------- SHARED EVENTORA NAVIGATION ---------- */
+
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    flex-wrap: nowrap;
+}
+
+.navbar .logo {
+    flex-shrink: 0;
+    margin-right: auto;
+    text-decoration: none;
+}
+
+.navbar .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 0 1 auto;
+}
+
+.navbar .nav-links li {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .nav-links a {
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.menu-toggle {
+    display: none;
+    border: none;
+    background: transparent;
+    font-size: 25px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
 /* ---------- LARGE DESKTOP ---------- */
 
 @media (min-width: 1400px) {
@@ -73,6 +121,18 @@ body {
 
     .hero {
         min-height: 600px;
+    }
+
+    .navbar {
+        gap: 15px;
+    }
+
+    .navbar .nav-links {
+        gap: 16px;
+    }
+
+    .navbar .nav-links a {
+        font-size: 14px;
     }
 
     .services-grid,
@@ -107,8 +167,6 @@ body {
         font-size: 34px;
     }
 
-    /* Existing navigation */
-
     .navbar {
         flex-wrap: wrap;
     }
@@ -116,8 +174,6 @@ body {
     .navbar .nav-links {
         gap: 18px;
     }
-
-    /* Royal homepage navigation */
 
     .royal-header {
         padding-left: 4%;
@@ -215,19 +271,25 @@ body {
     .navbar {
         position: relative;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
     }
 
-    .logo {
+    .navbar .logo {
         font-size: 23px;
+        margin-right: auto;
     }
 
     .navbar .nav-links {
         display: none;
         width: 100%;
+        flex: 0 0 100%;
         flex-direction: column;
         align-items: stretch;
+        justify-content: flex-start;
         gap: 0;
         padding: 12px 0;
+        margin: 0;
         background: #fffdf8;
     }
 
@@ -235,8 +297,13 @@ body {
         display: flex;
     }
 
+    .navbar .nav-links li {
+        width: 100%;
+    }
+
     .navbar .nav-links a {
         display: block;
+        width: 100%;
         padding: 12px 15px;
     }
 
