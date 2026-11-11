@@ -48,7 +48,7 @@ console.log("EVENTORA Booking System initialized successfully.");
 
 
 /* =========================================================
-   2. GET HTML ELEMENTS
+   2. HTML ELEMENTS
 ========================================================= */
 
 const bookingForm = document.getElementById("bookingForm");
@@ -83,21 +83,12 @@ const advancePaymentSection = document.getElementById("advancePaymentSection");
 
 
 /* =========================================================
-   3. EVENT-WISE GUEST ESTIMATION
-
-   Estimates for budgets from ₹6 lakh to ₹10 lakh.
-
-   The guest count automatically changes when:
-   1. Customer changes event type.
-   2. Customer changes budget.
-   3. Customer enters a custom budget.
-
-   Values are indicative planning estimates.
+   3. EVENT-WISE GUEST ESTIMATES
 ========================================================= */
 
 const guestEstimates = {
 
-    "wedding": {
+    wedding: {
         600000: 150,
         700000: 175,
         800000: 200,
@@ -105,7 +96,7 @@ const guestEstimates = {
         1000000: 250
     },
 
-    "birthday": {
+    birthday: {
         600000: 250,
         700000: 300,
         800000: 350,
@@ -113,7 +104,7 @@ const guestEstimates = {
         1000000: 450
     },
 
-    "corporate": {
+    corporate: {
         600000: 200,
         700000: 250,
         800000: 300,
@@ -121,7 +112,7 @@ const guestEstimates = {
         1000000: 400
     },
 
-    "engagement": {
+    engagement: {
         600000: 200,
         700000: 250,
         800000: 275,
@@ -129,7 +120,7 @@ const guestEstimates = {
         1000000: 350
     },
 
-    "anniversary": {
+    anniversary: {
         600000: 200,
         700000: 225,
         800000: 250,
@@ -137,7 +128,7 @@ const guestEstimates = {
         1000000: 300
     },
 
-    "college": {
+    college: {
         600000: 300,
         700000: 350,
         800000: 400,
@@ -145,14 +136,13 @@ const guestEstimates = {
         1000000: 500
     },
 
-    "private": {
+    private: {
         600000: 250,
         700000: 300,
         800000: 350,
         900000: 400,
         1000000: 450
     }
-
 };
 
 
@@ -164,39 +154,21 @@ function getEventCategory(value) {
 
     const event = String(value || "").toLowerCase().trim();
 
-    if (event.includes("wedding")) {
-        return "wedding";
-    }
-
-    if (event.includes("birthday")) {
-        return "birthday";
-    }
-
-    if (event.includes("corporate")) {
-        return "corporate";
-    }
-
-    if (event.includes("engagement")) {
-        return "engagement";
-    }
-
-    if (event.includes("anniversary")) {
-        return "anniversary";
-    }
+    if (event.includes("wedding")) return "wedding";
+    if (event.includes("birthday")) return "birthday";
+    if (event.includes("corporate")) return "corporate";
+    if (event.includes("engagement")) return "engagement";
+    if (event.includes("anniversary")) return "anniversary";
 
     if (
         event.includes("college") ||
         event.includes("cultural")
-    ) {
-        return "college";
-    }
+    ) return "college";
 
     if (
         event.includes("private") ||
         event.includes("party")
-    ) {
-        return "private";
-    }
+    ) return "private";
 
     return null;
 }
@@ -230,6 +202,8 @@ function formatRupees(amount) {
 
 function getSelectedServices() {
 
+    if (!bookingForm) return [];
+
     return Array.from(
         bookingForm.querySelectorAll(
             'input[type="checkbox"][name="services"]:checked, input[type="checkbox"][name="services[]"]:checked'
@@ -240,9 +214,7 @@ function getSelectedServices() {
 
 function getSelectedBudget() {
 
-    if (!budgetInput || !budgetInput.value) {
-        return 0;
-    }
+    if (!budgetInput || !budgetInput.value) return 0;
 
     if (budgetInput.value === "more") {
         return Number(customBudgetInput?.value || 0);
@@ -295,20 +267,13 @@ function hideMessage() {
 
 /* =========================================================
    6. CALCULATE EXPECTED GUEST COUNT
-
-   Uses linear interpolation between budget levels.
-
-   Also supports custom budgets below ₹6 lakh and
-   above ₹10 lakh using the nearest estimate range.
 ========================================================= */
 
 function calculateExpectedGuests(eventType, budget) {
 
     const category = getEventCategory(eventType);
 
-    if (!category || !budget || budget <= 0) {
-        return 0;
-    }
+    if (!category || !budget || budget <= 0) return 0;
 
     const estimates = guestEstimates[category];
 
@@ -316,12 +281,10 @@ function calculateExpectedGuests(eventType, budget) {
         .map(Number)
         .sort((a, b) => a - b);
 
-    // Exact budget match.
     if (estimates[budget] !== undefined) {
         return estimates[budget];
     }
 
-    // Find the two nearest budget levels.
     let lowerBudget;
     let upperBudget;
 
@@ -360,7 +323,6 @@ function calculateExpectedGuests(eventType, budget) {
     const calculatedGuests =
         lowerGuests + (upperGuests - lowerGuests) * ratio;
 
-    // Round to the nearest 5 guests.
     return Math.max(
         1,
         Math.round(calculatedGuests / 5) * 5
@@ -369,7 +331,7 @@ function calculateExpectedGuests(eventType, budget) {
 
 
 /* =========================================================
-   7. AUTOMATICALLY UPDATE GUEST COUNT
+   7. AUTOMATIC GUEST COUNT
 ========================================================= */
 
 let suggestedGuestCount = 0;
@@ -398,10 +360,8 @@ function updateExpectedGuests() {
 
     suggestedGuestCount = estimatedGuests;
 
-    // Automatically fill the guest field.
     guestsInput.value = estimatedGuests;
 
-    // Update the field's helpful information.
     guestsInput.title =
         "EVENTORA suggested " +
         estimatedGuests +
@@ -437,22 +397,17 @@ const serviceWeights = {
 
 
 /* =========================================================
-   9. BUDGET ALLOCATION DATA
+   9. CALCULATE WEIGHTED BUDGET ALLOCATION
 ========================================================= */
 
 let currentAllocation = {};
 
-
 function calculateSuggestedAllocation(totalBudget, services) {
 
-    if (!totalBudget || services.length === 0) {
-        return {};
-    }
+    if (!totalBudget || services.length === 0) return {};
 
     const totalWeight = services.reduce((sum, service) => {
-
         return sum + (serviceWeights[service] || 1);
-
     }, 0);
 
     const allocations = {};
@@ -497,7 +452,7 @@ function calculateSuggestedAllocation(totalBudget, services) {
 
 
 /* =========================================================
-   10. DISPLAY BUDGET ALLOCATION
+   10. DISPLAY BUDGET ALLOCATION - FIXED
 ========================================================= */
 
 function renderAllocation(resetValues = false) {
@@ -507,25 +462,29 @@ function renderAllocation(resetValues = false) {
     const selectedServices = getSelectedServices();
     const totalBudget = getSelectedBudget();
 
+    // Hide the panel when no budget or service is selected.
     if (selectedServices.length === 0 || totalBudget <= 0) {
 
-        allocationPanel.style.display = "none";
+        allocationPanel.hidden = true;
 
         if (allocationEmpty) {
-            allocationEmpty.style.display = "block";
+            allocationEmpty.hidden = false;
         }
 
         currentAllocation = {};
+
+        allocationRows.innerHTML = "";
 
         updateAllocationSummary();
 
         return;
     }
 
-    allocationPanel.style.display = "block";
+    // IMPORTANT: Remove the HTML hidden attribute.
+    allocationPanel.hidden = false;
 
     if (allocationEmpty) {
-        allocationEmpty.style.display = "none";
+        allocationEmpty.hidden = true;
     }
 
     const previousAllocation = { ...currentAllocation };
@@ -552,6 +511,7 @@ function renderAllocation(resetValues = false) {
 
                 updatedAllocation[service] =
                     suggestedAllocation[service] || 0;
+
             }
 
         });
@@ -564,36 +524,26 @@ function renderAllocation(resetValues = false) {
     selectedServices.forEach(service => {
 
         const row = document.createElement("div");
-
         row.className = "allocation-row";
 
-        row.style.display = "flex";
-        row.style.justifyContent = "space-between";
-        row.style.alignItems = "center";
-        row.style.gap = "15px";
-        row.style.padding = "12px";
-        row.style.marginBottom = "10px";
-        row.style.border = "1px solid #ddd";
-        row.style.borderRadius = "8px";
-
         const serviceLabel = document.createElement("label");
-
+        serviceLabel.className = "allocation-service-name";
         serviceLabel.textContent = service;
-        serviceLabel.style.fontWeight = "600";
-        serviceLabel.style.flex = "1";
+
+        const inputWrap = document.createElement("div");
+        inputWrap.className = "allocation-input-wrap";
+
+        const rupeeSymbol = document.createElement("span");
+        rupeeSymbol.textContent = "₹";
 
         const amountInput = document.createElement("input");
 
         amountInput.type = "number";
         amountInput.min = "0";
         amountInput.step = "1";
+        amountInput.className = "allocation-input";
         amountInput.value = currentAllocation[service] || 0;
         amountInput.dataset.service = service;
-
-        amountInput.style.width = "150px";
-        amountInput.style.padding = "10px";
-        amountInput.style.border = "1px solid #ccc";
-        amountInput.style.borderRadius = "6px";
 
         amountInput.addEventListener("input", function () {
 
@@ -604,23 +554,22 @@ function renderAllocation(resetValues = false) {
 
         });
 
+        inputWrap.appendChild(rupeeSymbol);
+        inputWrap.appendChild(amountInput);
+
         row.appendChild(serviceLabel);
-        row.appendChild(amountInput);
+        row.appendChild(inputWrap);
 
         allocationRows.appendChild(row);
 
     });
-
-    if (allocationBudget) {
-        allocationBudget.textContent = formatRupees(totalBudget);
-    }
 
     updateAllocationSummary();
 }
 
 
 /* =========================================================
-   11. UPDATE ALLOCATION TOTAL AND REMAINING BALANCE
+   11. UPDATE ALLOCATION SUMMARY
 ========================================================= */
 
 function updateAllocationSummary() {
@@ -654,7 +603,7 @@ function updateAllocationSummary() {
 
             allocationStatus.style.color = "#c62828";
 
-        } else if (remainingBudget === 0) {
+        } else if (remainingBudget === 0 && totalBudget > 0) {
 
             allocationStatus.textContent =
                 "Your entire budget has been allocated.";
@@ -675,10 +624,9 @@ function updateAllocationSummary() {
 
 
 /* =========================================================
-   12. BUDGET AND EVENT TYPE CHANGE EVENTS
+   12. BUDGET CHANGE EVENTS
 ========================================================= */
 
-// Budget selection.
 if (budgetInput) {
 
     budgetInput.addEventListener("change", function () {
@@ -688,8 +636,7 @@ if (budgetInput) {
         const isCustom = this.value === "more";
 
         if (customBudgetGroup) {
-            customBudgetGroup.style.display =
-                isCustom ? "block" : "none";
+            customBudgetGroup.hidden = !isCustom;
         }
 
         if (customBudgetInput) {
@@ -708,7 +655,10 @@ if (budgetInput) {
 }
 
 
-// Custom budget input.
+/* =========================================================
+   13. CUSTOM BUDGET CHANGE
+========================================================= */
+
 if (customBudgetInput) {
 
     customBudgetInput.addEventListener("input", function () {
@@ -722,7 +672,10 @@ if (customBudgetInput) {
 }
 
 
-// Event type selection.
+/* =========================================================
+   14. EVENT TYPE CHANGE
+========================================================= */
+
 if (eventTypeInput) {
 
     eventTypeInput.addEventListener("change", function () {
@@ -732,24 +685,22 @@ if (eventTypeInput) {
         updateExpectedGuests();
 
     });
+
+    if (eventTypeInput.tagName === "INPUT") {
+
+        eventTypeInput.addEventListener("input", function () {
+
+            updateExpectedGuests();
+
+        });
+    }
 }
 
 
-// Also support event type inputs that update while typing.
-if (
-    eventTypeInput &&
-    eventTypeInput.tagName === "INPUT"
-) {
+/* =========================================================
+   15. SERVICE SELECTION CHANGE
+========================================================= */
 
-    eventTypeInput.addEventListener("input", function () {
-
-        updateExpectedGuests();
-
-    });
-}
-
-
-// Service selection.
 if (bookingForm) {
 
     bookingForm.addEventListener("change", function (event) {
@@ -767,7 +718,10 @@ if (bookingForm) {
 }
 
 
-// Suggest budget split.
+/* =========================================================
+   16. SUGGEST BUDGET SPLIT BUTTON
+========================================================= */
+
 if (suggestSplitButton) {
 
     suggestSplitButton.addEventListener("click", function () {
@@ -792,22 +746,21 @@ if (suggestSplitButton) {
 
 
 /* =========================================================
-   13. ADVANCE BOOKING PAYMENT QR
+   17. ADVANCE BOOKING PAYMENT SECTION
 ========================================================= */
 
 if (advanceBookingCheckbox && advancePaymentSection) {
 
     advanceBookingCheckbox.addEventListener("change", function () {
 
-        advancePaymentSection.style.display =
-            this.checked ? "block" : "none";
+        advancePaymentSection.hidden = !this.checked;
 
     });
 }
 
 
 /* =========================================================
-   14. VALIDATE BUDGET ALLOCATION
+   18. VALIDATE BUDGET ALLOCATION
 ========================================================= */
 
 function validateAllocation() {
@@ -848,7 +801,7 @@ function validateAllocation() {
 
 
 /* =========================================================
-   15. BOOKING FORM SUBMISSION
+   19. BOOKING FORM SUBMISSION
 ========================================================= */
 
 if (bookingForm) {
@@ -889,7 +842,6 @@ if (bookingForm) {
 
         const totalBudget = getSelectedBudget();
 
-        // Calculate the system's original guest suggestion.
         const expectedGuests = calculateExpectedGuests(
             eventType,
             totalBudget
@@ -933,7 +885,6 @@ if (bookingForm) {
 
         try {
 
-            // Anonymous Firebase authentication.
             let customer = auth.currentUser;
 
             if (!customer) {
@@ -944,7 +895,6 @@ if (bookingForm) {
                 customer = userCredential.user;
             }
 
-            // Save selected service allocations.
             const serviceBudgetAllocation = {};
 
             services.forEach(service => {
@@ -954,42 +904,38 @@ if (bookingForm) {
 
             });
 
-            // Complete booking information.
             const bookingData = {
 
-                name: name,
-                phone: phone,
-                email: email,
+                name,
+                phone,
+                email,
 
-                eventType: eventType,
-                date: date,
+                eventType,
+                date,
 
-                // Final customer-selected guest count.
-                guests: guests,
+                guests,
 
-                // Original automatic estimate.
                 suggestedGuests: expectedGuests,
 
-                // Indicates that the system generated the estimate.
                 guestEstimateMethod: "event-type-and-budget",
 
-                location: location,
+                location,
 
                 budget: formatRupees(totalBudget),
-                totalBudget: totalBudget,
+                totalBudget,
                 budgetSelection: getBudgetLabel(),
 
-                services: services,
+                services,
 
-                serviceBudgetAllocation: serviceBudgetAllocation,
+                serviceBudgetAllocation,
 
                 allocatedBudget: allocatedTotal,
-                remainingBudget: remainingBudget,
+                remainingBudget,
 
-                advanceBooking: advanceBooking,
-                advanceAmount: advanceAmount,
+                advanceBooking,
+                advanceAmount,
 
-                requirements: requirements,
+                requirements,
 
                 status: "pending",
 
@@ -999,13 +945,11 @@ if (bookingForm) {
 
             };
 
-            // Save booking to Firestore.
             const bookingRef = await addDoc(
                 collection(db, "bookings"),
                 bookingData
             );
 
-            // Store booking reference for tracking.
             try {
 
                 localStorage.setItem(
@@ -1032,7 +976,6 @@ if (bookingForm) {
                 bookingRef.id
             );
 
-            // Success message and tracking link.
             if (formMessage) {
 
                 formMessage.innerHTML = `
@@ -1052,14 +995,14 @@ if (bookingForm) {
                 formMessage.style.display = "block";
             }
 
-            // Reset the form after successful submission.
+            // Reset form after successful submission.
             bookingForm.reset();
 
             currentAllocation = {};
             suggestedGuestCount = 0;
 
             if (customBudgetGroup) {
-                customBudgetGroup.style.display = "none";
+                customBudgetGroup.hidden = true;
             }
 
             if (customBudgetInput) {
@@ -1067,11 +1010,15 @@ if (bookingForm) {
             }
 
             if (advancePaymentSection) {
-                advancePaymentSection.style.display = "none";
+                advancePaymentSection.hidden = true;
             }
 
             if (allocationPanel) {
-                allocationPanel.style.display = "none";
+                allocationPanel.hidden = true;
+            }
+
+            if (allocationEmpty) {
+                allocationEmpty.hidden = false;
             }
 
             if (allocationRows) {
@@ -1133,13 +1080,13 @@ if (bookingForm) {
 
 
 /* =========================================================
-   16. INITIAL PAGE SETUP
+   20. INITIAL PAGE SETUP
 ========================================================= */
 
 if (customBudgetGroup) {
 
-    customBudgetGroup.style.display =
-        budgetInput?.value === "more" ? "block" : "none";
+    customBudgetGroup.hidden =
+        budgetInput?.value !== "more";
 
 }
 
@@ -1152,16 +1099,27 @@ if (customBudgetInput) {
 
 if (advancePaymentSection) {
 
-    advancePaymentSection.style.display =
-        advanceBookingCheckbox?.checked ? "block" : "none";
+    advancePaymentSection.hidden =
+        !advanceBookingCheckbox?.checked;
 
 }
 
-// Generate guest suggestion if the form already has values.
+if (allocationPanel) {
+    allocationPanel.hidden = true;
+}
+
+if (allocationEmpty) {
+    allocationEmpty.hidden = false;
+}
+
+// Generate guest estimate if values already exist.
 updateExpectedGuests();
 
-// Initialize budget allocation.
-if (budgetInput?.value && getSelectedServices().length > 0) {
+// Initialize allocation if budget and services exist.
+if (
+    getSelectedBudget() > 0 &&
+    getSelectedServices().length > 0
+) {
 
     renderAllocation(true);
 
